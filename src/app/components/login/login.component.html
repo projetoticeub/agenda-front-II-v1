@@ -1,0 +1,32 @@
+<div class="login-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+    <br>
+    <mat-card-content>
+      <form (ngSubmit)="login()">
+        <mat-form-field appearance="fill">
+          <mat-label>E-mail</mat-label>
+          <input [(ngModel)]="username" name="email" matInput type="email" placeholder="Digite o seu email" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Senha</mat-label>
+          <input [(ngModel)]="password" name="senha" matInput [type]="hide ? 'password' : 'text'" placeholder="Digite a sua senha" required>
+          <button type="button" mat-icon-button matSuffix (click)="hide = !hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" (click)="login()" type="submit">Acessar a minha conta</button>
+      </form>
+    </mat-card-content>
+    <br>
+    <mat-card-actions>
+      <p>Ainda não possui conta?
+        <a (click)="login()"><strong><u>Clique aqui para se cadastrar</u></strong></a>
+      </p>
+    </mat-card-actions>
+  </mat-card>
+</div>

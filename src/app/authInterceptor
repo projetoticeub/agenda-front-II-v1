@@ -1,0 +1,23 @@
+import { AutenticacaoService } from './services/autenticacao.service';
+import { Injectable } from '@angular/core';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable()
+export class AuthInterceptor implements HttpInterceptor {
+
+  constructor(private AutenticacaoService: AutenticacaoService) {}
+
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const token = localStorage.getItem('accessToken');
+
+    if (token) {
+      const authReq = req.clone({
+        headers: req.headers.set('Authorization', `Bearer ${token}`)
+      });
+      return next.handle(authReq);
+    } else {
+      return next.handle(req);
+    }
+  }
+}
