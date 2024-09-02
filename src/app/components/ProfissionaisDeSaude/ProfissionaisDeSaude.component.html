@@ -1,3 +1,53 @@
-<p>
-  ProfissionaisDeSaude works!
-</p>
+<div class="p-grid">
+  <div class="p-col-12">
+    <div class="card">
+      <h2>Lista de Profissionais de Saúde</h2>
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">
+          <i class="pi pi-search"></i>
+        </span>
+        <input type="text" pInputText placeholder="Procurar Profissionais" (input)="applyFilterGlobal($event)" />
+      </div>
+
+      <p-table [value]="profissionais"
+               [paginator]="true"
+               [rows]="pageSize"
+               [totalRecords]="totalElements"
+               [lazy]="true"
+               [loading]="loading"
+               (onLazyLoad)="onPageChange($event)"
+               dataKey="id">
+
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="nomeCompleto">Nome Completo <p-sortIcon field="nomeCompleto"></p-sortIcon></th>
+            <th pSortableColumn="cpf">CPF <p-sortIcon field="cpf"></p-sortIcon></th>
+            <th pSortableColumn="registro">Registro <p-sortIcon field="registro"></p-sortIcon></th>
+            <th pSortableColumn="dataNascimento">Data de Nascimento <p-sortIcon field="dataNascimento"></p-sortIcon></th>
+            <th pSortableColumn="telefone">Telefone <p-sortIcon field="telefone"></p-sortIcon></th>
+            <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
+            <th pSortableColumn="genero">Gênero <p-sortIcon field="genero"></p-sortIcon></th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-profissional>
+          <tr>
+            <td>{{ profissional.nomeCompleto }}</td>
+            <td>{{ profissional.cpf }}</td>
+            <td>{{ profissional.registro }}</td>
+            <td>{{ profissional.dataNascimento | date }}</td>
+            <td>{{ profissional.telefone }}</td>
+            <td>{{ profissional.email }}</td>
+            <td>{{ profissional.genero }}</td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="7">Nenhum profissional encontrado.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
