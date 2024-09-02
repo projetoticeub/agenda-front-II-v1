@@ -1,3 +1,12 @@
-<p>
-  consultas works!
-</p>
+<form (ngSubmit)="criarConsulta()">
+  <label for="idPaciente">ID do Paciente:</label>
+  <input type="number" id="idPaciente" [(ngModel)]="novaConsulta.idPaciente" name="idPaciente">
+
+  <label for="idProfissionalDeSaude">ID do Profissional de Saúde:</label>
+  <input type="number" id="idProfissionalDeSaude" [(ngModel)]="novaConsulta.idProfissionalDeSaude" name="idProfissionalDeSaude">
+
+  <label for="data">Data da Consulta:</label>
+  <input type="datetime-local" id="data" [(ngModel)]="novaConsulta.data" name="data">
+
+  <button type="submit">Criar Consulta</button>
+</form>

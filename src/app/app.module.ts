@@ -25,6 +25,10 @@ import { ProfissionaisDeSaudePagesComponent } from './page/profissionaisDeSaudeP
 import { ProfissionaisDeSaudeComponent } from './components/ProfissionaisDeSaude/ProfissionaisDeSaude.component';
 import { ConsultasComponent } from './components/consultas/consultas.component';
 import { ConsultasPagesComponent } from './page/consultasPages/consultasPages.component';
+import { PanelModule } from 'primeng/panel';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { CalendarModule } from 'primeng/calendar';
+
 
 
 @NgModule({
@@ -39,6 +43,7 @@ import { ConsultasPagesComponent } from './page/consultasPages/consultasPages.co
     ProfissionaisDeSaudeComponent,
     ConsultasComponent,
     ConsultasPagesComponent
+   
 
   ],
   imports: [
@@ -55,7 +60,11 @@ import { ConsultasPagesComponent } from './page/consultasPages/consultasPages.co
     AppRoutingModule,
     TableModule,
     ButtonModule,
-    SidebarModule
+    SidebarModule,
+    PanelModule, 
+    InputNumberModule,  
+    CalendarModule,   
+    
     
   ],
   providers: [],

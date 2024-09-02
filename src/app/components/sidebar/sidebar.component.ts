@@ -29,4 +29,7 @@ pacientes() {
 inicio() {
   this.router.navigate(['/login']);
 }
+consultas() {
+  this.router.navigate(['/consultas']);
+}
 }
