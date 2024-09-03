@@ -1,12 +1,28 @@
-<form (ngSubmit)="criarConsulta()">
-  <label for="idPaciente">ID do Paciente:</label>
-  <input type="number" id="idPaciente" [(ngModel)]="novaConsulta.idPaciente" name="idPaciente">
+<div class="consulta-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Criar Consulta</mat-card-title>
+    </mat-card-header>
+    <br>
+    <mat-card-content>
+      <form (ngSubmit)="criarConsulta()">
+        <mat-form-field appearance="fill">
+          <mat-label>ID do Paciente</mat-label>
+          <input type="number" id="idPaciente" [(ngModel)]="novaConsulta.idPaciente" name="idPaciente" matInput required>
+        </mat-form-field>
 
-  <label for="idProfissionalDeSaude">ID do Profissional de Saúde:</label>
-  <input type="number" id="idProfissionalDeSaude" [(ngModel)]="novaConsulta.idProfissionalDeSaude" name="idProfissionalDeSaude">
+        <mat-form-field appearance="fill">
+          <mat-label>ID do Profissional de Saúde</mat-label>
+          <input type="number" id="idProfissionalDeSaude" [(ngModel)]="novaConsulta.idProfissionalDeSaude" name="idProfissionalDeSaude" matInput required>
+        </mat-form-field>
 
-  <label for="data">Data da Consulta:</label>
-  <input type="datetime-local" id="data" [(ngModel)]="novaConsulta.data" name="data">
+        <mat-form-field appearance="fill">
+          <mat-label>Data da Consulta</mat-label>
+          <input type="datetime-local" id="data" [(ngModel)]="novaConsulta.data" name="data" matInput required>
+        </mat-form-field>
 
-  <button type="submit">Criar Consulta</button>
-</form>
+        <button mat-raised-button color="primary" type="submit">Criar Consulta</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
