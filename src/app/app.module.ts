@@ -7,6 +7,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card'; // Importa o MatCardModule
+import { MatSelectModule } from '@angular/material/select';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 import { TableModule } from 'primeng/table';
 
@@ -28,6 +31,8 @@ import { ConsultasPagesComponent } from './page/consultasPages/consultasPages.co
 import { PanelModule } from 'primeng/panel';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { CalendarModule } from 'primeng/calendar';
+import { AdicionarPacienteComponent } from './components/adicionarPaciente/adicionarPaciente.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 
@@ -42,7 +47,8 @@ import { CalendarModule } from 'primeng/calendar';
     ProfissionaisDeSaudePagesComponent,
     ProfissionaisDeSaudeComponent,
     ConsultasComponent,
-    ConsultasPagesComponent
+    ConsultasPagesComponent,
+    AdicionarPacienteComponent
    
 
   ],
@@ -64,6 +70,11 @@ import { CalendarModule } from 'primeng/calendar';
     PanelModule, 
     InputNumberModule,  
     CalendarModule,   
+    MatSelectModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+   
+  
     
     
   ],

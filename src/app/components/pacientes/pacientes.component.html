@@ -8,7 +8,7 @@
         </span>
         <input type="text" pInputText placeholder="Procurar Pacientes" (input)="applyFilterGlobal($event)" />
       </div>
-
+    
       <p-table [value]="pacientes"
                [paginator]="true"
                [rows]="pageSize"
@@ -19,13 +19,15 @@
                dataKey="id">
 
         <ng-template pTemplate="header">
-          <tr>
+          <tr>  
             <th pSortableColumn="nomeCompleto">Nome Completo <p-sortIcon field="nomeCompleto"></p-sortIcon></th>
             <th pSortableColumn="cpf">CPF <p-sortIcon field="cpf"></p-sortIcon></th>
             <th pSortableColumn="dataNascimento">Data de Nascimento <p-sortIcon field="dataNascimento"></p-sortIcon></th>
             <th pSortableColumn="telefone">Telefone <p-sortIcon field="telefone"></p-sortIcon></th>
             <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
             <th pSortableColumn="genero">Gênero <p-sortIcon field="genero"></p-sortIcon></th>
+            <th> </th>
+            <p-button  mat-button (click)="openCreateDialog()" label="Adicionar" [text]="true" [raised]="true" severity="success" />
           </tr>
         </ng-template>
 

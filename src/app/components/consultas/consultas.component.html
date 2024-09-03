@@ -26,3 +26,13 @@
     </mat-card-content>
   </mat-card>
 </div>
+
+<!-- Exibe os detalhes da consulta criada -->
+<div *ngIf="consultaCriada">
+  <h2>Consulta criada com sucesso!</h2>
+  <p><strong>ID da Consulta:</strong> {{ consultaCriada.id }}</p>
+  <p><strong>Paciente:</strong> {{ consultaCriada.paciente.nomeCompleto }}</p>
+  <p><strong>Profissional de Saúde:</strong> {{ consultaCriada.profissionalDeSaude.nomeCompleto }}</p>
+  <p><strong>Data:</strong> {{ consultaCriada.data }}</p>
+  <p><strong>Descrição:</strong> {{ consultaCriada.descricao || 'Sem descrição' }}</p>
+</div>

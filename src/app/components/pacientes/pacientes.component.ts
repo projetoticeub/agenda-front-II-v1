@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Paciente } from 'src/app/pacientes';
 import { PacientesService } from 'src/app/services/pacientes.service';
-
+import { MatDialog } from '@angular/material/dialog';
+import { AdicionarPacienteComponent } from '../adicionarPaciente/adicionarPaciente.component';
 
 @Component({
   selector: 'app-pacientes',
@@ -17,7 +18,7 @@ export class PacientesComponent implements OnInit {
   pacientes: Paciente[] = [];
   loading = true;
 
-  constructor(private pacientesService: PacientesService) {}
+  constructor(private pacientesService: PacientesService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.loadPacientes();
@@ -38,6 +39,27 @@ export class PacientesComponent implements OnInit {
         }
       );
   }
+
+  openCreateDialog() {
+    const dialogRef = this.dialog.open(AdicionarPacienteComponent, {
+      width: '400px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.pacientesService.addPaciente(result).subscribe({
+          next: (novoPaciente: Paciente) => {
+            // Adicione o novo paciente à lista de pacientes local
+            this.pacientes.push(novoPaciente);
+          },
+          error: (error: HttpErrorResponse) => {
+            console.error('Erro ao adicionar paciente:', error.message);
+          }
+        });
+      }
+    });
+  }
+
 
   onPageChange(event: any): void {
     this.pageNumber = event.page;
