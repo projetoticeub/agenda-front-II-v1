@@ -72,4 +72,15 @@ export class PacientesComponent implements OnInit {
     this.pageNumber = 0;
     this.loadPacientes(query);
   }
-}
+  deletarPaciente(paciente: Paciente) {
+    this.pacientesService.deletePaciente(paciente.id).subscribe(
+      () => {
+        console.log('Paciente deletado com sucesso');
+        this.loadPacientes(); // Atualiza a lista após deletar
+      },
+      error => {
+        console.error('Erro ao deletar paciente:', error);
+      }
+    );
+  }
+  }

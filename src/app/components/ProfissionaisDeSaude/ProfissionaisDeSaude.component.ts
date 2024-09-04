@@ -54,4 +54,17 @@ export class ProfissionaisDeSaudeComponent implements OnInit {
     this.pageNumber = 0; // Reseta para a primeira página ao aplicar filtro
     this.loadProfissionais(this.query);
   }
+  openCreateDialog(){}
+
+  deletarPaciente(profissionais: ProfissionalDeSaude) {
+    this.profissionaisDaSaudeService.deleteProfissional(profissionais.id).subscribe(
+      () => {
+        console.log('Paciente deletado com sucesso');
+        this.loadProfissionais(); // Atualiza a lista após deletar
+      },
+      error => {
+        console.error('Erro ao deletar paciente:', error);
+      }
+    );
+  }
 }

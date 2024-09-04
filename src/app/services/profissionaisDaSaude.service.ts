@@ -1,5 +1,5 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../enviroment';
@@ -27,7 +27,8 @@ export class ProfissionaisDaSaudeService {
     
     // Configuração do cabeçalho Authorization com o token JWT
     return new HttpHeaders({
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
     });
   }
 
@@ -49,9 +50,27 @@ export class ProfissionaisDaSaudeService {
       );
   }
 
+  // Método para adicionar um profissional da saúde
+  addProfissional(profissional: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/profissionais-de-saude`, profissional, {
+      headers: this.getAuthHeaders()
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  // Método para deletar um profissional da saúde
+  deleteProfissional(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/profissionais-de-saude/${id}`, {
+      headers: this.getAuthHeaders()
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   // Método para tratar erros da requisição
   private handleError(error: any): Observable<never> {
-    console.error('Erro ao carregar profissionais da saúde:', error);
-    return throwError(() => new Error('Erro ao carregar profissionais da saúde'));
+    console.error('Erro na operação:', error);
+    return throwError(() => new Error('Erro na operação'));
   }
 }

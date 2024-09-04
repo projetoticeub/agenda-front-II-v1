@@ -54,4 +54,16 @@ export class PacientesService {
         })
       );
   }
+  deletePaciente(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/pacientes/${id}`, {
+      headers: this.getAuthHeaders()
+    }).pipe(
+      catchError(error => {
+        console.error('Erro ao deletar paciente:', error);
+        console.log('Corpo da resposta:', error.error); // Adicione isto para verificar o corpo da resposta
+        return throwError(() => new Error('Erro ao deletar paciente'));
+      })
+    );
+  }
 }
+

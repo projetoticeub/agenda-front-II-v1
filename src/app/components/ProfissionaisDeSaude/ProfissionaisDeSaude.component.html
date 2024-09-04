@@ -27,6 +27,7 @@
             <th pSortableColumn="telefone">Telefone <p-sortIcon field="telefone"></p-sortIcon></th>
             <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
             <th pSortableColumn="genero">Gênero <p-sortIcon field="genero"></p-sortIcon></th>
+            <p-button  mat-button (click)="openCreateDialog()" icon="pi pi-plus" [text]="true" [raised]="true" severity="success" />
           </tr>
         </ng-template>
 
@@ -39,6 +40,9 @@
             <td>{{ profissional.telefone }}</td>
             <td>{{ profissional.email }}</td>
             <td>{{ profissional.genero }}</td>
+            <td>
+              <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deletarPaciente(profissional)"></button>
+            </td>
           </tr>
         </ng-template>
 
