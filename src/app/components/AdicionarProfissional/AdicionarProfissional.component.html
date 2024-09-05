@@ -1,0 +1,73 @@
+<h2>Adicionar Profissionais da Saúde</h2>
+<form [formGroup]="form" (ngSubmit)="onSave()">
+  <div class="row">
+    <mat-form-field>
+      <input matInput placeholder="Nome Completo" formControlName="nomeCompleto">
+    </mat-form-field>
+    
+    <mat-form-field>
+      <input matInput placeholder="CPF" formControlName="cpf">
+    </mat-form-field>
+  </div>
+
+  <div class="row">
+    <mat-form-field>
+      <input matInput placeholder="Data de Nascimento" formControlName="dataNascimento" type="date">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Telefone" formControlName="telefone">
+    </mat-form-field>
+  </div>
+
+  <mat-form-field>
+    <input matInput placeholder="E-mail" formControlName="email" type="email">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Registro" formControlName="registro">
+  </mat-form-field>
+
+  <div>
+    <label for="genero">Gênero</label>
+    <select id="genero" formControlName="genero">
+      <option value="Masculino">Masculino</option>
+      <option value="Feminino">Feminino</option>
+    </select>
+  </div>
+
+  <h3>Endereço</h3>
+
+  <div formGroupName="endereco">
+    <div class="row">
+      <mat-form-field>
+        <input matInput placeholder="CEP" formControlName="cep" (blur)="buscarEnderecoPorCep()">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Rua" formControlName="rua" readonly>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field>
+        <input matInput placeholder="Número" formControlName="numero">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Cidade" formControlName="cidade" readonly>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field>
+      <mat-select placeholder="Estado" formControlName="estado">
+        <mat-option *ngFor="let uf of ufs" [value]="uf">{{ uf }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <button mat-raised-button color="primary" type="submit">Salvar</button>
+    <button mat-button color="warn" (click)="onClose()">Cancelar</button>
+  </div>
+</form>

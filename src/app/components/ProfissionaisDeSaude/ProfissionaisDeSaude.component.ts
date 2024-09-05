@@ -2,6 +2,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ProfissionaisDaSaudeService } from './../../services/profissionaisDaSaude.service';
 import { Component, OnInit } from '@angular/core';
 import { ProfissionalDeSaude } from 'src/app/ProfissionaisDeSaude';
+import { AdicionarProfissionalComponent } from '../AdicionarProfissional/AdicionarProfissional.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-ProfissionaisDeSaude',
@@ -18,7 +20,7 @@ export class ProfissionaisDeSaudeComponent implements OnInit {
   totalElements = 0;
   loading = true;
 
-  constructor(private profissionaisDaSaudeService: ProfissionaisDaSaudeService) { }
+  constructor(private profissionaisDaSaudeService: ProfissionaisDaSaudeService,private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.loadProfissionais();
@@ -54,17 +56,45 @@ export class ProfissionaisDeSaudeComponent implements OnInit {
     this.pageNumber = 0; // Reseta para a primeira página ao aplicar filtro
     this.loadProfissionais(this.query);
   }
-  openCreateDialog(){}
+  openCreateDialog() {
+    const dialogRef = this.dialog.open(AdicionarProfissionalComponent, {
+      width: '400px'
+    });
 
-  deletarPaciente(profissionais: ProfissionalDeSaude) {
-    this.profissionaisDaSaudeService.deleteProfissional(profissionais.id).subscribe(
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.profissionaisDaSaudeService.addProfissional(result).subscribe({
+          next: (novoProfissional: ProfissionalDeSaude) => {
+            // Adicione o novo paciente à lista de pacientes local
+            this.profissionais.push(novoProfissional);
+          },
+          error: (error: HttpErrorResponse) => {
+            console.error('Erro ao adicionar paciente:', error.message);
+          }
+        });
+      }
+    });
+  }
+
+  deletarProfissional(ProfissionalDeSaude: ProfissionalDeSaude) {
+    this.profissionaisDaSaudeService.deleteProfissionais(ProfissionalDeSaude.id).subscribe(
       () => {
-        console.log('Paciente deletado com sucesso');
+        console.log('profissionais deletado com sucesso');
         this.loadProfissionais(); // Atualiza a lista após deletar
       },
       error => {
         console.error('Erro ao deletar paciente:', error);
       }
     );
+  }
+  recarregarProfissionais(): void {
+    this.profissionaisDaSaudeService.getProfissionais().subscribe({
+      next: (data) => {
+        this.profissionais = data;
+      },
+      error: (error) => {
+        console.error('Erro ao carregar profissionais:', error);
+      }
+    });
   }
 }

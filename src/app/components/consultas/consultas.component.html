@@ -1,3 +1,4 @@
+<app-sidebar></app-sidebar>
 <div class="consulta-container">
   <mat-card>
     <mat-card-header>
@@ -25,15 +26,13 @@
       </form>
     </mat-card-content>
   </mat-card>
-<div *ngIf="consultaCriada">
-  <h2>Consulta criada com sucesso!</h2>
-  <p><strong>ID da Consulta:</strong> {{ consultaCriada.id }}</p>
-  <p><strong>Paciente:</strong> {{ consultaCriada.paciente.nomeCompleto }}</p>
-  <p><strong>Profissional de Saúde:</strong> {{ consultaCriada.profissionalDeSaude.nomeCompleto }}</p>
-  <p><strong>Data:</strong> {{ consultaCriada.data }}</p>
-  <p><strong>Descrição:</strong> {{ consultaCriada.descricao || 'Sem descrição' }}</p>
-</div>
-</div>
 
-<!-- Exibe os detalhes da consulta criada -->
-
+  <div *ngIf="consultaCriada" class="consulta-info">
+    <h2>Consulta criada com sucesso!</h2>
+    <p><strong>ID da Consulta:</strong> {{ consultaCriada.id }}</p>
+    <p><strong>Paciente:</strong> {{ consultaCriada.paciente.nomeCompleto }}</p>
+    <p><strong>Profissional de Saúde:</strong> {{ consultaCriada.profissionalDeSaude.nomeCompleto }}</p>
+    <p><strong>Data:</strong> {{ consultaCriada.data | date: 'short' }}</p>
+    <p><strong>Descrição:</strong> {{ consultaCriada.descricao || 'Sem descrição' }}</p>
+  </div>
+</div>

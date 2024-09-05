@@ -33,6 +33,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { CalendarModule } from 'primeng/calendar';
 import { AdicionarPacienteComponent } from './components/adicionarPaciente/adicionarPaciente.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { AdicionarProfissionalComponent } from './components/AdicionarProfissional/AdicionarProfissional.component';
 
 
 
@@ -48,7 +49,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     ProfissionaisDeSaudeComponent,
     ConsultasComponent,
     ConsultasPagesComponent,
-    AdicionarPacienteComponent
+    AdicionarPacienteComponent,
+    AdicionarProfissionalComponent
    
 
   ],

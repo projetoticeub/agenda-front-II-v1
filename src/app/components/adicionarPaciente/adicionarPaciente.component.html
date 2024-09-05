@@ -1,57 +1,80 @@
 <h2>Adicionar Paciente</h2>
 <form [formGroup]="form" (ngSubmit)="onSave()">
-  <div>
-    <label for="nomeCompleto">Nome Completo</label>
-    <input id="nomeCompleto" formControlName="nomeCompleto" type="text" />
+  
+  <div class="row">
+    <mat-form-field appearance="fill">
+      <mat-label>Nome Completo</mat-label>
+      <input matInput id="nomeCompleto" formControlName="nomeCompleto" type="text" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>CPF</mat-label>
+      <input matInput id="cpf" formControlName="cpf" type="text" />
+    </mat-form-field>
   </div>
 
-  <div>
-    <label for="cpf">CPF</label>
-    <input id="cpf" formControlName="cpf" type="text" />
+  <div class="row">
+    <mat-form-field appearance="fill">
+      <mat-label>Data de Nascimento</mat-label>
+      <input matInput id="dataNascimento" formControlName="dataNascimento" type="date" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Telefone</mat-label>
+      <input matInput id="telefone" formControlName="telefone" type="text" />
+    </mat-form-field>
   </div>
 
-  <div>
-    <label for="dataNascimento">Data de Nascimento</label>
-    <input id="dataNascimento" formControlName="dataNascimento" type="date" />
-  </div>
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input matInput id="email" formControlName="email" type="email" />
+  </mat-form-field>
 
-  <div>
-    <label for="telefone">Telefone</label>
-    <input id="telefone" formControlName="telefone" type="text" />
-  </div>
-
-  <div>
-    <label for="email">Email</label>
-    <input id="email" formControlName="email" type="email" />
-  </div>
-
-  <div>
-    <label for="genero">Gênero</label>
-    <select id="genero" formControlName="genero">
-      <option value="Masculino">Masculino</option>
-      <option value="Feminino">Feminino</option>
-    </select>
-  </div>
+  <mat-form-field appearance="fill">
+    <mat-label>Gênero</mat-label>
+    <mat-select id="genero" formControlName="genero">
+      <mat-option value="Masculino">Masculino</mat-option>
+      <mat-option value="Feminino">Feminino</mat-option>
+    </mat-select>
+  </mat-form-field>
 
   <div formGroupName="endereco">
-    <label for="cep">CEP</label>
-    <input id="cep" formControlName="cep" type="text" (blur)="buscarEnderecoPorCep()" />
+    <h3>Endereço</h3>
 
-    <label for="rua">Rua</label>
-    <input id="rua" formControlName="rua" type="text" />
+    <div class="row">
+      <mat-form-field appearance="fill">
+        <mat-label>CEP</mat-label>
+        <input matInput id="cep" formControlName="cep" type="text" (blur)="buscarEnderecoPorCep()" />
+      </mat-form-field>
 
-    <label for="numero">Número</label>
-    <input id="numero" formControlName="numero" type="text" />
+      <mat-form-field appearance="fill">
+        <mat-label>Rua</mat-label>
+        <input matInput id="rua" formControlName="rua" type="text" />
+      </mat-form-field>
+    </div>
 
-    <label for="cidade">Cidade</label>
-    <input id="cidade" formControlName="cidade" type="text" />
+    <div class="row">
+      <mat-form-field appearance="fill">
+        <mat-label>Número</mat-label>
+        <input matInput id="numero" formControlName="numero" type="text" />
+      </mat-form-field>
 
-    <label for="estado">Estado</label>
-    <select id="estado" formControlName="estado">
-      <option *ngFor="let uf of ufs" [value]="uf">{{ uf }}</option>
-    </select>
+      <mat-form-field appearance="fill">
+        <mat-label>Cidade</mat-label>
+        <input matInput id="cidade" formControlName="cidade" type="text" />
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Estado</mat-label>
+      <mat-select id="estado" formControlName="estado">
+        <mat-option *ngFor="let uf of ufs" [value]="uf">{{ uf }}</mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
 
-  <button type="submit">Salvar</button>
-  <button type="button" (click)="onClose()">Cancelar</button>
+  <div class="row">
+    <button mat-raised-button color="primary" type="submit">Salvar</button>
+    <button mat-raised-button color="warn" type="button" (click)="onClose()">Cancelar</button>
+  </div>
 </form>

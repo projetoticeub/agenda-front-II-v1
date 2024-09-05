@@ -1,0 +1,40 @@
+form {
+    max-width: 800px; /* Limita a largura para evitar rolagem lateral */
+    margin: 0 auto; /* Centraliza o formulário */
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Espaçamento reduzido entre os campos */
+  }
+  
+  .row {
+    display: flex;
+    gap: 10px; /* Menor espaçamento entre os campos */
+  }
+  
+  .row mat-form-field {
+    flex: 1; /* Faz com que os campos compartilhem o espaço igualmente */
+  }
+  
+  h2, h3 {
+    font-size: 18px; /* Reduz o tamanho dos títulos */
+  }
+  
+  mat-form-field {
+    width: 100%; /* Garante que os campos ocupem a largura disponível */
+  }
+  
+  button {
+    width: 48%; /* Reduz a largura dos botões */
+  }
+  
+  .row-buttons {
+    display: flex;
+    justify-content: space-between; /* Botões ficam lado a lado */
+    margin-top: 10px;
+  }
+  
+  body, html {
+    height: 100%; /* Garante que a página use 100% da altura */
+  }
+  
+  
