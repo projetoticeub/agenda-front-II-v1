@@ -32,4 +32,7 @@ inicio() {
 consultas() {
   this.router.navigate(['/consultas']);
 }
+listaC() {
+  this.router.navigate(['/consultasl']);
+}
 }

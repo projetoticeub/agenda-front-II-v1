@@ -34,6 +34,10 @@ import { CalendarModule } from 'primeng/calendar';
 import { AdicionarPacienteComponent } from './components/adicionarPaciente/adicionarPaciente.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { AdicionarProfissionalComponent } from './components/AdicionarProfissional/AdicionarProfissional.component';
+import { ConsultaListaComponent } from './components/consulta-lista/consulta-lista.component';
+import { ConsultaListaPagesComponent } from './page/consulta-listaPages/consulta-listaPages.component';
+import { MessageService } from 'primeng/api'; 
+import { ToastModule } from 'primeng/toast'; 
 
 
 
@@ -50,7 +54,9 @@ import { AdicionarProfissionalComponent } from './components/AdicionarProfission
     ConsultasComponent,
     ConsultasPagesComponent,
     AdicionarPacienteComponent,
-    AdicionarProfissionalComponent
+    AdicionarProfissionalComponent,
+    ConsultaListaComponent,
+    ConsultaListaPagesComponent
    
 
   ],
@@ -75,12 +81,14 @@ import { AdicionarProfissionalComponent } from './components/AdicionarProfission
     MatSelectModule,
     ReactiveFormsModule,
     MatDialogModule,
+    ToastModule
+    
    
   
     
     
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
