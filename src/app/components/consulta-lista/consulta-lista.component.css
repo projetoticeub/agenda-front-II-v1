@@ -1,51 +1,129 @@
-.consulta-lista-container {
-    padding: 20px;
-    background-color: #f5f5f5;
+.p-grid {
+  justify-content: center;
+  padding: 20px;
+  background-color: #dbf8ff;
+  min-height: 100vh;
+
+  .p-col-12 {
+    .card {
+      padding: 20px;
+      background-color: #ffffff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+
+      h2 {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .p-inputgroup {
+        display: flex;
+        align-items: center;
+        max-width: 400px;
+        margin: 0 auto 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+        .p-inputgroup-addon {
+          background-color: #53c8eb;
+          color: white;
+          padding: 10px 15px;
+          border-top-left-radius: 5px;
+          border-bottom-left-radius: 5px;
+
+          i {
+            font-size: 1.2em;
+          }
+        }
+
+        input[pInputText] {
+          flex: 1;
+          padding: 10px 15px;
+          border: none;
+          border-top-right-radius: 5px;
+          border-bottom-right-radius: 5px;
+          color: #333;
+          font-size: 1em;
+          outline: none;
+
+          &::placeholder {
+            color: #666;
+            font-style: italic;
+          }
+
+          &:focus {
+            box-shadow: 0 0 0 2px rgba(83, 200, 235, 0.5);
+          }
+        }
+      }
+
+      p-table {
+        .p-datatable-header {
+          background-color: #f5f5f5;
+          color: #333;
+        }
+
+        .p-datatable-thead {
+          th {
+            text-align: left;
+            background-color: #69daf7;
+            color: white;
+            padding: 10px;
+
+            p-sortIcon {
+              margin-left: 10px;
+            }
+          }
+        }
+
+        .p-datatable-tbody {
+          tr {
+            td {
+              padding: 10px;
+              color: #333;
+              border-bottom: 1px solid #f0f0f0;
+            }
+
+            &:hover {
+              background-color: #e0f7fa;
+            }
+          }
+        }
+
+        .p-datatable-emptymessage {
+          td {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+          }
+        }
+
+        .p-paginator {
+          background-color: #f5f5f5;
+          border-top: 1px solid #f0f0f0;
+
+          .p-paginator-pages {
+            button {
+              background-color: transparent;
+              color: #333;
+              border: none;
+              cursor: pointer;
+
+              &:hover {
+                color: #53c8eb;
+              }
+
+              &.p-highlight {
+                background-color: #53c8eb;
+                color: white;
+              }
+            }
+          }
+        }
+      }
+    }
   }
-  
-  .consulta-card {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-  }
-  
-  .consulta-title {
-    font-size: 1.8em;
-    margin-bottom: 20px;
-    text-align: center;
-    color: #333;
-  }
-  
-  .search-input {
-    margin-bottom: 20px;
-  }
-  
-  .search-addon {
-    background-color: #53c8eb; /* Cor azul */
-    color: white;
-  }
-  
-  .p-table {
-    margin-top: 20px;
-  }
-  
-  .consulta-table thead {
-    background-color: #53c8eb;
-    color: white;
-  }
-  
-  .p-button-sm {
-    height: 30px;
-    width: 30px;
-  }
-  
-  .p-button-danger {
-    background-color: #e74c3c;
-    border: none;
-  }
-  
-  .p-button-danger:hover {
-    background-color: #c0392b;
-  }
-  
+}
