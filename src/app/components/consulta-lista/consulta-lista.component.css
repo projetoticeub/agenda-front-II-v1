@@ -29,7 +29,7 @@
 
         .p-inputgroup-addon {
           background-color: #53c8eb;
-          color: white;
+          color: rgb(255, 255, 255);
           padding: 10px 15px;
           border-top-left-radius: 5px;
           border-bottom-left-radius: 5px;
@@ -70,7 +70,7 @@
           th {
             text-align: left;
             background-color: #69daf7;
-            color: white;
+            color: rgb(255, 255, 255);
             padding: 10px;
 
             p-sortIcon {
@@ -118,7 +118,7 @@
 
               &.p-highlight {
                 background-color: #53c8eb;
-                color: white;
+                color: rgb(255, 255, 255);
               }
             }
           }

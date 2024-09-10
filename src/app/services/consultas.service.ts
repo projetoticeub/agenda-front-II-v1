@@ -19,11 +19,10 @@ export class ConsultaService {
 
   constructor(private http: HttpClient) { }
 
-  // Método para criar uma nova consulta
   createConsulta(consulta: Consulta): Observable<Consulta> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('accessToken')}`  // Token JWT do localStorage
+      'Authorization': `Bearer ${localStorage.getItem('accessToken')}`  
     });
 
     return this.http.post<Consulta>(this.apiUrl, consulta, { headers })
@@ -35,33 +34,39 @@ export class ConsultaService {
       );
   }
 
-  // Método para obter consultas com busca e paginação
-  getConsultas(query: string = "", pageNumber: number = 0, pageSize: number = 10): Observable<any> {
+  getConsultas(query: string, page: number, size: number, date?: string): Observable<any> {
     let params = new HttpParams()
-      .set('page', pageNumber.toString())
-      .set('size', pageSize.toString());
+      .set('page', page.toString())
+      .set('size', size.toString());
 
     if (query) {
-      params = params.set('search', query);
+      params = params.set('query', query);
     }
 
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${localStorage.getItem('accessToken')}`  // Token JWT do localStorage
-    });
+    if (date) {
+      params = params.set('date', date);  // A data deve ser enviada como parâmetro
+    }
 
-    return this.http.get(`${this.apiUrl}`, { headers, params })
-      .pipe(
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+      return this.http.get<any>(`${this.apiUrl}`, { params, headers }).pipe(
         catchError(error => {
-          console.error('Erro ao carregar consultas:', error);
-          return throwError(() => new Error('Erro ao carregar consultas: ' + error.message));
+          console.error('Erro ao buscar consultas:', error);
+          return throwError(() => new Error('Erro ao buscar consultas: ' + error.message));
         })
       );
-  }
+    } else {
+      console.error('Token não encontrado');
+      return new Observable(observer => {
+        observer.error('Token de autenticação não encontrado');
+      });
+    }
+}
 
-  // Método para deletar uma consulta por ID
   deleteConsulta(id: number): Observable<void> {
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${localStorage.getItem('accessToken')}`  // Token JWT do localStorage
+      'Authorization': `Bearer ${localStorage.getItem('accessToken')}`  
     });
 
     return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers })

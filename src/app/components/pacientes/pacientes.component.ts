@@ -34,7 +34,10 @@ export class PacientesComponent implements OnInit {
           this.loading = false;
         },
         (error: HttpErrorResponse) => {
-          console.error('Erro ao carregar pacientes:', error.message);
+          console.error('Erro ao carregar pacientes da saúde:', error.message);
+          if (error.status === 403) {
+            console.error('Acesso proibido: verifique suas credenciais ou permissões.');
+          }
           this.loading = false;
         }
       );
@@ -75,7 +78,7 @@ export class PacientesComponent implements OnInit {
   deletarPaciente(paciente: Paciente) {
     this.pacientesService.deletePaciente(paciente.id).subscribe(
       () => {
-        console.log('Paciente deletado com sucesso');
+        console.log('profissionais deletado com sucesso');
         this.loadPacientes(); // Atualiza a lista após deletar
       },
       error => {

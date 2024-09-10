@@ -69,7 +69,7 @@ export class ProfissionaisDeSaudeComponent implements OnInit {
             this.profissionais.push(novoProfissional);
           },
           error: (error: HttpErrorResponse) => {
-            console.error('Erro ao adicionar paciente:', error.message);
+            console.error('Erro ao adicionar profissional:', error.message);
           }
         });
       }

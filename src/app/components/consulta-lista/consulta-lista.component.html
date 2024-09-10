@@ -2,46 +2,51 @@
   <div class="p-col-12">
     <div class="card">
       <h2>Lista de Consultas</h2>
+
+      <!-- Input do Calendário para Filtrar por Data -->
       <div class="p-inputgroup">
         <span class="p-inputgroup-addon">
-          <i class="pi pi-search"></i>
+          <i class="pi pi-calendar"></i>
         </span>
-        <input type="text" pInputText placeholder="Procurar Pacientes" (input)="applyFilterGlobal($event)" />
+        <p-calendar [(ngModel)]="selectedDate" dateFormat="dd/mm/yy"></p-calendar>
+        
+        <!-- Botão para pesquisa -->
+        <button pButton type="button" label="Pesquisar" (click)="aplicarFiltroData()" [disabled]="!selectedDate"></button>
       </div>
-    
-      <p-table [value]="consultas"
-      [paginator]="true"
-      [rows]="pageSize"
-      [totalRecords]="totalElements"
-      [lazy]="true"
-      [loading]="loading"
-      dataKey="id">
 
-        <ng-template pTemplate="header">
-          <tr>  
-            <th pSortableColumn="paciente">Paciente <p-sortIcon field="paciente"></p-sortIcon></th>
-            <th pSortableColumn="profissinalDeSaude">Profissional de Saúde <p-sortIcon field="profissinalDeSaude"></p-sortIcon></th>
-            <th pSortableColumn="data">Data da Consulta <p-sortIcon field="data"></p-sortIcon></th>
-          </tr>
-        </ng-template>
+      <p-table *ngIf="consultas.length > 0"
+        [value]="consultas"
+        [paginator]="true"
+        [rows]="pageSize"
+        [totalRecords]="totalElements"
+        [lazy]="true"
+        [loading]="loading"
+        dataKey="id">
+ 
+ <ng-template pTemplate="header">
+   <tr>
+     <th pSortableColumn="paciente">Paciente <p-sortIcon field="paciente"></p-sortIcon></th>
+     <th pSortableColumn="profissionalDeSaude">Profissional de Saúde <p-sortIcon field="profissionalDeSaude"></p-sortIcon></th>
+     <th pSortableColumn="data">Data da Consulta <p-sortIcon field="data"></p-sortIcon></th>
+     <th>Ações</th>
+   </tr>
+ </ng-template>
 
-        <ng-template pTemplate="body" let-consulta>
-          <tr>
-            <td>{{ consulta.paciente }}</td>
-            <td>{{ consulta.profissinalDeSaude }}</td>
-            <td>{{ consulta.data | date:'short' }}</td> <!-- Exibindo a data formatada -->
-            <td>
-              <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deletarConsulta(consulta)"></button>
-            </td>
-          </tr>
-        </ng-template>
+ <ng-template pTemplate="body" let-consulta>
+   <tr>
+     <td>{{ consulta.paciente }}</td>
+     <td>{{ consulta.profissinalDeSaude }}</td> 
+     <td>{{ consulta.data | date:'short' }}</td>
+     <td>
+       <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deletarConsulta(consulta)"></button>
+     </td>
+   </tr>
+ </ng-template>
+</p-table>
 
-        <ng-template pTemplate="emptymessage">
-          <tr>
-            <td colspan="5">Nenhuma consulta encontrada.</td>
-          </tr>
-        </ng-template>
-      </p-table>
+      <div *ngIf="noResults && !loading" style="text-align: center; margin-top: 20px;">
+        <p>Não há consulta nesta data.</p>
+      </div>
     </div>
   </div>
 </div>
