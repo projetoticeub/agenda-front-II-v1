@@ -14,12 +14,12 @@ export class PacientesService {
   constructor(private http: HttpClient) {}
 
   private getAuthHeaders(): HttpHeaders {
-    const token = localStorage.getItem('accessToken');
+    const token = localStorage.getItem('accessToken'); 
     if (!token) {
       console.error('Token de autenticação não encontrado');
       throw new Error('Token de autenticação não encontrado');
     }
-
+  
     return new HttpHeaders({
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
@@ -45,7 +45,6 @@ export class PacientesService {
     if (query) {
       params = params.set('search', query);
     }
-
     return this.http.get(`${this.apiUrl}/pacientes/active`, { headers: this.getAuthHeaders(), params })
       .pipe(
         catchError(error => {
@@ -60,10 +59,24 @@ export class PacientesService {
     }).pipe(
       catchError(error => {
         console.error('Erro ao deletar paciente:', error);
-        console.log('Corpo da resposta:', error.error); // Adicione isto para verificar o corpo da resposta
+        console.log('Corpo da resposta:', error.error); 
         return throwError(() => new Error('Erro ao deletar paciente'));
       })
     );
   }
+  getPacienteByCPF(cpf: string): Observable<Paciente> {
+    const headers = this.getAuthHeaders(); // Mantém os headers para autorização
+    const params = new HttpParams().set('cpf', cpf); // Define o parâmetro 'cpf'
+  
+    // Faz a requisição para a URL correta com o parâmetro de consulta
+    return this.http.get<Paciente>(`${this.apiUrl}/pacientes`, { headers, params })
+      .pipe(
+        catchError(error => {
+          console.error('Erro ao buscar paciente pelo CPF:', error);
+          return throwError(() => new Error('Erro ao buscar paciente pelo CPF: ' + error.message));
+        })
+      );
+  }
 }
+
 

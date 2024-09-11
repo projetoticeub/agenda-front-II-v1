@@ -38,6 +38,7 @@ import { ConsultaListaComponent } from './components/consulta-lista/consulta-lis
 import { ConsultaListaPagesComponent } from './page/consulta-listaPages/consulta-listaPages.component';
 import { MessageService } from 'primeng/api'; 
 import { ToastModule } from 'primeng/toast'; 
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -56,7 +57,7 @@ import { ToastModule } from 'primeng/toast';
     AdicionarPacienteComponent,
     AdicionarProfissionalComponent,
     ConsultaListaComponent,
-    ConsultaListaPagesComponent
+    ConsultaListaPagesComponent,  
    
 
   ],
@@ -81,7 +82,8 @@ import { ToastModule } from 'primeng/toast';
     MatSelectModule,
     ReactiveFormsModule,
     MatDialogModule,
-    ToastModule
+    ToastModule,
+    MatSnackBarModule
     
    
   

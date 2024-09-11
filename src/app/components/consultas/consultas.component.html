@@ -8,15 +8,23 @@
     <mat-card-content>
       <form (ngSubmit)="criarConsulta()">
         <mat-form-field appearance="fill">
-          <mat-label>ID do Paciente</mat-label>
-          <input type="number" id="idPaciente" [(ngModel)]="novaConsulta.idPaciente" name="idPaciente" matInput required>
+          <mat-label>Paciente</mat-label>
+          <mat-select [(ngModel)]="novaConsulta.idPaciente" name="idPaciente" required>
+            <mat-option *ngFor="let paciente of pacientes" [value]="paciente.id">
+              {{ paciente.nomeCompleto }}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
-          <mat-label>ID do Profissional de Saúde</mat-label>
-          <input type="number" id="idProfissionalDeSaude" [(ngModel)]="novaConsulta.idProfissionalDeSaude" name="idProfissionalDeSaude" matInput required>
+          <mat-label>Profissional de Saúde</mat-label>
+          <mat-select [(ngModel)]="novaConsulta.idProfissionalDeSaude" name="idProfissionalDeSaude" required>
+            <mat-option *ngFor="let profissional of profissionaisDeSaude" [value]="profissional.id">
+              {{ profissional.nomeCompleto }}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
-
+        
         <mat-form-field appearance="fill">
           <mat-label>Data da Consulta</mat-label>
           <input type="datetime-local" id="data" [(ngModel)]="novaConsulta.data" name="data" matInput required>

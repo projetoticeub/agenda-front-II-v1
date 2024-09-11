@@ -53,7 +53,7 @@ export class ProfissionaisDeSaudeComponent implements OnInit {
 
   applyFilterGlobal($event: any): void {
     this.query = $event.target.value || '';
-    this.pageNumber = 0; // Reseta para a primeira página ao aplicar filtro
+    this.pageNumber = 0; 
     this.loadProfissionais(this.query);
   }
   openCreateDialog() {
