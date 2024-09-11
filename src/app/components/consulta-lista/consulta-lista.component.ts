@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageService, LazyLoadEvent } from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { ConsultaService } from './../../services/consultas.service';
 import { Consulta } from 'src/app/consulta';
 import { formatDate } from '@angular/common';
@@ -15,8 +15,8 @@ export class ConsultaListaComponent implements OnInit {
   totalElements: number = 0; 
   pageSize: number = 10;
   loading: boolean = false; 
-  selectedDate: Date = new Date(); 
-  searchQuery: string = '';
+  selectedDate: Date = new Date();  // Data inicial (hoje)
+  searchQuery: string = '';  // Termo de busca adicional (não usado diretamente no exemplo)
   noResults: boolean = false; 
 
   constructor(
@@ -30,7 +30,8 @@ export class ConsultaListaComponent implements OnInit {
 
   carregarConsultas(page: number, size: number, date?: string): void {
     this.loading = true;
-  
+
+    // Faz a chamada para o serviço, passando a data e outros parâmetros
     this.consultaService.getConsultas(this.searchQuery, page, size, date).subscribe({
       next: (data: any) => {
         console.log('Dados recebidos:', data.content); 
@@ -51,11 +52,12 @@ export class ConsultaListaComponent implements OnInit {
     });
   }
 
-
+  // Formata a data no formato 'yyyy-MM-dd'
   obterDataFormatada(date: Date): string {
     return formatDate(date, 'yyyy-MM-dd', 'en');  
   }
 
+  // Função para deletar uma consulta
   deletarConsulta(consulta: Consulta): void {
     if (consulta.id) {
       if (confirm(`Tem certeza que deseja deletar a consulta de ${consulta.idPaciente}?`)) {
@@ -82,10 +84,11 @@ export class ConsultaListaComponent implements OnInit {
       console.error('ID da consulta está indefinido.');
     }
   }
+
+  // Função que aplica o filtro de data
   aplicarFiltroData(): void {
-    const formattedDate = this.obterDataFormatada(this.selectedDate);
-    console.log('Data formatada enviada ao back-end:', formattedDate);
-    this.carregarConsultas(0, this.pageSize, formattedDate);
+    const formattedDate = this.obterDataFormatada(this.selectedDate); // Formata a data
+    console.log('Data formatada enviada ao back-end:', formattedDate);  // Log para verificar o valor
+    this.carregarConsultas(0, this.pageSize, formattedDate); // Recarrega consultas com a nova data
   }
 }
-  

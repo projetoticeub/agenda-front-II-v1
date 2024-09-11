@@ -35,34 +35,32 @@ export class ConsultaService {
   }
 
   getConsultas(query: string, page: number, size: number, date?: string): Observable<any> {
-    let params = new HttpParams()
-      .set('page', page.toString())
-      .set('size', size.toString());
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      console.error('Token não encontrado');
+      return throwError(() => new Error('Token de autenticação não encontrado'));
+    }
+
+    let url = `${this.apiUrl}?page=${page}&size=${size}`;
+    
+    // Se houver uma data, anexa no caminho da URL como solicitado
+    if (date) {
+      url = `${this.apiUrl}/data/${date}?page=${page}&size=${size}`;
+    }
 
     if (query) {
-      params = params.set('query', query);
+      url += `&query=${query}`;
     }
 
-    if (date) {
-      params = params.set('date', date);  // A data deve ser enviada como parâmetro
-    }
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    const token = localStorage.getItem('accessToken');
-    if (token) {
-      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-      return this.http.get<any>(`${this.apiUrl}`, { params, headers }).pipe(
-        catchError(error => {
-          console.error('Erro ao buscar consultas:', error);
-          return throwError(() => new Error('Erro ao buscar consultas: ' + error.message));
-        })
-      );
-    } else {
-      console.error('Token não encontrado');
-      return new Observable(observer => {
-        observer.error('Token de autenticação não encontrado');
-      });
-    }
-}
+    return this.http.get<any>(url, { headers }).pipe(
+      catchError(error => {
+        console.error('Erro ao buscar consultas:', error);
+        return throwError(() => new Error('Erro ao buscar consultas: ' + error.message));
+      })
+    );
+  }
 
   deleteConsulta(id: number): Observable<void> {
     const headers = new HttpHeaders({
