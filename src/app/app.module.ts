@@ -41,6 +41,7 @@ import { ToastModule } from 'primeng/toast';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RegistroComponent } from './components/registro/registro.component';
 import { RegistroPageComponent } from './page/registro-page/registro-page.component';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 
 
@@ -87,14 +88,13 @@ import { RegistroPageComponent } from './page/registro-page/registro-page.compon
     ReactiveFormsModule,
     MatDialogModule,
     ToastModule,
-    MatSnackBarModule
-    
-   
+    MatSnackBarModule,
+    NgxMaskDirective    
   
     
     
   ],
-  providers: [MessageService],
+  providers: [MessageService,   provideNgxMask()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

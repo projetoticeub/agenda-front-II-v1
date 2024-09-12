@@ -56,6 +56,7 @@ export class ProfissionaisDeSaudeComponent implements OnInit {
     this.pageNumber = 0; 
     this.loadProfissionais(this.query);
   }
+
   openCreateDialog() {
     const dialogRef = this.dialog.open(AdicionarProfissionalComponent, {
       width: '400px'
@@ -65,7 +66,6 @@ export class ProfissionaisDeSaudeComponent implements OnInit {
       if (result) {
         this.profissionaisDaSaudeService.addProfissional(result).subscribe({
           next: (novoProfissional: ProfissionalDeSaude) => {
-            // Adicione o novo paciente à lista de pacientes local
             this.profissionais.push(novoProfissional);
           },
           error: (error: HttpErrorResponse) => {

@@ -1,80 +1,125 @@
 <h2>Adicionar Paciente</h2>
+
 <form [formGroup]="form" (ngSubmit)="onSave()">
-  
+  <!-- Linha com Nome Completo e CPF -->
   <div class="row">
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="fill" class="full-width">
       <mat-label>Nome Completo</mat-label>
-      <input matInput id="nomeCompleto" formControlName="nomeCompleto" type="text" />
+      <input matInput id="nomeCompleto" formControlName="nomeCompleto" type="text" required>
+      <mat-error *ngIf="form.get('nomeCompleto')?.hasError('required') && form.get('nomeCompleto')?.touched">
+        O nome completo é obrigatório.
+      </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="fill" class="full-width">
       <mat-label>CPF</mat-label>
-      <input matInput id="cpf" formControlName="cpf" type="text" />
+      <input matInput id="cpf" formControlName="cpf" type="text" mask="000.000.000-00" required>
+      <mat-error *ngIf="form.get('cpf')?.hasError('required') && form.get('cpf')?.touched">
+        O CPF é obrigatório.
+      </mat-error>
+      <mat-error *ngIf="form.get('cpf')?.hasError('pattern') && form.get('cpf')?.touched">
+        O CPF deve estar no formato correto.
+      </mat-error>
     </mat-form-field>
   </div>
 
+  <!-- Linha com Data de Nascimento e Telefone -->
   <div class="row">
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="fill" class="full-width">
       <mat-label>Data de Nascimento</mat-label>
-      <input matInput id="dataNascimento" formControlName="dataNascimento" type="date" />
+      <input matInput id="dataNascimento" formControlName="dataNascimento" type="date" required>
+      <mat-error *ngIf="form.get('dataNascimento')?.hasError('required') && form.get('dataNascimento')?.touched">
+        A data de nascimento é obrigatória.
+      </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="fill" class="full-width">
       <mat-label>Telefone</mat-label>
-      <input matInput id="telefone" formControlName="telefone" type="text" />
+      <input matInput id="telefone" formControlName="telefone" type="text" required>
+      <mat-error *ngIf="form.get('telefone')?.hasError('required') && form.get('telefone')?.touched">
+        O telefone é obrigatório.
+      </mat-error>
     </mat-form-field>
   </div>
 
-  <mat-form-field appearance="fill">
+  <!-- Campo de Email -->
+  <mat-form-field appearance="fill" class="full-width">
     <mat-label>Email</mat-label>
-    <input matInput id="email" formControlName="email" type="email" />
+    <input matInput id="email" formControlName="email" type="email" required>
+    <mat-error *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">
+      O email é obrigatório.
+    </mat-error>
+    <mat-error *ngIf="form.get('email')?.hasError('email') && form.get('email')?.touched">
+      O email deve ser válido.
+    </mat-error>
   </mat-form-field>
 
-  <mat-form-field appearance="fill">
+  <!-- Campo de Gênero -->
+  <mat-form-field appearance="fill" class="full-width">
     <mat-label>Gênero</mat-label>
-    <mat-select id="genero" formControlName="genero">
+    <mat-select id="genero" formControlName="genero" required>
       <mat-option value="Masculino">Masculino</mat-option>
       <mat-option value="Feminino">Feminino</mat-option>
     </mat-select>
+    <mat-error *ngIf="form.get('genero')?.hasError('required') && form.get('genero')?.touched">
+      O gênero é obrigatório.
+    </mat-error>
   </mat-form-field>
 
+  <!-- Endereço -->
   <div formGroupName="endereco">
     <h3>Endereço</h3>
 
+    <!-- Linha com CEP e Rua -->
     <div class="row">
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" class="full-width">
         <mat-label>CEP</mat-label>
-        <input matInput id="cep" formControlName="cep" type="text" (blur)="buscarEnderecoPorCep()" />
+        <input matInput id="cep" formControlName="cep" type="text" required (blur)="buscarEnderecoPorCep()">
+        <mat-error *ngIf="form.get('endereco.cep')?.hasError('required') && form.get('endereco.cep')?.touched">
+          O CEP é obrigatório.
+        </mat-error>
+        <mat-error *ngIf="form.get('endereco.cep')?.hasError('pattern') && form.get('endereco.cep')?.touched">
+          O CEP deve estar no formato correto.
+        </mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" class="full-width">
         <mat-label>Rua</mat-label>
-        <input matInput id="rua" formControlName="rua" type="text" />
+        <input matInput id="rua" formControlName="rua" type="text" readonly>
       </mat-form-field>
     </div>
 
+    <!-- Linha com Número e Cidade -->
     <div class="row">
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" class="full-width">
         <mat-label>Número</mat-label>
-        <input matInput id="numero" formControlName="numero" type="text" />
+        <input matInput id="numero" formControlName="numero" type="text" required>
+        <mat-error *ngIf="form.get('endereco.numero')?.hasError('required') && form.get('endereco.numero')?.touched">
+          O número é obrigatório.
+        </mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" class="full-width">
         <mat-label>Cidade</mat-label>
-        <input matInput id="cidade" formControlName="cidade" type="text" />
+        <input matInput id="cidade" formControlName="cidade" type="text" readonly>
       </mat-form-field>
     </div>
 
-    <mat-form-field appearance="fill">
+    <!-- Campo de Estado -->
+    <mat-form-field appearance="fill" class="full-width">
       <mat-label>Estado</mat-label>
-      <mat-select id="estado" formControlName="estado">
+      <mat-select id="estado" formControlName="estado" required>
         <mat-option *ngFor="let uf of ufs" [value]="uf">{{ uf }}</mat-option>
       </mat-select>
+      <mat-error *ngIf="form.get('endereco.estado')?.hasError('required') && form.get('endereco.estado')?.touched">
+        O estado é obrigatório.
+      </mat-error>
     </mat-form-field>
   </div>
 
+  <!-- Botões de Ação -->
   <div class="row">
-    <button mat-raised-button color="primary" type="submit">Salvar</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Salvar</button>
     <button mat-raised-button color="warn" type="button" (click)="onClose()">Cancelar</button>
   </div>
 </form>

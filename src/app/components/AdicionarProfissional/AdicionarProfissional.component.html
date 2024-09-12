@@ -1,73 +1,133 @@
 <h2>Adicionar Profissionais da Saúde</h2>
+
 <form [formGroup]="form" (ngSubmit)="onSave()">
+  <!-- Nome Completo e CPF -->
   <div class="row">
-    <mat-form-field>
-      <input matInput placeholder="Nome Completo" formControlName="nomeCompleto">
+    <mat-form-field class="full-width">
+      <mat-label>Nome Completo</mat-label>
+      <input matInput placeholder="Nome Completo" formControlName="nomeCompleto" required>
+      <mat-error *ngIf="form.get('nomeCompleto')?.invalid && form.get('nomeCompleto')?.touched">
+        O nome completo é obrigatório.
+      </mat-error>
     </mat-form-field>
-    
-    <mat-form-field>
-      <input matInput placeholder="CPF" formControlName="cpf">
+
+    <mat-form-field class="full-width">
+      <mat-label>CPF</mat-label>
+      <input matInput placeholder="CPF" formControlName="cpf" required mask="000.000.000-00">
+      <mat-error *ngIf="form.get('cpf')?.hasError('required') && form.get('cpf')?.touched">
+        O CPF é obrigatório.
+      </mat-error>
+      <mat-error *ngIf="form.get('cpf')?.hasError('pattern') && form.get('cpf')?.touched">
+        O CPF deve ter 11 dígitos.
+      </mat-error>
     </mat-form-field>
   </div>
 
+  <!-- Data de Nascimento e Telefone -->
   <div class="row">
-    <mat-form-field>
-      <input matInput placeholder="Data de Nascimento" formControlName="dataNascimento" type="date">
+    <mat-form-field class="full-width">
+      <mat-label>Data de Nascimento</mat-label>
+      <input matInput placeholder="Data de Nascimento" formControlName="dataNascimento" type="date" required>
+      <mat-error *ngIf="form.get('dataNascimento')?.invalid && form.get('dataNascimento')?.touched">
+        A data de nascimento é obrigatória.
+      </mat-error>
     </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="Telefone" formControlName="telefone">
+    <mat-form-field class="full-width">
+      <mat-label>Telefone</mat-label>
+      <input matInput placeholder="Telefone" formControlName="telefone" required>
+      <mat-error *ngIf="form.get('telefone')?.invalid && form.get('telefone')?.touched">
+        O telefone é obrigatório.
+      </mat-error>
     </mat-form-field>
   </div>
 
-  <mat-form-field>
-    <input matInput placeholder="E-mail" formControlName="email" type="email">
+  <!-- E-mail e Registro -->
+  <mat-form-field class="full-width">
+    <mat-label>E-mail</mat-label>
+    <input matInput placeholder="E-mail" formControlName="email" type="email" required>
+    <mat-error *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">
+      O e-mail é obrigatório.
+    </mat-error>
+    <mat-error *ngIf="form.get('email')?.hasError('email') && form.get('email')?.touched">
+      O e-mail deve ser válido.
+    </mat-error>
   </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Registro" formControlName="registro">
+  <mat-form-field class="full-width">
+    <mat-label>Registro</mat-label>
+    <input matInput placeholder="Registro" formControlName="registro" required>
+    <mat-error *ngIf="form.get('registro')?.hasError('required') && form.get('registro')?.touched">
+      O registro é obrigatório.
+    </mat-error>
+    <mat-error *ngIf="form.get('registro')?.hasError('pattern') && form.get('registro')?.touched">
+      O registro deve ter entre 4 e 10 dígitos.
+    </mat-error>
   </mat-form-field>
 
-  <div>
-    <label for="genero">Gênero</label>
-    <select id="genero" formControlName="genero">
-      <option value="Masculino">Masculino</option>
-      <option value="Feminino">Feminino</option>
-    </select>
-  </div>
+  <!-- Gênero -->
+  <mat-form-field class="full-width">
+    <mat-label>Gênero</mat-label>
+    <mat-select formControlName="genero" required>
+      <mat-option value="Masculino">Masculino</mat-option>
+      <mat-option value="Feminino">Feminino</mat-option>
+    </mat-select>
+    <mat-error *ngIf="form.get('genero')?.invalid && form.get('genero')?.touched">
+      O gênero é obrigatório.
+    </mat-error>
+  </mat-form-field>
 
+  <!-- Endereço -->
   <h3>Endereço</h3>
 
   <div formGroupName="endereco">
+    <!-- CEP e Rua -->
     <div class="row">
-      <mat-form-field>
-        <input matInput placeholder="CEP" formControlName="cep" (blur)="buscarEnderecoPorCep()">
+      <mat-form-field class="full-width">
+        <mat-label>CEP</mat-label>
+        <input matInput placeholder="CEP" formControlName="cep" (blur)="buscarEnderecoPorCep()" required>
+        <mat-error *ngIf="form.get('endereco.cep')?.hasError('required') && form.get('endereco.cep')?.touched">
+          O CEP é obrigatório.
+        </mat-error>
+        <mat-error *ngIf="form.get('endereco.cep')?.hasError('pattern') && form.get('endereco.cep')?.touched">
+          O CEP deve ter 8 dígitos.
+        </mat-error>
       </mat-form-field>
 
-      <mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>Rua</mat-label>
         <input matInput placeholder="Rua" formControlName="rua" readonly>
       </mat-form-field>
     </div>
 
+    <!-- Número e Cidade -->
     <div class="row">
-      <mat-form-field>
-        <input matInput placeholder="Número" formControlName="numero">
+      <mat-form-field class="full-width">
+        <mat-label>Número</mat-label>
+        <input matInput placeholder="Número" formControlName="numero" required>
       </mat-form-field>
 
-      <mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>Cidade</mat-label>
         <input matInput placeholder="Cidade" formControlName="cidade" readonly>
       </mat-form-field>
     </div>
 
-    <mat-form-field>
-      <mat-select placeholder="Estado" formControlName="estado">
+    <!-- Estado -->
+    <mat-form-field class="full-width">
+      <mat-label>Estado</mat-label>
+      <mat-select formControlName="estado" required>
         <mat-option *ngFor="let uf of ufs" [value]="uf">{{ uf }}</mat-option>
       </mat-select>
+      <mat-error *ngIf="form.get('endereco.estado')?.invalid && form.get('endereco.estado')?.touched">
+        O estado é obrigatório.
+      </mat-error>
     </mat-form-field>
   </div>
 
-  <div>
-    <button mat-raised-button color="primary" type="submit">Salvar</button>
-    <button mat-button color="warn" (click)="onClose()">Cancelar</button>
+  <!-- Botões -->
+  <div class="button-group">
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Salvar</button>
+    <button mat-button color="warn" type="button" (click)="onClose()">Cancelar</button>
   </div>
 </form>

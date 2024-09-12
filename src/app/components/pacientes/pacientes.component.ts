@@ -75,6 +75,7 @@ export class PacientesComponent implements OnInit {
     this.pageNumber = 0;
     this.loadPacientes(query);
   }
+
   deletarPaciente(paciente: Paciente) {
     this.pacientesService.deletePaciente(paciente.id).subscribe(
       () => {
@@ -86,4 +87,4 @@ export class PacientesComponent implements OnInit {
       }
     );
   }
-  }
+}
