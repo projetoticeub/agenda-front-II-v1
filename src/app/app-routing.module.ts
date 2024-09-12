@@ -7,13 +7,17 @@ import { PacientesPageComponent } from './page/pacientesPage/pacientesPage.compo
 import { ProfissionaisDeSaudePagesComponent } from './page/profissionaisDeSaudePages/profissionaisDeSaudePages.component';
 import { ConsultasPagesComponent } from './page/consultasPages/consultasPages.component';
 import { ConsultaListaPagesComponent } from './page/consulta-listaPages/consulta-listaPages.component';
+import { RegistroComponent } from './components/registro/registro.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'pacientes', component: PacientesPageComponent },
+   { path: 'consultasl', component: ConsultaListaPagesComponent },
+   { path: 'pacientes', component: PacientesPageComponent },
   { path: 'profissionaisDeSaude', component: ProfissionaisDeSaudePagesComponent },
   { path: 'consultas', component: ConsultasPagesComponent },
-  { path: 'consultasl', component: ConsultaListaPagesComponent },
+  { path: 'registros', component: RegistroComponent },
+
+ 
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/login' } 
 ];

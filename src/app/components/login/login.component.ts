@@ -26,7 +26,7 @@ export class LoginComponent {
       // Se o token foi recebido e armazenado, redireciona para a página de pacientes
       if (token) {
         console.log("Login bem-sucedido, token recebido e armazenado:", token);
-        this.router.navigate(['/pacientes']);  // Redireciona para a lista de pacientes
+        this.router.navigate(['/consultasl']);  // Redireciona para a lista de pacientes
       }
     } catch (error) {
       // Em caso de erro, exibe uma mensagem no console

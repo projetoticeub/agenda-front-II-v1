@@ -42,6 +42,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RegistroComponent } from './components/registro/registro.component';
 import { RegistroPageComponent } from './page/registro-page/registro-page.component';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import { LogoComponent } from './components/logo/logo.component';
 
 
 
@@ -63,6 +64,7 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
     ConsultaListaPagesComponent,
     RegistroComponent,
     RegistroPageComponent,  
+    LogoComponent
    
 
   ],

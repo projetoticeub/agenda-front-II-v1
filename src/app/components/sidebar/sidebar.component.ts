@@ -35,8 +35,8 @@ consultas() {
 listaC() {
   this.router.navigate(['/consultasl']);
 }
-registro() {
-  this.router.navigate(['/registro']);
+registros() {
+  this.router.navigate(['/registros']);
 }
 
 }

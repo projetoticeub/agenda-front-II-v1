@@ -3,6 +3,7 @@ import { MessageService } from 'primeng/api';
 import { ConsultaService } from './../../services/consultas.service';
 import { Consulta } from 'src/app/consulta';
 import { formatDate } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-consulta-lista',
@@ -21,7 +22,9 @@ export class ConsultaListaComponent implements OnInit {
 
   constructor(
     private consultaService: ConsultaService, 
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router,
+
   ) {}
 
   ngOnInit(): void {
@@ -85,6 +88,10 @@ export class ConsultaListaComponent implements OnInit {
     }
   }
 
+  consulta(){
+    this.router.navigate(['/consultas']);
+  }
+  
   // Função que aplica o filtro de data
   aplicarFiltroData(): void {
     const formattedDate = this.obterDataFormatada(this.selectedDate); // Formata a data

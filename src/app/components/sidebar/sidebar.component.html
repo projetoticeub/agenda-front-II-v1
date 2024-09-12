@@ -2,12 +2,12 @@
   <p-sidebar [(visible)]="sidebarVisible">
     <h1>Painel</h1>
     <div class="flex justify-content-center flex-wrap gap-3 mb-4">
-        <p-button (onClick)="clientes()" label="pacientes" icon="pi pi-users" [rounded]="true" severity="info" /><br><br>
-        <p-button (onClick)="pacientes()"  label="profissionais de saúde"icon="pi pi-user" [rounded]="true" severity="info" /><br><br>
-        <p-button (onClick)="consultas()"  label="x"icon="pi pi-search" [rounded]="true" severity="info" /><br><br>
-        <p-button (onClick)="listaC()"  label="consultas"icon="pi pi-list" [rounded]="true" severity="info" /><br><br>
-        <p-button (onClick)="registro()" label="registro" icon="pi pi-list" [rounded]="true" severity="info" /><br><br>
+        <p-button (onClick)="clientes()" label="profissionais de saúde" icon="pi pi-users" [rounded]="true" severity="info" /><br><br>
+        <p-button (onClick)="pacientes()"  label="pacientes"icon="pi pi-user" [rounded]="true" severity="info" /><br><br>
+        <p-button (onClick)="listaC()"  label="consultas"icon="pi pi-search" [rounded]="true" severity="info" /><br><br>
+        <p-button (onClick)="registros()" label="registro" icon="pi pi-list" [rounded]="true" severity="info" /><br><br>
         <p-button (onClick)="out()" icon="pi pi-sign-out" [rounded]="true" severity="out" /><br>
     </div>
   </p-sidebar>
   <p-button (click)="sidebarVisible = true" icon="pi pi-list" class="p-button-code" /></mat-card-actions>
+ 

@@ -13,7 +13,9 @@
         <!-- Botão para pesquisa -->
         <button pButton type="button" label="Pesquisar" (click)="aplicarFiltroData()" [disabled]="!selectedDate"></button>
       </div>
-
+      <button pButton type="button" label="Criar consulta" (click)="consulta()" ></button>
+<br>
+<br>
       <!-- Tabela de Consultas -->
       <p-table *ngIf="consultas.length > 0"
         [value]="consultas"
