@@ -1,0 +1,46 @@
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #dbf8ff;
+  
+    mat-card {
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  
+      mat-card-header {
+        text-align: center;
+  
+        mat-card-title {
+          font-size: 24px;
+          font-weight: bold;
+          color: #333;
+        }
+      }
+  
+      mat-form-field {
+        width: 100%;
+        margin-bottom: 20px;
+  
+        mat-label {
+          color: #333;
+        }
+  
+        input, mat-select {
+          color: #333;
+        }
+      }
+  
+      button {
+        width: 100%;
+        background-color: #53c8eb;
+        color: white;
+        &:hover {
+          background-color: #69daf7;
+        }
+      }
+    }
+  }

@@ -39,6 +39,8 @@ import { ConsultaListaPagesComponent } from './page/consulta-listaPages/consulta
 import { MessageService } from 'primeng/api'; 
 import { ToastModule } from 'primeng/toast'; 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { RegistroComponent } from './components/registro/registro.component';
+import { RegistroPageComponent } from './page/registro-page/registro-page.component';
 
 
 
@@ -57,7 +59,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     AdicionarPacienteComponent,
     AdicionarProfissionalComponent,
     ConsultaListaComponent,
-    ConsultaListaPagesComponent,  
+    ConsultaListaPagesComponent,
+    RegistroComponent,
+    RegistroPageComponent,  
    
 
   ],
