@@ -3,19 +3,42 @@
     <div class="card">
       <h2>Lista de Consultas</h2>
 
-      <!-- Input do Calendário para Filtrar por Data -->
-      <div class="p-inputgroup">
-        <span class="p-inputgroup-addon">
-          <i class="pi pi-calendar"></i>
-        </span>
-        <p-calendar [(ngModel)]="selectedDate" dateFormat="dd/mm/yy"></p-calendar>
-        
-        <!-- Botão para pesquisa -->
-        <button pButton type="button" label="Pesquisar" (click)="aplicarFiltroData()" [disabled]="!selectedDate"></button>
+      <div class="filter-group">
+
+        <!-- Input do Calendário para Filtrar por Data -->
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon">
+            <i class="pi pi-calendar"></i>
+          </span>
+          <p-calendar [(ngModel)]="selectedDate" dateFormat="dd/mm/yy"></p-calendar>
+          <button pButton type="button" label="Pesquisar" (click)="aplicarFiltroData()" [disabled]="!selectedDate"></button>
+        </div>
+
+        <!-- Input para CPF e Botão para pesquisa por CPF -->
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon">
+            <i class="pi pi-id-card"></i>
+          </span>
+          <input pInputText [(ngModel)]="cpf" placeholder="Digite o CPF do paciente">
+          <button pButton type="button" label="Pesquisar" (click)="buscarConsultasPorCpf()" [disabled]="!cpf"></button>
+        </div>
+
+        <!-- Input para Nome Completo e Botão para pesquisa por Nome -->
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon">
+            <i class="pi pi-user"></i>
+          </span>
+          <input pInputText [(ngModel)]="nomeCompleto" placeholder="Digite o nome completo do paciente">
+          <button pButton type="button" label="Pesquisar" (click)="buscarConsultasPorNome()" [disabled]="!nomeCompleto"></button>
+        </div>
+
       </div>
-      <button pButton type="button" label="Criar consulta" (click)="consulta()" ></button>
-<br>
-<br>
+
+      <!-- Botão para criar nova consulta -->
+      <div style="margin-top: 20px;">
+        <button pButton type="button" label="Criar consulta" (click)="consulta()"></button>
+      </div>
+
       <!-- Tabela de Consultas -->
       <p-table *ngIf="consultas.length > 0"
         [value]="consultas"
@@ -25,7 +48,7 @@
         [lazy]="true"
         [loading]="loading"
         dataKey="id">
-        
+
         <!-- Cabeçalho da Tabela -->
         <ng-template pTemplate="header">
           <tr>
@@ -40,7 +63,7 @@
         <ng-template pTemplate="body" let-consulta>
           <tr>
             <td>{{ consulta.paciente }}</td>
-            <td>{{ consulta.profissionalDeSaude }}</td>
+            <td>{{ consulta.profissinalDeSaude }}</td>
             <td>{{ consulta.data | date:'short' }}</td>
             <td>
               <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deletarConsulta(consulta)"></button>
@@ -49,9 +72,9 @@
         </ng-template>
       </p-table>
 
-      <!-- Mensagem caso não haja consultas na data filtrada -->
+      <!-- Mensagem caso não haja consultas -->
       <div *ngIf="noResults && !loading" style="text-align: center; margin-top: 20px;">
-        <p>Não há consulta nesta data.</p>
+        <p>Não há consulta nesta data, com este CPF ou com este nome.</p>
       </div>
     </div>
   </div>

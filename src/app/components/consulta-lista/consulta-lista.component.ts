@@ -13,31 +13,30 @@ import { Router } from '@angular/router';
 export class ConsultaListaComponent implements OnInit {
 
   consultas: Consulta[] = [];
-  totalElements: number = 0; 
+  totalElements: number = 0;
   pageSize: number = 10;
-  loading: boolean = false; 
+  loading: boolean = false;
   selectedDate: Date = new Date();  // Data inicial (hoje)
-  searchQuery: string = '';  // Termo de busca adicional (não usado diretamente no exemplo)
-  noResults: boolean = false; 
+  cpf: string = '';  // CPF do paciente
+  noResults: boolean = false;
+  searchQuery: string = '';  // Adiciona esta propriedade
+  nomeCompleto: string = '';  // Nome completo do paciente para busca
 
   constructor(
-    private consultaService: ConsultaService, 
+    private consultaService: ConsultaService,
     private messageService: MessageService,
-    private router: Router,
-
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.carregarConsultas(0, this.pageSize, this.obterDataFormatada(this.selectedDate));
   }
 
   carregarConsultas(page: number, size: number, date?: string): void {
     this.loading = true;
 
-    // Faz a chamada para o serviço, passando a data e outros parâmetros
     this.consultaService.getConsultas(this.searchQuery, page, size, date).subscribe({
       next: (data: any) => {
-        console.log('Dados recebidos:', data.content); 
+        console.log('Dados recebidos:', data.content);
         this.consultas = data.content;
         this.totalElements = data.totalElements;
         this.noResults = this.consultas.length === 0;
@@ -55,30 +54,28 @@ export class ConsultaListaComponent implements OnInit {
     });
   }
 
-  // Formata a data no formato 'yyyy-MM-dd'
   obterDataFormatada(date: Date): string {
-    return formatDate(date, 'yyyy-MM-dd', 'en');  
+    return formatDate(date, 'yyyy-MM-dd', 'en');
   }
 
-  // Função para deletar uma consulta
   deletarConsulta(consulta: Consulta): void {
     if (consulta.id) {
       if (confirm(`Tem certeza que deseja deletar a consulta de ${consulta.idPaciente}?`)) {
         this.consultaService.deleteConsulta(consulta.id).subscribe({
           next: () => {
-            this.messageService.add({ 
-              severity: 'success', 
-              summary: 'Sucesso', 
-              detail: 'Consulta deletada com sucesso' 
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Sucesso',
+              detail: 'Consulta deletada com sucesso'
             });
             this.carregarConsultas(0, this.pageSize, this.obterDataFormatada(this.selectedDate));
           },
           error: (err: any) => {
             console.error('Erro ao deletar consulta:', err);
-            this.messageService.add({ 
-              severity: 'error', 
-              summary: 'Erro', 
-              detail: 'Erro ao deletar consulta' 
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Erro',
+              detail: 'Erro ao deletar consulta'
             });
           }
         });
@@ -91,11 +88,55 @@ export class ConsultaListaComponent implements OnInit {
   consulta(){
     this.router.navigate(['/consultas']);
   }
-  
-  // Função que aplica o filtro de data
+
   aplicarFiltroData(): void {
     const formattedDate = this.obterDataFormatada(this.selectedDate); // Formata a data
     console.log('Data formatada enviada ao back-end:', formattedDate);  // Log para verificar o valor
     this.carregarConsultas(0, this.pageSize, formattedDate); // Recarrega consultas com a nova data
   }
+
+  buscarConsultasPorCpf(): void {
+    this.loading = true;
+    this.consultaService.getConsultasPorCpf(this.cpf, 0,this.pageSize).subscribe({
+      next: (data: any) => {
+        console.log('Dados recebidos:', data.content);
+        this.consultas = data.content;
+        this.totalElements = data.totalElements;
+        this.noResults = this.consultas.length === 0;
+        this.loading = false;
+      },
+      error: (err: any) => {
+        console.error('Erro ao buscar consultas por CPF:', err);
+        this.loading = false;
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erro',
+          detail: 'Erro ao buscar consultas por CPF'
+        });
+      }
+    });
+  }
+  buscarConsultasPorNome(): void {
+    this.loading = true;
+
+    this.consultaService.getConsultasPorNome(this.nomeCompleto, 0, this.pageSize).subscribe({
+      next: (data: any) => {
+        console.log('Dados recebidos:', data.content);
+        this.consultas = data.content;
+        this.totalElements = data.totalElements;
+        this.noResults = this.consultas.length === 0;
+        this.loading = false;
+      },
+      error: (err: any) => {
+        console.error('Erro ao buscar consultas por CPF:', err);
+        this.loading = false;
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erro',
+          detail: 'Erro ao buscar consultas por CPF'
+        });
+      }
+    });
+  }
+
 }

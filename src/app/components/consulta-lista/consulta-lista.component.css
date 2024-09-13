@@ -60,6 +60,19 @@
         }
       }
 
+      .filter-group {
+        display: flex;
+        gap: 1rem; /* Espaçamento entre os filtros, ajuste conforme necessário */
+        flex-wrap: nowrap; /* Evita que os itens se movam para a linha seguinte */
+        align-items: center; /* Alinha os itens verticalmente ao centro */
+      }
+
+      .p-inputgroup {
+        display: flex;
+        align-items: center; /* Alinha verticalmente os itens dentro do grupo */
+      }
+
+
       p-table {
         .p-datatable-header {
           background-color: #f5f5f5;
