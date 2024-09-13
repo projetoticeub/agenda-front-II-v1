@@ -3,7 +3,7 @@
     <!-- Pesquisa por CPF e Nome Completo lado a lado -->
     <div class="p-d-flex p-jc-center p-ai-center pesquisa-container" style="margin-bottom: 20px;">
       <!-- Pesquisa por CPF -->
-      <div class="p-inputgroup">
+      <div class="p-inputgroup" style="margin-right: 10px;">
         <span class="p-inputgroup-addon">
           <i class="pi pi-id-card"></i>
         </span>
@@ -19,17 +19,20 @@
         <input pInputText [(ngModel)]="nomeCompleto" placeholder="Digite o nome completo do paciente">
         <button pButton type="button" label="Pesquisar" (click)="buscarConsultasPorNome()" [disabled]="!nomeCompleto"></button>
       </div>
+    </div>
 
     <!-- Tabela de Pacientes -->
     <p-table [value]="pacientes"
              [paginator]="true"
              [rows]="pageSize"
-             [totalRecords]="totalElements"
-             [lazy]="true"
+             [totalRecords]="5"
              [loading]="loading"
+             [lazy]="true"
              (onLazyLoad)="onPageChange($event)"
-             dataKey="id">
-
+             dataKey="id"
+             [rowsPerPageOptions]="[10, 20, 30]"
+             [responsiveLayout]="'scroll'">
+      
       <!-- Cabeçalho da Tabela -->
       <ng-template pTemplate="header">
         <tr>
@@ -39,10 +42,11 @@
           <th pSortableColumn="telefone">Telefone <p-sortIcon field="telefone"></p-sortIcon></th>
           <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
           <th pSortableColumn="genero">Gênero <p-sortIcon field="genero"></p-sortIcon></th>
-          <th>    <div style="margin-top: 15px; text-align: right;">
-            <p-button  icon="pi pi-plus" (click)="openCreateDialog()" class="p-button-raised p-button-success"></p-button>
-          </div>
-      </th>
+          <th>
+            <div style="text-align: right;">
+              <p-button icon="pi pi-plus" (click)="openCreateDialog()" class="p-button-raised p-button-success"></p-button>
+            </div>
+          </th>
         </tr>
       </ng-template>
 

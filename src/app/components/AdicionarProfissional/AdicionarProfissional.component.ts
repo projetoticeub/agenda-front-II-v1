@@ -75,24 +75,25 @@ export class AdicionarProfissionalComponent implements OnInit {
     if (this.form.valid) {
       const profissional: ProfissionalDeSaude = {
         id: 0,
-              nomeCompleto: this.form.value.nomeCompleto,
-              cpf: this.form.value.cpf,
-              dataNascimento: this.form.value.dataNascimento,
-              telefone: this.form.value.telefone,
-              email: this.form.value.email,
-              registro: this.form.value.registro,
-              genero: this.form.value.genero,
-              cep: this.form.value.endereco.cep,
-              endereco: `${this.form.value.endereco.rua}, ${this.form.value.endereco.numero}, ${this.form.value.endereco.cidade}, ${this.form.value.endereco.estado}`
-            };
+        nomeCompleto: this.form.value.nomeCompleto,
+        cpf: this.form.value.cpf,
+        dataNascimento: this.form.value.dataNascimento,
+        telefone: this.form.value.telefone,
+        email: this.form.value.email,
+        registro: this.form.value.registro,
+        genero: this.form.value.genero,
+        cep: this.form.value.endereco.cep,
+        endereco: `${this.form.value.endereco.rua}, ${this.form.value.endereco.numero}, ${this.form.value.endereco.cidade}, ${this.form.value.endereco.estado}`
+      };
 
       this.profissionaisDaSaudeService.addProfissional(profissional).subscribe({
         next: (novoProfissional: ProfissionalDeSaude) => {
-          console.log('Paciente salvo com sucesso:', novoProfissional);
+          console.log('Profissional salvo com sucesso:', novoProfissional);
           this.dialogRef.close(novoProfissional);
+          window.location.reload(); // Recarrega a página após salvar o profissional
         },
         error: (error) => {
-          console.error('Erro ao salvar paciente:', error);
+          console.error('Erro ao salvar profissional:', error);
         }
       });
     }

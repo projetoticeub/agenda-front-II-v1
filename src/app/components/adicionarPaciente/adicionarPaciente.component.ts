@@ -77,6 +77,7 @@ export class AdicionarPacienteComponent implements OnInit {
         next: (novoPaciente: Paciente) => {
           console.log('Paciente salvo com sucesso:', novoPaciente);
           this.dialogRef.close(novoPaciente);
+          window.location.reload(); // Recarrega a página após salvar
         },
         error: (error) => {
           console.error('Erro ao salvar paciente:', error);

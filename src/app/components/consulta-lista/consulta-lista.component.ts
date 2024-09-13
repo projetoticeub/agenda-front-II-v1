@@ -29,6 +29,9 @@ export class ConsultaListaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+      // Busca inicial por data ao carregar o componente
+      const formattedDate = this.obterDataFormatada(this.selectedDate); // Formata a data inicial
+      this.carregarConsultas(0, this.pageSize, formattedDate); // Carrega as consultas da data atual
   }
 
   carregarConsultas(page: number, size: number, date?: string): void {

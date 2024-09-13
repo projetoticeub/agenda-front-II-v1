@@ -65,7 +65,9 @@ export class ProfissionaisDeSaudeComponent implements OnInit {
 
   openCreateDialog() {
     const dialogRef = this.dialog.open(AdicionarProfissionalComponent, {
-      width: '400px'
+      width: '400px',
+      height: '700px'
+
     });
 
     dialogRef.afterClosed().subscribe(result => {
