@@ -67,7 +67,7 @@ export class ConsultaService {
       console.error('Token não encontrado');
       return throwError(() => new Error('Token de autenticação não encontrado'));
     }
-    const url = `${this.pacientesUrl}?nomeCompleto=${nomeCompleto}`;
+    const url = `${this.apiUrl}?pacienteNome=${nomeCompleto}`;
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
       return this.http.get<any>(url, { headers }).pipe(
         catchError(error => {
@@ -98,7 +98,7 @@ export class ConsultaService {
       return throwError(() => new Error('Token de autenticação não encontrado'));
     }
 
-    const url = `${this.pacientesUrl}?cpf=${cpf}&page=${page}&size=${size}`;
+    const url = `${this.apiUrl}?pacienteCpf=${cpf}`;
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 

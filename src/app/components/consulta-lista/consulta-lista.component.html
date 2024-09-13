@@ -65,6 +65,7 @@
             <td>{{ consulta.paciente }}</td>
             <td>{{ consulta.profissinalDeSaude }}</td>
             <td>{{ consulta.data | date:'short' }}</td>
+
             <td>
               <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deletarConsulta(consulta)"></button>
             </td>
