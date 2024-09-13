@@ -78,17 +78,38 @@ export class PacientesService {
     );
   }
 
-  // Busca um paciente pelo CPF
-  getPacienteByCPF(cpf: string): Observable<Paciente> {
-    const headers = this.getAuthHeaders();
-    const params = new HttpParams().set('cpf', cpf); // Passa o CPF como parâmetro de query
-  
-    return this.http.get<Paciente>(`${this.apiUrl}/pacientes/cpf`, { headers, params }) // Verifique se o endpoint correto é '/pacientes/cpf'
-      .pipe(
+getConsultasPorNome(nomeCompleto: string, page: number, size: number): Observable<any> {
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      console.error('Token não encontrado');
+      return throwError(() => new Error('Token de autenticação não encontrado'));
+    }
+    const url = `${this.apiUrl}/pacientes?nomeCompleto=${nomeCompleto}`;
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+      return this.http.get<any>(url, { headers }).pipe(
         catchError(error => {
-          console.error('Erro ao buscar paciente pelo CPF:', error);
-          return throwError(() => new Error('Erro ao buscar paciente pelo CPF: ' + error.message));
+          console.error('Erro ao buscar consultas por CPF:', error);
+          return throwError(() => new Error('Erro ao buscar consultas por CPF: ' + error.message));
         })
       );
+ }
+
+  getConsultasPorCpf(cpf: string, page: number, size: number): Observable<any> {
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      console.error('Token não encontrado');
+      return throwError(() => new Error('Token de autenticação não encontrado'));
+    }
+
+    const url = `${this.apiUrl}/pacientes?cpf=${cpf}`;
+    
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.get<any>(url, { headers }).pipe(
+      catchError(error => {
+        console.error('Erro ao buscar consultas por CPF:', error);
+        return throwError(() => new Error('Erro ao buscar consultas por CPF: ' + error.message));
+      })
+    );
   }
 }

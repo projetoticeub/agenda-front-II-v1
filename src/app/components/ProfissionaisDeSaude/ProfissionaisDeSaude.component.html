@@ -1,14 +1,24 @@
 <div class="p-grid">
   <div class="p-col-12">
-    <div class="card">
-      <h2>Lista de Profissionais de Saúde</h2>
+    <!-- Pesquisa por CPF e Nome Completo lado a lado -->
+    <div class="p-d-flex p-jc-center p-ai-center pesquisa-container" style="margin-bottom: 20px;">
+      <!-- Pesquisa por CPF -->
       <div class="p-inputgroup">
         <span class="p-inputgroup-addon">
-          <i class="pi pi-search"></i>
+          <i class="pi pi-id-card"></i>
         </span>
-        <input type="text" pInputText placeholder="Procurar Profissionais" (input)="applyFilterGlobal($event)" />
+        <input pInputText [(ngModel)]="cpf" placeholder="Digite o CPF do paciente">
+        <button pButton type="button" label="Pesquisar" (click)="buscarConsultasPorCpf()" [disabled]="!cpf"></button>
       </div>
 
+      <!-- Input para Nome Completo e Botão para pesquisa por Nome -->
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">
+          <i class="pi pi-user"></i>
+        </span>
+        <input pInputText [(ngModel)]="nomeCompleto" placeholder="Digite o nome completo do paciente">
+        <button pButton type="button" label="Pesquisar" (click)="buscarConsultasPorNome()" [disabled]="!nomeCompleto"></button>
+      </div>
       <p-table [value]="profissionais"
                [paginator]="true"
                [rows]="pageSize"
@@ -27,7 +37,10 @@
             <th pSortableColumn="telefone">Telefone <p-sortIcon field="telefone"></p-sortIcon></th>
             <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
             <th pSortableColumn="genero">Gênero <p-sortIcon field="genero"></p-sortIcon></th>
-            <p-button  mat-button (click)="openCreateDialog()" icon="pi pi-plus" [text]="true" [raised]="true" severity="success" />
+            <th>    <div style="margin-top: 15px; text-align: right;">
+              <p-button  icon="pi pi-plus" (click)="openCreateDialog()" class="p-button-raised p-button-success"></p-button>
+            </div>
+        </th>
           </tr>
         </ng-template>
 

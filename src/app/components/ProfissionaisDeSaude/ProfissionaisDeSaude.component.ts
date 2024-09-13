@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProfissionalDeSaude } from 'src/app/ProfissionaisDeSaude';
 import { AdicionarProfissionalComponent } from '../AdicionarProfissional/AdicionarProfissional.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MessageService } from 'primeng/api';
+
 
 @Component({
   selector: 'app-ProfissionaisDeSaude',
@@ -19,8 +21,12 @@ export class ProfissionaisDeSaudeComponent implements OnInit {
   pageSize = 17;
   totalElements = 0;
   loading = true;
+  noResults: boolean = false;
+  cpf: string = '';  
+  nomeCompleto: string = ''; 
 
-  constructor(private profissionaisDaSaudeService: ProfissionaisDaSaudeService,private dialog: MatDialog) { }
+
+  constructor(private profissionaisDaSaudeService: ProfissionaisDaSaudeService,private dialog: MatDialog,private messageService: MessageService,) { }
 
   ngOnInit(): void {
     this.loadProfissionais();
@@ -94,6 +100,49 @@ export class ProfissionaisDeSaudeComponent implements OnInit {
       },
       error: (error) => {
         console.error('Erro ao carregar profissionais:', error);
+      }
+    });
+  }
+  buscarConsultasPorCpf(): void {
+    this.loading = true;
+    this.profissionaisDaSaudeService.getConsultasPorCpf(this.cpf, 0,this.pageSize).subscribe({
+      next: (data: any) => {
+        console.log('Dados recebidos:', data.content);
+        this.profissionais = data.content;
+        this.totalElements = data.totalElements;
+        this.noResults = this.profissionais.length === 0;
+        this.loading = false;
+      },
+      error: (err: any) => {
+        console.error('Erro ao buscar consultas por CPF:', err);
+        this.loading = false;
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erro',
+          detail: 'Erro ao buscar consultas por CPF'
+        });
+      }
+    });
+  }
+  buscarConsultasPorNome(): void {
+    this.loading = true;
+
+    this.profissionaisDaSaudeService.getConsultasPorNome(this.nomeCompleto, 0, this.pageSize).subscribe({
+      next: (data: any) => {
+        console.log('Dados recebidos:', data.content);
+        this.profissionais = data.content;
+        this.totalElements = data.totalElements;
+        this.noResults = this.profissionais.length === 0;
+        this.loading = false;
+      },
+      error: (err: any) => {
+        console.error('Erro ao buscar consultas por CPF:', err);
+        this.loading = false;
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erro',
+          detail: 'Erro ao buscar consultas por CPF'
+        });
       }
     });
   }

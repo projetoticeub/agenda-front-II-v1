@@ -18,15 +18,18 @@
           margin-bottom: 20px;
           text-align: center;
         }
-  
+        .pesquisa-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 15px; /* Espaçamento entre os dois grupos */
+        }
+        
         .p-inputgroup {
           display: flex;
-          align-items: center;
-          max-width: 400px;
-          margin: 0 auto 20px;
-          border-radius: 5px;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  
+          align-items: center; /* Alinha verticalmente os itens dentro do grupo */
+        }
+        
           .p-inputgroup-addon {
             background-color: #53c8eb;
             color: white;
@@ -38,7 +41,16 @@
               font-size: 1.2em;
             }
           }
-  
+          .centered-input-group {
+            display: flex;
+            justify-content: center; /* Centraliza os itens horizontalmente */
+            align-items: center; /* Centraliza os itens verticalmente */
+            gap: 15px; /* Espaço entre os dois grupos */
+          }
+          
+          .p-inputgroup {
+            flex: 1; /* Faz com que os inputs cresçam igualmente */
+          }
           input[pInputText] {
             flex: 1;
             padding: 10px 15px;
@@ -93,6 +105,10 @@
             }
           }
   
+.nome{
+  margin-left: 700px;
+}
+
           .p-datatable-emptymessage {
             td {
               text-align: center;
@@ -126,5 +142,5 @@
         }
       }
     }
-  }
+  
   

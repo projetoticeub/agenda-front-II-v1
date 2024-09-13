@@ -16,7 +16,6 @@ export interface Consulta {
 export class ConsultaService {
 
   private apiUrl = `${environment.apiUrl}/consultas`;
-  private pacientesUrl = `${environment.apiUrl}/pacientes`;
 
   constructor(private http: HttpClient) { }
 

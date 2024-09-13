@@ -1,55 +1,73 @@
 <div class="p-grid">
   <div class="p-col-12">
-    <div class="card">
-      <h2>Lista de Pacientes</h2>
+    <!-- Pesquisa por CPF e Nome Completo lado a lado -->
+    <div class="p-d-flex p-jc-center p-ai-center pesquisa-container" style="margin-bottom: 20px;">
+      <!-- Pesquisa por CPF -->
       <div class="p-inputgroup">
         <span class="p-inputgroup-addon">
-          <i class="pi pi-search"></i>
+          <i class="pi pi-id-card"></i>
         </span>
-        <input type="text" pInputText placeholder="Procurar Pacientes" (input)="applyFilterGlobal($event)" />
+        <input pInputText [(ngModel)]="cpf" placeholder="Digite o CPF do paciente">
+        <button pButton type="button" label="Pesquisar" (click)="buscarConsultasPorCpf()" [disabled]="!cpf"></button>
       </div>
-    
-      <p-table [value]="pacientes"
-               [paginator]="true"
-               [rows]="pageSize"
-               [totalRecords]="totalElements"
-               [lazy]="true"
-               [loading]="loading"
-               (onLazyLoad)="onPageChange($event)"
-               dataKey="id">
 
-        <ng-template pTemplate="header">
-          <tr>  
-            <th pSortableColumn="nomeCompleto">Nome Completo <p-sortIcon field="nomeCompleto"></p-sortIcon></th>
-            <th pSortableColumn="cpf">CPF <p-sortIcon field="cpf"></p-sortIcon></th>
-            <th pSortableColumn="dataNascimento">Data de Nascimento <p-sortIcon field="dataNascimento"></p-sortIcon></th>
-            <th pSortableColumn="telefone">Telefone <p-sortIcon field="telefone"></p-sortIcon></th>
-            <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
-            <th pSortableColumn="genero">Gênero <p-sortIcon field="genero"></p-sortIcon></th>
-            <p-button  mat-button (click)="openCreateDialog()" icon="pi pi-plus" [text]="true" [raised]="true" severity="success" />
-          </tr>
-        </ng-template>
+      <!-- Input para Nome Completo e Botão para pesquisa por Nome -->
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">
+          <i class="pi pi-user"></i>
+        </span>
+        <input pInputText [(ngModel)]="nomeCompleto" placeholder="Digite o nome completo do paciente">
+        <button pButton type="button" label="Pesquisar" (click)="buscarConsultasPorNome()" [disabled]="!nomeCompleto"></button>
+      </div>
 
-        <ng-template pTemplate="body" let-paciente>
-          <tr>
-            <td>{{ paciente.nomeCompleto }}</td>
-            <td>{{ paciente.cpf }}</td>
-            <td>{{ paciente.dataNascimento | date }}</td>
-            <td>{{ paciente.telefone }}</td>
-            <td>{{ paciente.email }}</td>
-            <td>{{ paciente.genero }}</td>
-            <td>
-              <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deletarPaciente(paciente)"></button>
-            </td>
-          </tr>
-        </ng-template>
+    <!-- Tabela de Pacientes -->
+    <p-table [value]="pacientes"
+             [paginator]="true"
+             [rows]="pageSize"
+             [totalRecords]="totalElements"
+             [lazy]="true"
+             [loading]="loading"
+             (onLazyLoad)="onPageChange($event)"
+             dataKey="id">
 
-        <ng-template pTemplate="emptymessage">
-          <tr>
-            <td colspan="6">Nenhum paciente encontrado.</td>
-          </tr>
-        </ng-template>
-      </p-table>
-    </div>
+      <!-- Cabeçalho da Tabela -->
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="nomeCompleto">Nome Completo <p-sortIcon field="nomeCompleto"></p-sortIcon></th>
+          <th pSortableColumn="cpf">CPF <p-sortIcon field="cpf"></p-sortIcon></th>
+          <th pSortableColumn="dataNascimento">Data de Nascimento <p-sortIcon field="dataNascimento"></p-sortIcon></th>
+          <th pSortableColumn="telefone">Telefone <p-sortIcon field="telefone"></p-sortIcon></th>
+          <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
+          <th pSortableColumn="genero">Gênero <p-sortIcon field="genero"></p-sortIcon></th>
+          <th>    <div style="margin-top: 15px; text-align: right;">
+            <p-button  icon="pi pi-plus" (click)="openCreateDialog()" class="p-button-raised p-button-success"></p-button>
+          </div>
+      </th>
+        </tr>
+      </ng-template>
+
+      <!-- Corpo da Tabela -->
+      <ng-template pTemplate="body" let-paciente>
+        <tr>
+          <td>{{ paciente.nomeCompleto }}</td>
+          <td>{{ paciente.cpf }}</td>
+          <td>{{ paciente.dataNascimento | date }}</td>
+          <td>{{ paciente.telefone }}</td>
+          <td>{{ paciente.email }}</td>
+          <td>{{ paciente.genero }}</td>
+          <td>
+            <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deletarPaciente(paciente)"></button>
+          </td>
+        </tr>
+      </ng-template>
+
+      <!-- Mensagem caso a tabela esteja vazia -->
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="7">Nenhum paciente encontrado.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+
   </div>
 </div>

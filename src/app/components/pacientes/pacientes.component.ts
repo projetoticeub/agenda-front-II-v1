@@ -4,6 +4,7 @@ import { Paciente } from 'src/app/pacientes';
 import { PacientesService } from 'src/app/services/pacientes.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AdicionarPacienteComponent } from '../adicionarPaciente/adicionarPaciente.component';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-pacientes',
@@ -17,8 +18,15 @@ export class PacientesComponent implements OnInit {
   totalElements = 0;
   pacientes: Paciente[] = [];
   loading = true;
+  noResults: boolean = false;
+  cpf: string = '';  // CPF do paciente
+  nomeCompleto: string = '';  // Nome completo do paciente para busca
 
-  constructor(private pacientesService: PacientesService, private dialog: MatDialog) {}
+
+  constructor(private pacientesService: PacientesService, private dialog: MatDialog,
+    private messageService: MessageService,
+
+  ) {}
 
   ngOnInit(): void {
     this.loadPacientes();
@@ -80,11 +88,54 @@ export class PacientesComponent implements OnInit {
     this.pacientesService.deletePaciente(paciente.id).subscribe(
       () => {
         console.log('profissionais deletado com sucesso');
-        this.loadPacientes(); // Atualiza a lista após deletar
+        this.loadPacientes(); 
       },
       error => {
         console.error('Erro ao deletar paciente:', error);
       }
     );
+  }
+  buscarConsultasPorCpf(): void {
+    this.loading = true;
+    this.pacientesService.getConsultasPorCpf(this.cpf, 0,this.pageSize).subscribe({
+      next: (data: any) => {
+        console.log('Dados recebidos:', data.content);
+        this.pacientes = data.content;
+        this.totalElements = data.totalElements;
+        this.noResults = this.pacientes.length === 0;
+        this.loading = false;
+      },
+      error: (err: any) => {
+        console.error('Erro ao buscar consultas por CPF:', err);
+        this.loading = false;
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erro',
+          detail: 'Erro ao buscar consultas por CPF'
+        });
+      }
+    });
+  }
+  buscarConsultasPorNome(): void {
+    this.loading = true;
+
+    this.pacientesService.getConsultasPorNome(this.nomeCompleto, 0, this.pageSize).subscribe({
+      next: (data: any) => {
+        console.log('Dados recebidos:', data.content);
+        this.pacientes = data.content;
+        this.totalElements = data.totalElements;
+        this.noResults = this.pacientes.length === 0;
+        this.loading = false;
+      },
+      error: (err: any) => {
+        console.error('Erro ao buscar consultas por CPF:', err);
+        this.loading = false;
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erro',
+          detail: 'Erro ao buscar consultas por CPF'
+        });
+      }
+    });
   }
 }
