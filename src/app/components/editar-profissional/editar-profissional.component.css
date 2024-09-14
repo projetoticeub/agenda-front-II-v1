@@ -1,0 +1,71 @@
+form {
+  max-width: 600px; /* Limita a largura do formulário */
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+}
+
+h2 {
+  text-align: center;
+  color: #53c8eb; /* Cor padrão */
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.mat-form-field {
+  width: 100%; /* Garante que os campos ocupem toda a largura */
+}
+
+.row {
+  display: flex;
+  gap: 20px;
+}
+
+.full-width {
+  flex: 1; /* Campos compartilhando espaço */
+}
+
+h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button[type="submit"] {
+  background-color: #53c8eb; /* Cor azul padrão */
+  color: white;
+}
+
+button[type="button"] {
+  background-color: #e57373; /* Cor vermelha clara */
+  color: white;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  button {
+    width: 100%; /* Botões ocupam toda a largura em telas menores */
+  }
+}
