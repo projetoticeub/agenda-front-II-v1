@@ -46,18 +46,26 @@ export class PacientesService {
       })
     );
   }
+
   editarPaciente(id: number, paciente: Paciente): Observable<Paciente> {
-  return this.http.put<Paciente>(`${this.apiUrl}/${id}`, paciente, {
-      headers: this.getAuthHeaders()
-    }).pipe(
-      catchError(error => {
-        console.error('Erro ao editar paciente:', error);
-        return throwError(() => new Error('Erro ao editar paciente: ' + error.message));
-      })
-    );
+    const token = localStorage.getItem('accessToken');
+    console.log('Token JWT:', token);  // Loga o token JWT para verificar
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.put<Paciente>(`${this.apiUrl}/pacientes/${id}`, paciente, { headers })
+      .pipe(
+        catchError(error => {
+          console.error('Erro ao editar paciente:', error);
+          return throwError(() => new Error('Erro ao editar paciente: ' + error.message));
+        })
+      );
   }
+
   buscarEnderecoPorCep(cep: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/cep/${cep}`);
+    // Faz a requisição à API do ViaCEP
+    return this.http.get(`https://viacep.com.br/ws/${cep}/json/`);
   }
 
   // Recupera a lista de pacientes, com paginação e busca opcional

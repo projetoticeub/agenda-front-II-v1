@@ -1,6 +1,7 @@
 <h2>Editar Paciente</h2>
 
 <form [formGroup]="form" (ngSubmit)="onSave()">
+  <!-- Primeira linha com Data de Nascimento e Telefone -->
   <div class="row">
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Nome Completo</mat-label>
@@ -10,19 +11,6 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>CPF</mat-label>
-      <input matInput id="cpf" formControlName="cpf" type="text" mask="000.000.000-00" required>
-      <mat-error *ngIf="form.get('cpf')?.hasError('required') && form.get('cpf')?.touched">
-        O CPF é obrigatório.
-      </mat-error>
-      <mat-error *ngIf="form.get('cpf')?.hasError('pattern') && form.get('cpf')?.touched">
-        O CPF deve estar no formato correto.
-      </mat-error>
-    </mat-form-field>
-  </div>
-
-  <div class="row">
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Data de Nascimento</mat-label>
       <input matInput id="dataNascimento" formControlName="dataNascimento" type="date" required>
@@ -40,30 +28,36 @@
     </mat-form-field>
   </div>
 
-  <mat-form-field appearance="fill" class="full-width">
-    <mat-label>Email</mat-label>
-    <input matInput id="email" formControlName="email" type="email" required>
-    <mat-error *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">
-      O email é obrigatório.
-    </mat-error>
-    <mat-error *ngIf="form.get('email')?.hasError('email') && form.get('email')?.touched">
-      O email deve ser válido.
-    </mat-error>
-  </mat-form-field>
+  <!-- Segunda linha com Email e Gênero -->
+  <div class="row">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput id="email" formControlName="email" type="email" required>
+      <mat-error *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">
+        O email é obrigatório.
+      </mat-error>
+      <mat-error *ngIf="form.get('email')?.hasError('email') && form.get('email')?.touched">
+        O email deve ser válido.
+      </mat-error>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill" class="full-width">
-    <mat-label>Gênero</mat-label>
-    <mat-select id="genero" formControlName="genero" required>
-      <mat-option value="Masculino">Masculino</mat-option>
-      <mat-option value="Feminino">Feminino</mat-option>
-    </mat-select>
-    <mat-error *ngIf="form.get('genero')?.hasError('required') && form.get('genero')?.touched">
-      O gênero é obrigatório.
-    </mat-error>
-  </mat-form-field>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Gênero</mat-label>
+      <mat-select id="genero" formControlName="genero" required>
+        <mat-option value="Masculino">Masculino</mat-option>
+        <mat-option value="Feminino">Feminino</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('genero')?.hasError('required') && form.get('genero')?.touched">
+        O gênero é obrigatório.
+      </mat-error>
+    </mat-form-field>
+  </div>
 
+  <!-- Endereço -->
   <div formGroupName="endereco">
     <h3>Endereço</h3>
+
+    <!-- Linha com CEP e Rua -->
     <div class="row">
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>CEP</mat-label>
@@ -72,20 +66,17 @@
           O CEP é obrigatório.
         </mat-error>
         <mat-error *ngIf="form.get('endereco.cep')?.hasError('pattern') && form.get('endereco.cep')?.touched">
-          O CEP deve estar no formato correto.
+          O CEP deve ter 8 dígitos.
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Rua</mat-label>
-        <input matInput id="rua" formControlName="rua" type="text" readonly>
-      </mat-form-field>
     </div>
 
+    <!-- Linha com Número e Cidade -->
     <div class="row">
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Número</mat-label>
-        <input matInput id="numero" formControlName="numero" type="text" required>
+        <input matInput formControlName="numero" type="text" required>
         <mat-error *ngIf="form.get('endereco.numero')?.hasError('required') && form.get('endereco.numero')?.touched">
           O número é obrigatório.
         </mat-error>
@@ -93,14 +84,15 @@
 
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Cidade</mat-label>
-        <input matInput id="cidade" formControlName="cidade" type="text" readonly>
+        <input matInput formControlName="cidade" type="text" readonly>
       </mat-form-field>
     </div>
 
+    <!-- Campo de Estado -->
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Estado</mat-label>
-      <mat-select id="estado" formControlName="estado" required>
-        <mat-option *ngFor="let uf of ufs" [value]="uf">{{ uf }}</mat-option>
+      <mat-select formControlName="estado" required>
+        <mat-option *ngFor="let estado of ufs" [value]="estado">{{ estado }}</mat-option>
       </mat-select>
       <mat-error *ngIf="form.get('endereco.estado')?.hasError('required') && form.get('endereco.estado')?.touched">
         O estado é obrigatório.
@@ -108,7 +100,8 @@
     </mat-form-field>
   </div>
 
-  <div class="row">
+  <!-- Botões de Ação -->
+  <div class="button-row" style="display: flex; justify-content: space-between; margin-top: 20px;">
     <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Salvar</button>
     <button mat-raised-button color="warn" type="button" (click)="onClose()">Cancelar</button>
   </div>

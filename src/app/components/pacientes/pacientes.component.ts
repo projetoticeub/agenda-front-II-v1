@@ -104,10 +104,12 @@ export class PacientesComponent implements OnInit {
             const index = this.pacientes.findIndex(p => p.id === paciente.id);
             if (index !== -1) {
               this.pacientes[index] = pacienteAtualizado;
+              this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Paciente atualizado com sucesso!' });
             }
           },
           error: (error: HttpErrorResponse) => {
             console.error('Erro ao editar paciente:', error.message);
+            this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Erro ao editar paciente' });
           }
         });
       }
