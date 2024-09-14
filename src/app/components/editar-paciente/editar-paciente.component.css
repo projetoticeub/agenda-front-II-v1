@@ -1,0 +1,54 @@
+form {
+  max-width: 600px; /* Ajuste a largura máxima do formulário */
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+}
+
+h2 {
+  text-align: center;
+  color: #53c8eb; /* Cor azul padrão */
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.mat-form-field {
+  width: 100%; /* Ocupa toda a largura disponível */
+}
+
+.row {
+  display: flex;
+  gap: 20px;
+}
+
+.full-width {
+  flex: 1; /* Campos compartilham espaço igualmente */
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button[type="submit"] {
+  background-color: #53c8eb; /* Azul padrão */
+  color: white;
+}
+
+button[type="button"] {
+  background-color: #e57373; /* Vermelho claro para o botão de cancelar */
+  color: white;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+button:active {
+  transform: scale(0.98);
+}
