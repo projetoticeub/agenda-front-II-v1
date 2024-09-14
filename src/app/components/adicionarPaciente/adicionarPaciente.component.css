@@ -1,40 +1,86 @@
 form {
-    max-width: 800px; /* Limita a largura para evitar rolagem lateral */
-    margin: 0 auto; /* Centraliza o formulário */
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* Espaçamento reduzido entre os campos */
-  }
-  
-  .row {
-    display: flex;
-    gap: 10px; /* Menor espaçamento entre os campos */
-  }
-  
-  .row mat-form-field {
-    flex: 1; /* Faz com que os campos compartilhem o espaço igualmente */
-  }
-  
-  h2, h3 {
-    font-size: 18px; /* Reduz o tamanho dos títulos */
-  }
-  
-  mat-form-field {
-    width: 100%; /* Garante que os campos ocupem a largura disponível */
-  }
-  
-  button {
-    width: 48%; /* Reduz a largura dos botões */
-  }
-  
-  .row-buttons {
-    display: flex;
-    justify-content: space-between; /* Botões ficam lado a lado */
-    margin-top: 10px;
-  }
-  
-  body, html {
-    height: 100%; /* Garante que a página use 100% da altura */
-  }
-  
-  
+  max-width: 100%; /* Limita a largura para evitar rolagem lateral */
+  margin: 20px auto; /* Centraliza o formulário */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px; /* Espaçamento reduzido entre os campos */
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  height: 700px; /* Altura definida */
+}
+
+h2 {
+  text-align: center;
+  color: #53c8eb;
+  font-size: 24px; /* Mantém o título em destaque */
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input, select {
+  width: 80%;
+  padding: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.row {
+  display: flex;
+  gap: 5px;
+}
+
+.row mat-form-field {
+  flex: 1; /* Faz com que os campos compartilhem o espaço igualmente */
+}
+
+.row div {
+  flex: 1; /* Flexibilidade igual para todos os campos na mesma linha */
+}
+
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button[type="submit"] {
+  background-color: #53c8eb;
+  color: white;
+  font-weight: bold;
+}
+
+button[type="button"] {
+  background-color: #e0e0e0;
+  color: black;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+.row-buttons {
+  display: flex;
+  justify-content: space-between; /* Botões lado a lado */
+  margin-top: 10px;
+}
+
+div[formGroupName="endereco"] {
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+}
+
+
