@@ -17,9 +17,9 @@ const routes: Routes = [
   { path: 'consultas', component: ConsultasPagesComponent },
   { path: 'registros', component: RegistroComponent },
 
- 
+
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', redirectTo: '/login' } 
+  { path: '**', redirectTo: '/login' }
 ];
 
 @NgModule({

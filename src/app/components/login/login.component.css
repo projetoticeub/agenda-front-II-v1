@@ -1,88 +1,105 @@
+/* Container de login */
 .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #dbf8ff;
-  
-    mat-card {
-      width: 100%;
-      max-width: 400px;
-      padding: 20px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      border-radius: 10px;
-      background-color: #fff;
-  
-      mat-card-header {
-        text-align: center;
-        padding-bottom: 10px;
-  
-        mat-card-title {
-          font-size: 24px;
-          font-weight: bold;
-          color: #333;
-        }
-      }
-  
-      mat-form-field {
-        width: 100%;
-        margin-bottom: 20px;
-  
-        mat-label {
-          color: #333;
-          font-weight: 500;
-        }
-  
-        input {
-          color: #333;
-        }
-  
-        mat-icon {
-          color: #333;
-        }
-  
-        button[mat-icon-button] {
-          color: #333;
-  
-          &:hover {
-            color: #69daf7;
-          }
-        }
-      }
-  
-      button {
-        width: 100%;
-        background-color: #53c8eb;
-        color: white;
-        font-weight: bold;
-        padding: 10px;
-        border-radius: 5px;
-        text-transform: uppercase;
-  
-        &:hover {
-          background-color: #69daf7;
-        }
-      }
-  
-      mat-card-actions {
-        text-align: center;
-        margin-top: 20px;
-  
-        p {
-          font-size: 14px;
-          color: #333;
-  
-          a {
-            color: #69daf7;
-            text-decoration: none;
-            cursor: pointer;
-  
-            &:hover {
-              text-decoration: underline;
-            }
-          }
-        }
-      }
-    }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #dbf8ff;
+}
+
+/* Estilos do mat-card */
+mat-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+/* Estilos do cabeçalho do mat-card */
+mat-card-header {
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+mat-card-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+
+
+.custom-toast .p-toast-close {
+  display: none; /* Remove o botão de fechar */
+}
+
+/* Ajuste do ícone de fechar */
+.custom-toast .p-toast-close-icon {
+  font-size: 1rem; /* Ajuste o tamanho do ícone de fechar */
+  line-height: 1rem; /* Ajuste a altura da linha para alinhar o ícone */
+  padding: 0.25rem; /* Ajuste o preenchimento para reduzir o tamanho do botão */
+}
+
+/* Estilos para campos de formulário e botões */
+mat-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+mat-label {
+  color: #333;
+  font-weight: 500;
+}
+
+input {
+  color: #333;
+}
+
+mat-icon {
+  color: #333;
+}
+
+button[mat-icon-button] {
+  color: #333;
+
+  &:hover {
+    color: #69daf7;
   }
-  
+}
+
+button {
+  width: 100%;
+  background-color:  #69daf7;;
+  color: white;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+  text-transform: uppercase;
+
+  &:hover {
+    background-color: #69daf7;
+  }
+}
+
+/* Estilos das ações do mat-card */
+mat-card-actions {
+  text-align: center;
+  margin-top: 20px;
+}
+
+p {
+  font-size: 14px;
+  color: #333;
+}
+
+a {
+  color: #69daf7;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

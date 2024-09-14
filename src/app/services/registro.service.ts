@@ -35,9 +35,9 @@ export class RegistroService {
   }
 
   // Método de registro (apenas para exemplificar, pode não precisar de headers autenticados)
-  register(user: any): Observable<any> {
+  register(usuario: any): Observable<any> {
     const headers = this.getAuthHeaders(); // Pegue os headers autenticados
-    return this.http.post<any>(`${this.apiUrl}`, user, { headers });
+    return this.http.post<any>(`${this.apiUrl}`, usuario, { headers });
   }
 
   // Exemplo de requisição autenticada

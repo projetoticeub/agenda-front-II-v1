@@ -36,13 +36,14 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { AdicionarProfissionalComponent } from './components/AdicionarProfissional/AdicionarProfissional.component';
 import { ConsultaListaComponent } from './components/consulta-lista/consulta-lista.component';
 import { ConsultaListaPagesComponent } from './page/consulta-listaPages/consulta-listaPages.component';
-import { MessageService } from 'primeng/api'; 
-import { ToastModule } from 'primeng/toast'; 
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RegistroComponent } from './components/registro/registro.component';
 import { RegistroPageComponent } from './page/registro-page/registro-page.component';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { LogoComponent } from './components/logo/logo.component';
+import { EditarPacienteComponent } from './components/editar-paciente/editar-paciente.component';
 
 
 
@@ -63,9 +64,10 @@ import { LogoComponent } from './components/logo/logo.component';
     ConsultaListaComponent,
     ConsultaListaPagesComponent,
     RegistroComponent,
-    RegistroPageComponent,  
-    LogoComponent
-   
+    RegistroPageComponent,
+    LogoComponent,
+EditarPacienteComponent
+
 
   ],
   imports: [
@@ -83,18 +85,19 @@ import { LogoComponent } from './components/logo/logo.component';
     TableModule,
     ButtonModule,
     SidebarModule,
-    PanelModule, 
-    InputNumberModule,  
-    CalendarModule,   
+    PanelModule,
+    InputNumberModule,
+    CalendarModule,
     MatSelectModule,
     ReactiveFormsModule,
     MatDialogModule,
     ToastModule,
     MatSnackBarModule,
-    NgxMaskDirective    
-  
-    
-    
+    NgxMaskDirective,
+    AppRoutingModule,
+    BrowserModule,
+ToastModule
+
   ],
   providers: [MessageService,   provideNgxMask()],
   bootstrap: [AppComponent]

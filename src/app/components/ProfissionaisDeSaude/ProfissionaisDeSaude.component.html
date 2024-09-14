@@ -20,13 +20,16 @@
         <button pButton type="button" label="Pesquisar" (click)="buscarConsultasPorNome()" [disabled]="!nomeCompleto"></button>
       </div>
       <p-table [value]="profissionais"
-               [paginator]="true"
-               [rows]="pageSize"
-               [totalRecords]="totalElements"
-               [lazy]="true"
-               [loading]="loading"
-               (onLazyLoad)="onPageChange($event)"
-               dataKey="id">
+         [paginator]="true"
+         [rows]="pageSize"
+         [totalRecords]="totalElements"
+         [loading]="loading"
+         [lazy]="true"
+         (onLazyLoad)="onPageChange($event)"
+         dataKey="id"
+         [rowsPerPageOptions]="[2,10, 20, 30]"
+         [responsiveLayout]="'scroll'">
+
 
         <ng-template pTemplate="header">
           <tr>

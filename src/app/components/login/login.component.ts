@@ -1,40 +1,35 @@
 import { AutenticacaoService } from './../../services/autenticacao.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api'; // Importe o MessageService
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers: [MessageService] // Adicione o MessageService aos provedores
 })
 export class LoginComponent {
-
   username: string = '';
   password: string = '';
-  hide = true;
+  hide: boolean = true;
 
   constructor(
     private AutenticacaoService: AutenticacaoService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private messageService: MessageService // Injete o MessageService
+  ) {}
 
   async login() {
     try {
-      // Tenta autenticar o usuário e armazenar o token
-      const token = await this.AutenticacaoService.loginAuth(this.username, this.password);
-      
-      // Se o token foi recebido e armazenado, redireciona para a página de pacientes
-      if (token) {
-        console.log("Login bem-sucedido, token recebido e armazenado:", token);
-        this.router.navigate(['/consultasl']);  // Redireciona para a lista de pacientes
-      }
-    } catch (error) {
-      // Em caso de erro, exibe uma mensagem no console
-      console.error("Erro no login", error);
+      await this.AutenticacaoService.loginAuth(this.username, this.password);
+      this.router.navigate(['/consultasl']);
+    } catch (error: any) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Erro de Login',
+        detail: 'E-mail ou senha inválidos' || error.message
+      });
     }
-  }
-
-  navigateToRegister() {
-    this.router.navigate(['/register']);
   }
 }

@@ -1,7 +1,7 @@
-import { RegistroService } from './../../services/registro.service';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RegistroService } from './../../services/registro.service';
 
 @Component({
   selector: 'app-registro',
@@ -12,7 +12,11 @@ export class RegistroComponent {
   hide = true;
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private RegistroService: RegistroService, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private registroService: RegistroService,
+    private router: Router
+  ) {
     // Inicializando o formulário
     this.registerForm = this.fb.group({
       login: ['', Validators.required],
@@ -23,10 +27,10 @@ export class RegistroComponent {
 
   onSubmit() {
     if (this.registerForm.valid) {
-      const user = this.registerForm.value;
+      const usuario = this.registerForm.value;
+      console.log('Dados do usuário:', usuario);
 
-      // Chamando o método de registro no AuthService que usa o environment
-      this.RegistroService.register(user).subscribe({
+      this.registroService.register(usuario).subscribe({
         next: (res) => {
           console.log('Usuário registrado com sucesso:', res);
           this.router.navigate(['/login']);
@@ -35,6 +39,9 @@ export class RegistroComponent {
           console.error('Erro ao registrar o usuário:', err);
         }
       });
+    } else {
+      console.log('Formulário inválido', this.registerForm.errors);
     }
   }
+
 }

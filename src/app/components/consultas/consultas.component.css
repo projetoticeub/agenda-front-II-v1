@@ -22,6 +22,16 @@
         color: #333;
       }
     }
+    .custom-toast .p-toast-close {
+      display: none; /* Remove o botão de fechar */
+    }
+
+    .custom-toast .p-toast-close-icon {
+      font-size: 1rem; /* Ajuste o tamanho do ícone de fechar */
+      line-height: 1rem; /* Ajuste a altura da linha para alinhar o ícone */
+      padding: 0.25rem; /* Ajuste o preenchimento para reduzir o tamanho do botão */
+    }
+
 .consulta-criada-container {
   background-color: #f0f8ff; /* Cor de fundo suave */
   border: 2px solid #53c8eb; /* Borda azul clara */

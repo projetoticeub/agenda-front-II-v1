@@ -22,8 +22,8 @@ export class ProfissionaisDeSaudeComponent implements OnInit {
   totalElements = 0;
   loading = true;
   noResults: boolean = false;
-  cpf: string = '';  
-  nomeCompleto: string = ''; 
+  cpf: string = '';
+  nomeCompleto: string = '';
 
 
   constructor(private profissionaisDaSaudeService: ProfissionaisDaSaudeService,private dialog: MatDialog,private messageService: MessageService,) { }
@@ -51,15 +51,27 @@ export class ProfissionaisDeSaudeComponent implements OnInit {
       );
   }
 
-  onPageChange(event: any): void {
-    this.pageNumber = event.page;
-    this.pageSize = event.rows;
-    this.loadProfissionais(this.query);
-  }
+  onPageChange(event: any) {
+    const page = event.first / event.rows; // Calcula o número da página (first é o índice inicial dos elementos)
+    const pageSize = event.rows; // Define o número de itens por página
 
+    this.buscarPacientes(page, pageSize);
+  }
+  buscarPacientes(page: number, size: number) {
+    this.loading = true;
+
+    this.profissionaisDaSaudeService.getProfissionais('', page, size).subscribe(response => {
+      this.profissionais = response.content; // Ajuste a estrutura do dado de acordo com a resposta do backend
+      this.totalElements = response.totalElements; // Total de pacientes para a paginação
+      this.loading = false;
+    }, error => {
+      console.error('Erro ao carregar pacientes:', error);
+      this.loading = false;
+    });
+  }
   applyFilterGlobal($event: any): void {
     this.query = $event.target.value || '';
-    this.pageNumber = 0; 
+    this.pageNumber = 0;
     this.loadProfissionais(this.query);
   }
 

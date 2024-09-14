@@ -23,7 +23,7 @@ export class PacientesService {
 
     // Verifica se o token está expirado
     const decodedToken = JSON.parse(atob(token.split('.')[1]));
-    const expTime = decodedToken.exp * 1000; 
+    const expTime = decodedToken.exp * 1000;
     if (Date.now() > expTime) {
       console.error('Token expirado');
       throw new Error('Token expirado');
@@ -46,6 +46,19 @@ export class PacientesService {
       })
     );
   }
+  editarPaciente(id: number, paciente: Paciente): Observable<Paciente> {
+  return this.http.put<Paciente>(`${this.apiUrl}/${id}`, paciente, {
+      headers: this.getAuthHeaders()
+    }).pipe(
+      catchError(error => {
+        console.error('Erro ao editar paciente:', error);
+        return throwError(() => new Error('Erro ao editar paciente: ' + error.message));
+      })
+    );
+  }
+  buscarEnderecoPorCep(cep: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/cep/${cep}`);
+  }
 
   // Recupera a lista de pacientes, com paginação e busca opcional
   getPacientes(query: string = "", pageNumber: number = 0, pageSize: number = 17): Observable<any> {
@@ -56,7 +69,7 @@ export class PacientesService {
     if (query) {
       params = params.set('search', query);
     }
-    
+
     return this.http.get(`${this.apiUrl}/pacientes/active`, { headers: this.getAuthHeaders(), params })
       .pipe(
         catchError(error => {
@@ -102,7 +115,7 @@ getConsultasPorNome(nomeCompleto: string, page: number, size: number): Observabl
     }
 
     const url = `${this.apiUrl}/pacientes?cpf=${cpf}`;
-    
+
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     return this.http.get<any>(url, { headers }).pipe(

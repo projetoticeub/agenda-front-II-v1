@@ -25,14 +25,14 @@
     <p-table [value]="pacientes"
              [paginator]="true"
              [rows]="pageSize"
-             [totalRecords]="5"
+             [totalRecords]="totalElements"
              [loading]="loading"
              [lazy]="true"
              (onLazyLoad)="onPageChange($event)"
              dataKey="id"
-             [rowsPerPageOptions]="[10, 20, 30]"
+             [rowsPerPageOptions]="[2,10, 20, 30]"
              [responsiveLayout]="'scroll'">
-      
+
       <!-- Cabeçalho da Tabela -->
       <ng-template pTemplate="header">
         <tr>
@@ -60,6 +60,9 @@
           <td>{{ paciente.email }}</td>
           <td>{{ paciente.genero }}</td>
           <td>
+            <!-- Botão de Editar -->
+            <button pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-warning" (click)="openEditDialog(paciente)"></button>
+            <!-- Botão de Deletar -->
             <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deletarPaciente(paciente)"></button>
           </td>
         </tr>
@@ -72,6 +75,5 @@
         </tr>
       </ng-template>
     </p-table>
-
   </div>
 </div>
