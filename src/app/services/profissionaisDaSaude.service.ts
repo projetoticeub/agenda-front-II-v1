@@ -42,19 +42,14 @@ export class ProfissionaisDaSaudeService {
     }
 
     return this.http.get(`${this.apiUrl}/profissionais-de-saude/active`, { headers: this.getAuthHeaders(), params })
-      .pipe(
-        catchError(this.handleError)
-      );
+      .pipe(catchError(this.handleError));
   }
 
   addProfissional(profissionalDeSaude: ProfissionalDeSaude): Observable<ProfissionalDeSaude> {
     return this.http.post<ProfissionalDeSaude>(`${this.apiUrl}/profissionais-de-saude`, profissionalDeSaude, {
       headers: this.getAuthHeaders()
     }).pipe(
-      catchError(error => {
-        console.error('Erro ao adicionar profissional de saúde:', error);
-        return throwError(() => new Error('Erro ao adicionar profissional de saúde: ' + error.message));
-      })
+      catchError(error => throwError(() => new Error('Erro ao adicionar profissional de saúde: ' + error.message)))
     );
   }
 
@@ -62,19 +57,14 @@ export class ProfissionaisDaSaudeService {
     return this.http.put<ProfissionalDeSaude>(`${this.apiUrl}/profissionais-de-saude/${id}`, profissionalDeSaude, {
       headers: this.getAuthHeaders()
     }).pipe(
-      catchError(error => {
-        console.error('Erro ao editar profissional de saúde:', error);
-        return throwError(() => new Error('Erro ao editar profissional de saúde: ' + error.message));
-      })
+      catchError(error => throwError(() => new Error('Erro ao editar profissional de saúde: ' + error.message)))
     );
   }
 
   deleteProfissional(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/profissionais-de-saude/${id}`, {
       headers: this.getAuthHeaders()
-    }).pipe(
-      catchError(this.handleError)
-    );
+    }).pipe(catchError(this.handleError));
   }
 
   buscarEnderecoPorCep(cep: string): Observable<any> {
@@ -82,27 +72,19 @@ export class ProfissionaisDaSaudeService {
   }
 
   getConsultasPorNome(nomeCompleto: string, page: number, size: number): Observable<any> {
-    const token = localStorage.getItem('accessToken');
-    if (!token) {
-      return throwError(() => new Error('Token de autenticação não encontrado'));
-    }
     const url = `${this.apiUrl}/profissionais-de-saude?nomeCompleto=${nomeCompleto}`;
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<any>(url, { headers }).pipe(
+    return this.http.get<any>(url, {
+      headers: this.getAuthHeaders()
+    }).pipe(
       catchError(error => throwError(() => new Error('Erro ao buscar consultas por nome: ' + error.message)))
     );
   }
 
   getConsultasPorCpf(cpf: string, page: number, size: number): Observable<any> {
-    const token = localStorage.getItem('accessToken');
-    if (!token) {
-      return throwError(() => new Error('Token de autenticação não encontrado'));
-    }
-
     const url = `${this.apiUrl}/profissionais-de-saude?cpf=${cpf}`;
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
-    return this.http.get<any>(url, { headers }).pipe(
+    return this.http.get<any>(url, {
+      headers: this.getAuthHeaders()
+    }).pipe(
       catchError(error => throwError(() => new Error('Erro ao buscar consultas por CPF: ' + error.message)))
     );
   }

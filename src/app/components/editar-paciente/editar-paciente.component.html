@@ -1,7 +1,6 @@
 <h2>Editar Paciente</h2>
 
 <form [formGroup]="form" (ngSubmit)="onSave()">
-  <!-- Primeira linha com Nome Completo, Data de Nascimento e Telefone -->
   <div class="row">
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Nome Completo</mat-label>
@@ -28,7 +27,6 @@
     </mat-form-field>
   </div>
 
-  <!-- Segunda linha com Email e Gênero -->
   <div class="row">
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Email</mat-label>
@@ -53,16 +51,14 @@
     </mat-form-field>
   </div>
 
-  <!-- Endereço -->
   <div formGroupName="endereco">
     <h3>Endereço</h3>
 
-    <!-- Linha com CEP e Rua -->
     <div class="row">
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>CEP</mat-label>
         <input matInput id="cep" formControlName="cep" type="text" required (blur)="buscarEnderecoPorCep()">
-        <mat-hint align="start">Insira um CEP válido para preencher automaticamente o endereço</mat-hint>
+        <mat-hint align="start" class="hint-vermelho">INSIRA UM CEP PARA VALIDAR</mat-hint>
         <mat-error *ngIf="form.get('endereco.cep')?.hasError('required') && form.get('endereco.cep')?.touched">
           O CEP é obrigatório.
         </mat-error>
@@ -72,7 +68,6 @@
       </mat-form-field>
     </div>
 
-    <!-- Linha com Número e Cidade -->
     <div class="row">
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Número</mat-label>
@@ -88,7 +83,6 @@
       </mat-form-field>
     </div>
 
-    <!-- Campo de Estado -->
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Estado</mat-label>
       <mat-select formControlName="estado" required>
@@ -100,7 +94,6 @@
     </mat-form-field>
   </div>
 
-  <!-- Botões de Ação -->
   <div class="button-row" style="display: flex; justify-content: space-between; margin-top: 20px;">
     <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Salvar</button>
     <button mat-raised-button color="warn" type="button" (click)="onClose()">Cancelar</button>

@@ -13,9 +13,9 @@ import { Component, OnInit } from '@angular/core';
 export class AdicionarProfissionalComponent implements OnInit {
   form!: FormGroup;
   ufs: string[] = [
-    'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 
+    'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI',
     'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'
-  ]; // Lista de estados brasileiros
+  ];
 
   constructor(
     private fb: FormBuilder,
@@ -25,17 +25,16 @@ export class AdicionarProfissionalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Inicialização do formulário com validações
     this.form = this.fb.group({
       nomeCompleto: ['', Validators.required],
-      cpf: ['', [Validators.required, Validators.pattern(/^\d{11}$/)]], // CPF com 11 dígitos
+      cpf: ['', [Validators.required, Validators.pattern(/^\d{11}$/)]],
       dataNascimento: ['', Validators.required],
       telefone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      registro: ['', [Validators.required, Validators.pattern(/^\d{4,10}$/)]], // Registro com 4 a 10 dígitos
+      registro: ['', [Validators.required, Validators.pattern(/^\d{4,10}$/)]],
       genero: ['', Validators.required],
       endereco: this.fb.group({
-        cep: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]], // CEP com 8 dígitos
+        cep: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]],
         rua: [''],
         numero: [''],
         cidade: [''],
@@ -44,7 +43,6 @@ export class AdicionarProfissionalComponent implements OnInit {
     });
   }
 
-  // Método para buscar endereço via API usando o CEP
   buscarEnderecoPorCep(): void {
     const cep = this.form.get('endereco.cep')?.value;
     if (cep && cep.length === 8) {
@@ -90,7 +88,7 @@ export class AdicionarProfissionalComponent implements OnInit {
         next: (novoProfissional: ProfissionalDeSaude) => {
           console.log('Profissional salvo com sucesso:', novoProfissional);
           this.dialogRef.close(novoProfissional);
-          window.location.reload(); // Recarrega a página após salvar o profissional
+          window.location.reload();
         },
         error: (error) => {
           console.error('Erro ao salvar profissional:', error);
@@ -99,12 +97,10 @@ export class AdicionarProfissionalComponent implements OnInit {
     }
   }
 
-  // Método para fechar o diálogo
   onClose(): void {
     this.dialogRef.close();
   }
 
-  // Tratamento de erros da requisição
   private handleError(error: any): void {
     console.error('Erro ao salvar profissional:', error);
     if (error.status === 403) {

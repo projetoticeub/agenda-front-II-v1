@@ -34,7 +34,6 @@
     </mat-card-content>
   </mat-card>
 
-  <!-- Mensagem de sucesso -->
   <div *ngIf="consultaCriada" class="consulta-info">
     <h2>Consulta criada com sucesso!</h2>
     <p><strong>ID da Consulta:</strong> {{ consultaCriada.id }}</p>
@@ -44,6 +43,5 @@
     <p><strong>Descrição:</strong> {{ consultaCriada.descricao || 'Sem descrição' }}</p>
   </div>
 
-  <!-- Toast para mensagens -->
   <p-toast position="top-right" class="custom-toast"></p-toast>
 </div>

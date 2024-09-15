@@ -16,25 +16,19 @@ export class AutenticacaoService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    
+
     const body = { login: username, senha: password };
-  
+
     try {
       const response = await firstValueFrom(this.http.post<any>(this.endpointToken, body, { headers }));
-      const token = response.tokenJWT;  // Atualize aqui para corresponder ao nome correto da propriedade
-  
-      console.log('Resposta do login:', response);
-      console.log('Token recebido:', token);
-  
-      // Armazena o token no localStorage
+      const token = response.tokenJWT;
+
       if (token) {
         localStorage.setItem('accessToken', token);
-        console.log('Token armazenado no localStorage:', token);
       }
-  
-      return token;  // Retorna o token para possíveis usos adicionais
+
+      return token;
     } catch (error) {
-      console.error('Erro no login:', error);
       throw error;
     }
   }

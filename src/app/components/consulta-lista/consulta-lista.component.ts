@@ -16,11 +16,11 @@ export class ConsultaListaComponent implements OnInit {
   totalElements: number = 0;
   pageSize: number = 10;
   loading: boolean = false;
-  selectedDate: Date = new Date();  // Data inicial (hoje)
-  cpf: string = '';  // CPF do paciente
+  selectedDate: Date = new Date();
+  cpf: string = '';
   noResults: boolean = false;
-  searchQuery: string = '';  // Adiciona esta propriedade
-  nomeCompleto: string = '';  // Nome completo do paciente para busca
+  searchQuery: string = '';
+  nomeCompleto: string = '';
 
   constructor(
     private consultaService: ConsultaService,
@@ -31,33 +31,28 @@ export class ConsultaListaComponent implements OnInit {
   ngOnInit(): void {
     const showWelcomeMessage = localStorage.getItem('welcomeMessage');
     if (showWelcomeMessage === 'true') {
-      // Exibe a mensagem de boas-vindas
       this.messageService.add({
         severity: 'success',
         summary: 'Bem-vindo',
         detail: 'Seja bem-vindo!',
         life: 3000
       });
-      // Remove o estado de boas-vindas para que a mensagem não apareça sempre
       localStorage.removeItem('bem vindo');
     }
-      const formattedDate = this.obterDataFormatada(this.selectedDate); // Formata a data inicial
-      this.carregarConsultas(0, this.pageSize, formattedDate); // Carrega as consultas da data atual
+    const formattedDate = this.obterDataFormatada(this.selectedDate);
+    this.carregarConsultas(0, this.pageSize, formattedDate);
   }
 
   carregarConsultas(page: number, size: number, date?: string): void {
     this.loading = true;
-
     this.consultaService.getConsultas(this.searchQuery, page, size, date).subscribe({
       next: (data: any) => {
-        console.log('Dados recebidos:', data.content);
         this.consultas = data.content;
         this.totalElements = data.totalElements;
         this.noResults = this.consultas.length === 0;
         this.loading = false;
       },
-      error: (err: any) => {
-        console.error('Erro ao carregar consultas:', err);
+      error: () => {
         this.loading = false;
         this.messageService.add({
           severity: 'error',
@@ -73,54 +68,46 @@ export class ConsultaListaComponent implements OnInit {
   }
 
   deletarConsulta(consulta: Consulta): void {
-    if (consulta.id) {
-      if (confirm(`Tem certeza que deseja deletar a consulta de ${consulta.idPaciente}?`)) {
-        this.consultaService.deleteConsulta(consulta.id).subscribe({
-          next: () => {
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Sucesso',
-              detail: 'Consulta deletada com sucesso'
-            });
-            this.carregarConsultas(0, this.pageSize, this.obterDataFormatada(this.selectedDate));
-          },
-          error: (err: any) => {
-            console.error('Erro ao deletar consulta:', err);
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Erro',
-              detail: 'Erro ao deletar consulta'
-            });
-          }
-        });
-      }
-    } else {
-      console.error('ID da consulta está indefinido.');
+    if (consulta.id && confirm(`Tem certeza que deseja deletar a consulta de ${consulta.idPaciente}?`)) {
+      this.consultaService.deleteConsulta(consulta.id).subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Sucesso',
+            detail: 'Consulta deletada com sucesso'
+          });
+          this.carregarConsultas(0, this.pageSize, this.obterDataFormatada(this.selectedDate));
+        },
+        error: () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Erro',
+            detail: 'Erro ao deletar consulta'
+          });
+        }
+      });
     }
   }
 
-  consulta(){
+  consulta() {
     this.router.navigate(['/consultas']);
   }
 
   aplicarFiltroData(): void {
-    const formattedDate = this.obterDataFormatada(this.selectedDate); // Formata a data
-    console.log('Data formatada enviada ao back-end:', formattedDate);  // Log para verificar o valor
-    this.carregarConsultas(0, this.pageSize, formattedDate); // Recarrega consultas com a nova data
+    const formattedDate = this.obterDataFormatada(this.selectedDate);
+    this.carregarConsultas(0, this.pageSize, formattedDate);
   }
 
   buscarConsultasPorCpf(): void {
     this.loading = true;
-    this.consultaService.getConsultasPorCpf(this.cpf, 0,this.pageSize).subscribe({
+    this.consultaService.getConsultasPorCpf(this.cpf, 0, this.pageSize).subscribe({
       next: (data: any) => {
-        console.log('Dados recebidos:', data.content);
         this.consultas = data.content;
         this.totalElements = data.totalElements;
         this.noResults = this.consultas.length === 0;
         this.loading = false;
       },
-      error: (err: any) => {
-        console.error('Erro ao buscar consultas por CPF:', err);
+      error: () => {
         this.loading = false;
         this.messageService.add({
           severity: 'error',
@@ -130,19 +117,17 @@ export class ConsultaListaComponent implements OnInit {
       }
     });
   }
+
   buscarConsultasPorNome(): void {
     this.loading = true;
-
     this.consultaService.getConsultasPorNome(this.nomeCompleto, 0, this.pageSize).subscribe({
       next: (data: any) => {
-        console.log('Dados recebidos:', data.content);
         this.consultas = data.content;
         this.totalElements = data.totalElements;
         this.noResults = this.consultas.length === 0;
         this.loading = false;
       },
-      error: (err: any) => {
-        console.error('Erro ao buscar consultas por CPF:', err);
+      error: () => {
         this.loading = false;
         this.messageService.add({
           severity: 'error',
@@ -152,5 +137,4 @@ export class ConsultaListaComponent implements OnInit {
       }
     });
   }
-
 }

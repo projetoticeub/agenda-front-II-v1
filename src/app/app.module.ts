@@ -1,21 +1,18 @@
 import { EditarProfissionalComponent } from './components/editar-profissional/editar-profissional.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Necessário para animações do Angular Material
-import { FormsModule } from '@angular/forms'; // Para usar [(ngModel)]
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card'; // Importa o MatCardModule
+import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
-
-
 import { TableModule } from 'primeng/table';
-
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component'; // Caminho correto para o componente
+import { LoginComponent } from './components/login/login.component';
 import { RouterModule } from '@angular/router';
 import { LoginPageComponent } from './page/loginPage/loginPage.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -46,8 +43,6 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { LogoComponent } from './components/logo/logo.component';
 import { EditarPacienteComponent } from './components/editar-paciente/editar-paciente.component';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,41 +62,41 @@ import { EditarPacienteComponent } from './components/editar-paciente/editar-pac
     RegistroComponent,
     RegistroPageComponent,
     LogoComponent,
-EditarPacienteComponent,
-EditarProfissionalComponent
-
-
+    EditarPacienteComponent,
+    EditarProfissionalComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    HttpClientModule,
+    AppRoutingModule,
+
+    // Angular Material Modules
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     MatIconModule,
     MatCardModule,
-    RouterModule,
-    HttpClientModule,
-    AppRoutingModule,
+    MatSelectModule,
+    MatDialogModule,
+    MatSnackBarModule,
+
+    // PrimeNG Modules
     TableModule,
-    ButtonModule,
     SidebarModule,
+    ButtonModule,
     PanelModule,
     InputNumberModule,
     CalendarModule,
-    MatSelectModule,
-    ReactiveFormsModule,
-    MatDialogModule,
     ToastModule,
-    MatSnackBarModule,
-    NgxMaskDirective,
-    AppRoutingModule,
-    BrowserModule,
-ToastModule
 
+    // Directives
+    NgxMaskDirective
   ],
-  providers: [MessageService,   provideNgxMask()],
+  providers: [MessageService, provideNgxMask()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

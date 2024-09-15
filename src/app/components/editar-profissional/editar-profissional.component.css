@@ -1,5 +1,5 @@
 form {
-  max-width: 600px; /* Limita a largura do formulário */
+  max-width: 600px;
   margin: 20px auto;
   padding: 20px;
   background-color: #f9f9f9;
@@ -9,13 +9,17 @@ form {
 
 h2 {
   text-align: center;
-  color: #53c8eb; /* Cor padrão */
+  color: #53c8eb;
   font-size: 24px;
   margin-bottom: 20px;
 }
 
 .mat-form-field {
-  width: 100%; /* Garante que os campos ocupem toda a largura */
+  width: 100%;
+}
+
+.hint-vermelho {
+  color: red;
 }
 
 .row {
@@ -24,7 +28,7 @@ h2 {
 }
 
 .full-width {
-  flex: 1; /* Campos compartilhando espaço */
+  flex: 1;
 }
 
 h3 {
@@ -42,12 +46,12 @@ button {
 }
 
 button[type="submit"] {
-  background-color: #53c8eb; /* Cor azul padrão */
+  background-color: #53c8eb;
   color: white;
 }
 
 button[type="button"] {
-  background-color: #e57373; /* Cor vermelha clara */
+  background-color: #e57373;
   color: white;
 }
 
@@ -66,6 +70,6 @@ button:active {
   }
 
   button {
-    width: 100%; /* Botões ocupam toda a largura em telas menores */
+    width: 100%;
   }
 }

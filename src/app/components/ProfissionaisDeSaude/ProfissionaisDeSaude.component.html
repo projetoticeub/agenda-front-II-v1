@@ -1,8 +1,6 @@
 <div class="p-grid">
   <div class="p-col-12">
-    <!-- Pesquisa por CPF e Nome Completo lado a lado -->
     <div class="p-d-flex p-jc-center p-ai-center pesquisa-container" style="margin-bottom: 20px;">
-      <!-- Pesquisa por CPF -->
       <div class="p-inputgroup">
         <span class="p-inputgroup-addon">
           <i class="pi pi-id-card"></i>
@@ -11,7 +9,6 @@
         <button pButton type="button" label="Pesquisar" (click)="buscarConsultasPorCpf()" [disabled]="!cpf"></button>
       </div>
 
-      <!-- Input para Nome Completo e Botão para pesquisa por Nome -->
       <div class="p-inputgroup">
         <span class="p-inputgroup-addon">
           <i class="pi pi-user"></i>
@@ -19,57 +16,57 @@
         <input pInputText [(ngModel)]="nomeCompleto" placeholder="Digite o nome completo do profissional">
         <button pButton type="button" label="Pesquisar" (click)="buscarConsultasPorNome()" [disabled]="!nomeCompleto"></button>
       </div>
-      <p-table [value]="profissionais"
-         [paginator]="true"
-         [rows]="pageSize"
-         [totalRecords]="totalElements"
-         [loading]="loading"
-         [lazy]="true"
-         (onLazyLoad)="onPageChange($event)"
-         dataKey="id"
-         [rowsPerPageOptions]="[2,10, 20, 30]"
-         [responsiveLayout]="'scroll'">
-
-
-        <ng-template pTemplate="header">
-          <tr>
-            <th pSortableColumn="nomeCompleto">Nome Completo</th>
-            <th pSortableColumn="cpf">CPF</th>
-            <th pSortableColumn="registro">Registro</th>
-            <th pSortableColumn="dataNascimento">Data de Nascimento</th>
-            <th pSortableColumn="telefone">Telefone</th>
-            <th pSortableColumn="email">Email</th>
-            <th pSortableColumn="genero">Gênero</th>
-            <th>    <div style="margin-top: 15px; text-align: right;">
-<!--              <button pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-warning" (click)="openEditDialog(paciente)"></button>-->
-              <p-button  icon="pi pi-plus" (click)="openCreateDialog()" class="p-button-raised p-button-success"></p-button>
-            </div>
-        </th>
-          </tr>
-        </ng-template>
-
-        <ng-template pTemplate="body" let-profissional>
-          <tr>
-            <td>{{ profissional.nomeCompleto }}</td>
-            <td>{{ profissional.cpf }}</td>
-            <td>{{ profissional.registro }}</td>
-            <td>{{ profissional.dataNascimento | date }}</td>
-            <td>{{ profissional.telefone }}</td>
-            <td>{{ profissional.email }}</td>
-            <td>{{ profissional.genero }}</td>
-            <td>
-            <button pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-warning" (click)="openEditDialog(profissional)"></button>
-              <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deletarProfissional(profissional)"></button>
-            </td>
-          </tr>
-        </ng-template>
-
-        <ng-template pTemplate="emptymessage">
-          <tr>
-            <td colspan="7">Nenhum profissional encontrado.</td>
-          </tr>
-        </ng-template>
-      </p-table>
     </div>
+
+    <p-table [value]="profissionais"
+             [paginator]="true"
+             [rows]="pageSize"
+             [totalRecords]="totalElements"
+             [loading]="loading"
+             [lazy]="true"
+             (onLazyLoad)="onPageChange($event)"
+             dataKey="id"
+             [rowsPerPageOptions]="[2, 10, 20, 30]"
+             [responsiveLayout]="'scroll'">
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="nomeCompleto">Nome Completo</th>
+          <th pSortableColumn="cpf">CPF</th>
+          <th pSortableColumn="registro">Registro</th>
+          <th pSortableColumn="dataNascimento">Data de Nascimento</th>
+          <th pSortableColumn="telefone">Telefone</th>
+          <th pSortableColumn="email">Email</th>
+          <th pSortableColumn="genero">Gênero</th>
+          <th>
+            <div style="margin-top: 15px; text-align: right;">
+              <p-button icon="pi pi-plus" (click)="openCreateDialog()" class="p-button-raised p-button-success"></p-button>
+            </div>
+          </th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-profissional>
+        <tr>
+          <td>{{ profissional.nomeCompleto }}</td>
+          <td>{{ profissional.cpf }}</td>
+          <td>{{ profissional.registro }}</td>
+          <td>{{ profissional.dataNascimento | date }}</td>
+          <td>{{ profissional.telefone }}</td>
+          <td>{{ profissional.email }}</td>
+          <td>{{ profissional.genero }}</td>
+          <td>
+            <button pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-warning" (click)="openEditDialog(profissional)"></button>
+            <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deletarProfissional(profissional)"></button>
+          </td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="7">Nenhum profissional encontrado.</td>
+        </tr>
+      </ng-template>
+    </p-table>
   </div>
 </div>

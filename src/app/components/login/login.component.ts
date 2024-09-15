@@ -11,7 +11,7 @@ import { AutenticacaoService } from 'src/app/services/autenticacao.service';
 export class LoginComponent {
   username: string = '';
   password: string = '';
-  hide = true;  // Para alternar a visibilidade da senha
+  hide = true;
 
   constructor(
     private authService: AutenticacaoService,
@@ -22,19 +22,15 @@ export class LoginComponent {
   onLogin() {
     this.authService.loginAuth(this.username, this.password)
       .then(() => {
-        // Exibe a mensagem de sucesso ao efetuar login
         this.messageService.add({
           severity: 'success',
           summary: 'Login bem-sucedido',
           detail: 'Seja bem-vindo!',
           life: 3000
         });
-
-        // Redireciona para a página principal ou dashboard
         this.router.navigate(['/consultasl']);
       })
       .catch((error) => {
-        // Exibe a mensagem de erro ao falhar no login
         this.messageService.add({
           severity: 'error',
           summary: 'Erro de Login',

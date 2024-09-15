@@ -1,7 +1,6 @@
 <h2>Adicionar Paciente</h2>
 
 <form [formGroup]="form" (ngSubmit)="onSave()">
-  <!-- Linha com Nome Completo e CPF -->
   <div class="row">
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Nome Completo</mat-label>
@@ -23,7 +22,6 @@
     </mat-form-field>
   </div>
 
-  <!-- Linha com Data de Nascimento e Telefone -->
   <div class="row">
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Data de Nascimento</mat-label>
@@ -42,7 +40,6 @@
     </mat-form-field>
   </div>
 
-  <!-- Campo de Email -->
   <mat-form-field appearance="fill" class="full-width">
     <mat-label>Email</mat-label>
     <input matInput id="email" formControlName="email" type="email" required>
@@ -54,7 +51,6 @@
     </mat-error>
   </mat-form-field>
 
-  <!-- Campo de Gênero -->
   <mat-form-field appearance="fill" class="full-width">
     <mat-label>Gênero</mat-label>
     <mat-select id="genero" formControlName="genero" required>
@@ -66,11 +62,9 @@
     </mat-error>
   </mat-form-field>
 
-  <!-- Endereço -->
   <div formGroupName="endereco">
     <h3>Endereço</h3>
 
-    <!-- Linha com CEP e Rua -->
     <div class="row">
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>CEP</mat-label>
@@ -89,7 +83,6 @@
       </mat-form-field>
     </div>
 
-    <!-- Linha com Número e Cidade -->
     <div class="row">
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Número</mat-label>
@@ -105,7 +98,6 @@
       </mat-form-field>
     </div>
 
-    <!-- Campo de Estado -->
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Estado</mat-label>
       <mat-select id="estado" formControlName="estado" required>
@@ -117,7 +109,6 @@
     </mat-form-field>
   </div>
 
-  <!-- Botões de Ação -->
   <div class="row">
     <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Salvar</button>
     <button mat-raised-button color="warn" type="button" (click)="onClose()">Cancelar</button>

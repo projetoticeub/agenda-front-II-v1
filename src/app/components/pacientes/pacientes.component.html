@@ -1,8 +1,6 @@
 <div class="p-grid">
   <div class="p-col-12">
-    <!-- Pesquisa por CPF e Nome Completo lado a lado -->
     <div class="p-d-flex p-jc-center p-ai-center pesquisa-container" style="margin-bottom: 20px;">
-      <!-- Pesquisa por CPF -->
       <div class="p-inputgroup" style="margin-right: 10px;">
         <span class="p-inputgroup-addon">
           <i class="pi pi-id-card"></i>
@@ -10,8 +8,6 @@
         <input pInputText [(ngModel)]="cpf" placeholder="Digite o CPF do paciente">
         <button pButton type="button" label="Pesquisar" (click)="buscarConsultasPorCpf()" [disabled]="!cpf"></button>
       </div>
-
-      <!-- Input para Nome Completo e Botão para pesquisa por Nome -->
       <div class="p-inputgroup">
         <span class="p-inputgroup-addon">
           <i class="pi pi-user"></i>
@@ -21,7 +17,6 @@
       </div>
     </div>
 
-    <!-- Tabela de Pacientes -->
     <p-table [value]="pacientes"
              [paginator]="true"
              [rows]="pageSize"
@@ -33,7 +28,6 @@
              [rowsPerPageOptions]="[2,10, 20, 30]"
              [responsiveLayout]="'scroll'">
 
-      <!-- Cabeçalho da Tabela -->
       <ng-template pTemplate="header">
         <tr>
           <th pSortableColumn="nomeCompleto">Nome Completo</th>
@@ -50,7 +44,6 @@
         </tr>
       </ng-template>
 
-      <!-- Corpo da Tabela -->
       <ng-template pTemplate="body" let-paciente>
         <tr>
           <td>{{ paciente.nomeCompleto }}</td>
@@ -60,15 +53,12 @@
           <td>{{ paciente.email }}</td>
           <td>{{ paciente.genero }}</td>
           <td>
-            <!-- Botão de Editar -->
             <button pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-warning" (click)="openEditDialog(paciente)"></button>
-            <!-- Botão de Deletar -->
             <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deletarPaciente(paciente)"></button>
           </td>
         </tr>
       </ng-template>
 
-      <!-- Mensagem caso a tabela esteja vazia -->
       <ng-template pTemplate="emptymessage">
         <tr>
           <td colspan="7">Nenhum paciente encontrado.</td>

@@ -1,74 +1,74 @@
 form {
-    max-width: 400px; /* Diminui a largura do formulário */
-    margin: 20px auto;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    background-color: #f9f9f9;
-    border: 1px solid #e0e0e0;
-    border-radius: 10px;
-    height: 700px;
-  }
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  height: 700px;
+}
 
-  h2 {
-    text-align: center;
-    color: #53c8eb;
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
+h2 {
+  text-align: center;
+  color: #53c8eb;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
 
-  label {
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
 
-  input, select {
-    width: 80%;
-    padding: 5px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
+input, select {
+  width: 80%;
+  padding: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
 
-  .row {
-    display: flex;
-    gap: 5px;
-  }
+.row {
+  display: flex;
+  gap: 5px;
+}
 
-  .row div {
-    flex: 1;
-  }
+.row div {
+  flex: 1;
+}
 
-  button {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
-  button[type="submit"] {
-    background-color: #53c8eb;
-    color: white;
-    font-weight: bold;
-  }
+button[type="submit"] {
+  background-color: #53c8eb;
+  color: white;
+  font-weight: bold;
+}
 
-  button[type="button"] {
-    background-color: #e0e0e0;
-    color: black;
-  }
+button[type="button"] {
+  background-color: #e0e0e0;
+  color: black;
+}
 
-  button:hover {
-    opacity: 0.9;
-  }
+button:hover {
+  opacity: 0.9;
+}
 
-  button:active {
-    transform: scale(0.98);
-  }
+button:active {
+  transform: scale(0.98);
+}
 
-  div[formGroupName="endereco"] {
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f0f0f0;
-  }
+div[formGroupName="endereco"] {
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+}

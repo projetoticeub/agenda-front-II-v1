@@ -40,15 +40,11 @@ export class PacientesService {
   }
 
   editarPaciente(id: number, paciente: Paciente): Observable<Paciente> {
-    const token = localStorage.getItem('accessToken');
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    });
-    return this.http.put<Paciente>(`${this.apiUrl}/pacientes/${id}`, paciente, { headers })
-      .pipe(
-        catchError(error => throwError(() => new Error('Erro ao editar paciente: ' + error.message)))
-      );
+    return this.http.put<Paciente>(`${this.apiUrl}/pacientes/${id}`, paciente, {
+      headers: this.getAuthHeaders()
+    }).pipe(
+      catchError(error => throwError(() => new Error('Erro ao editar paciente: ' + error.message)))
+    );
   }
 
   buscarEnderecoPorCep(cep: string): Observable<any> {
@@ -79,27 +75,19 @@ export class PacientesService {
   }
 
   getConsultasPorNome(nomeCompleto: string, page: number, size: number): Observable<any> {
-    const token = localStorage.getItem('accessToken');
-    if (!token) {
-      return throwError(() => new Error('Token de autenticação não encontrado'));
-    }
     const url = `${this.apiUrl}/pacientes?nomeCompleto=${nomeCompleto}`;
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<any>(url, { headers }).pipe(
-      catchError(error => throwError(() => new Error('Erro ao buscar consultas por CPF: ' + error.message)))
+    return this.http.get<any>(url, {
+      headers: this.getAuthHeaders()
+    }).pipe(
+      catchError(error => throwError(() => new Error('Erro ao buscar consultas por nome: ' + error.message)))
     );
   }
 
   getConsultasPorCpf(cpf: string, page: number, size: number): Observable<any> {
-    const token = localStorage.getItem('accessToken');
-    if (!token) {
-      return throwError(() => new Error('Token de autenticação não encontrado'));
-    }
-
     const url = `${this.apiUrl}/pacientes?cpf=${cpf}`;
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
-    return this.http.get<any>(url, { headers }).pipe(
+    return this.http.get<any>(url, {
+      headers: this.getAuthHeaders()
+    }).pipe(
       catchError(error => throwError(() => new Error('Erro ao buscar consultas por CPF: ' + error.message)))
     );
   }

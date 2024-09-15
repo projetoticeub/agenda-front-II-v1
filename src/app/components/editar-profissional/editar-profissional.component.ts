@@ -21,7 +21,7 @@ export class EditarProfissionalComponent implements OnInit {
     private http: HttpClient,
     private profissionaisService: ProfissionaisDaSaudeService,
     private dialogRef: MatDialogRef<EditarProfissionalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any // Injeta os dados do profissional via MAT_DIALOG_DATA
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.form = this.fb.group({
       nomeCompleto: ['', Validators.required],
@@ -32,7 +32,7 @@ export class EditarProfissionalComponent implements OnInit {
       registro: ['', Validators.required],
       genero: ['', Validators.required],
       endereco: this.fb.group({
-        cep: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]], // Validação para 8 dígitos
+        cep: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]],
         rua: [{ value: '', disabled: true }],
         numero: ['', Validators.required],
         cidade: [{ value: '', disabled: true }],
@@ -61,12 +61,12 @@ export class EditarProfissionalComponent implements OnInit {
         }
       });
 
-      // Opcional: Buscar endereço por CEP se for necessário
       if (this.profissional.endereco?.cep) {
         this.buscarEnderecoPorCep();
       }
     }
   }
+
   buscarEnderecoPorCep(): void {
     const cep = this.form.get('endereco.cep')?.value;
     if (cep && cep.length === 8) {

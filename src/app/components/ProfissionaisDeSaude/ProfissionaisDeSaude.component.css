@@ -3,143 +3,145 @@
   padding: 20px;
   background-color: #dbf8ff;
   min-height: 100vh;
+}
 
-  .p-col-12 {
-    .card {
-      padding: 20px;
-      background-color: #ffffff;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      border-radius: 10px;
+.p-col-12 {
+  .card {
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
 
-      h2 {
-        font-size: 24px;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 20px;
+    h2 {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .pesquisa-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .p-inputgroup {
+      display: flex;
+      align-items: center;
+    }
+
+    .p-inputgroup-addon {
+      background-color: #53c8eb;
+      color: white;
+      padding: 10px 15px;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+
+      i {
+        font-size: 1.2em;
+      }
+    }
+
+    .centered-input-group {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .p-inputgroup {
+      flex: 1;
+    }
+
+    input[pInputText] {
+      flex: 1;
+      padding: 10px 15px;
+      border: none;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      color: #333;
+      font-size: 1em;
+      outline: none;
+
+      &::placeholder {
+        color: #666;
+        font-style: italic;
+      }
+
+      &:focus {
+        box-shadow: 0 0 0 2px rgba(83, 200, 235, 0.5);
+      }
+    }
+  }
+
+  p-table {
+    .p-datatable-header {
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    .p-datatable-thead {
+      th {
+        text-align: left;
+        background-color: #69daf7;
+        color: white;
+        padding: 10px;
+
+        p-sortIcon {
+          margin-left: 10px;
+        }
+      }
+    }
+
+    .p-datatable-tbody {
+      tr {
+        td {
+          padding: 10px;
+          color: #333;
+          border-bottom: 1px solid #f0f0f0;
+        }
+
+        &:hover {
+          background-color: #e0f7fa;
+        }
+      }
+    }
+
+    .nome {
+      margin-left: 700px;
+    }
+
+    .p-datatable-emptymessage {
+      td {
         text-align: center;
+        color: #666;
+        font-style: italic;
       }
-      .pesquisa-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 15px; /* Espaçamento entre os dois grupos */
-      }
+    }
 
-      .p-inputgroup {
-        display: flex;
-        align-items: center; /* Alinha verticalmente os itens dentro do grupo */
-      }
+    .p-paginator {
+      background-color: #f5f5f5;
+      border-top: 1px solid #f0f0f0;
 
-        .p-inputgroup-addon {
-          background-color: #53c8eb;
-          color: white;
-          padding: 10px 15px;
-          border-top-left-radius: 5px;
-          border-bottom-left-radius: 5px;
-
-          i {
-            font-size: 1.2em;
-          }
-        }
-        .centered-input-group {
-          display: flex;
-          justify-content: center; /* Centraliza os itens horizontalmente */
-          align-items: center; /* Centraliza os itens verticalmente */
-          gap: 15px; /* Espaço entre os dois grupos */
-        }
-
-        .p-inputgroup {
-          flex: 1; /* Faz com que os inputs cresçam igualmente */
-        }
-        input[pInputText] {
-          flex: 1;
-          padding: 10px 15px;
+      .p-paginator-pages {
+        button {
+          background-color: transparent;
+          color: #333;
           border: none;
-          border-top-right-radius: 5px;
-          border-bottom-right-radius: 5px;
-          color: #333;
-          font-size: 1em;
-          outline: none;
+          cursor: pointer;
 
-          &::placeholder {
-            color: #666;
-            font-style: italic;
+          &:hover {
+            color: #53c8eb;
           }
 
-          &:focus {
-            box-shadow: 0 0 0 2px rgba(83, 200, 235, 0.5);
-          }
-        }
-      }
-
-      p-table {
-        .p-datatable-header {
-          background-color: #f5f5f5;
-          color: #333;
-        }
-
-        .p-datatable-thead {
-          th {
-            text-align: left;
-            background-color: #69daf7;
+          &.p-highlight {
+            background-color: #53c8eb;
             color: white;
-            padding: 10px;
-
-            p-sortIcon {
-              margin-left: 10px;
-            }
-          }
-        }
-
-        .p-datatable-tbody {
-          tr {
-            td {
-              padding: 10px;
-              color: #333;
-              border-bottom: 1px solid #f0f0f0;
-            }
-
-            &:hover {
-              background-color: #e0f7fa;
-            }
-          }
-        }
-
-        .nome{
-          margin-left: 700px;
-        }
-
-        .p-datatable-emptymessage {
-          td {
-            text-align: center;
-            color: #666;
-            font-style: italic;
-          }
-        }
-
-        .p-paginator {
-          background-color: #f5f5f5;
-          border-top: 1px solid #f0f0f0;
-
-          .p-paginator-pages {
-            button {
-              background-color: transparent;
-              color: #333;
-              border: none;
-              cursor: pointer;
-
-              &:hover {
-                color: #53c8eb;
-              }
-
-              &.p-highlight {
-                background-color: #53c8eb;
-                color: white;
-              }
-            }
           }
         }
       }
     }
   }
-
+}

@@ -16,10 +16,9 @@ export class SidebarComponent{
     private router: Router,
   ){}
 
-
-  out() {
-    localStorage.removeItem('token');  // Remover token
-    this.router.navigate(['/login']);  // Redirecionar para login
+out() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
 clientes() {
   this.router.navigate(['/profissionaisDeSaude']);

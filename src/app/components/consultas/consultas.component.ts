@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';  // Importe o MessageService do PrimeNG
+import { MessageService } from 'primeng/api';
 import { PacientesService } from 'src/app/services/pacientes.service';
 import { ProfissionaisDaSaudeService } from './../../services/profissionaisDaSaude.service';
 import { ProfissionalDeSaude } from 'src/app/ProfissionaisDeSaude';
@@ -9,7 +9,7 @@ import { Consulta, ConsultaService } from 'src/app/services/consultas.service';
   selector: 'app-consultas',
   templateUrl: './consultas.component.html',
   styleUrls: ['./consultas.component.css'],
-  providers: [MessageService]  // Adicione o MessageService como provider
+  providers: [MessageService]
 })
 export class ConsultasComponent implements OnInit {
   novaConsulta: Consulta = {
@@ -26,12 +26,12 @@ export class ConsultasComponent implements OnInit {
     private consultaService: ConsultaService,
     private profissionaisDaSaudeService: ProfissionaisDaSaudeService,
     private PacientesService: PacientesService,
-    private messageService: MessageService  // Injete o MessageService
+    private messageService: MessageService
   ) { }
 
   ngOnInit(): void {
     this.carregarProfissionaisDeSaude();
-    this.carregarPacientes(); // Carrega os pacientes na inicialização
+    this.carregarPacientes();
   }
 
   criarConsulta(): void {

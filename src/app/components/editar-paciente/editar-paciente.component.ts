@@ -2,7 +2,7 @@ import { PacientesService } from 'src/app/services/pacientes.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Inject } from '@angular/core'; // Para injeção de dados
+import { Inject } from '@angular/core';
 import { Paciente } from 'src/app/pacientes';
 
 @Component({
@@ -19,7 +19,7 @@ export class EditarPacienteComponent implements OnInit {
     private fb: FormBuilder,
     private pacientesService: PacientesService,
     private dialogRef: MatDialogRef<EditarPacienteComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any  // Injeta os dados do paciente via MAT_DIALOG_DATA
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.form = this.fb.group({
       nomeCompleto: ['', [Validators.required]],
@@ -28,7 +28,7 @@ export class EditarPacienteComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       genero: ['', Validators.required],
       endereco: this.fb.group({
-        cep: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]],  // Permite o formato XXXXXXXX (sem hífen)
+        cep: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]],
         rua: [{ value: '', disabled: true }],
         numero: ['', Validators.required],
         cidade: [{ value: '', disabled: true }],
@@ -38,7 +38,6 @@ export class EditarPacienteComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Inicializa o formulário com os dados do paciente recebidos
     if (this.data && this.data.paciente) {
       this.paciente = this.data.paciente;
       this.form.patchValue({
@@ -56,8 +55,6 @@ export class EditarPacienteComponent implements OnInit {
           estado: this.paciente.endereco?.estado
         }
       });
-
-      // Chama a função para buscar o endereço baseado no CEP automaticamente
       this.buscarEnderecoPorCep();
     }
   }
@@ -65,12 +62,10 @@ export class EditarPacienteComponent implements OnInit {
   buscarEnderecoPorCep(): void {
     const cep = this.form.get('endereco.cep')?.value;
 
-    // Verifica se o CEP tem o formato correto antes de fazer a requisição
     if (cep && cep.length === 8) {
       this.pacientesService.buscarEnderecoPorCep(cep).subscribe({
         next: (endereco) => {
           if (!endereco.erro) {
-            // Preenche os campos de Rua, Cidade e Estado com os valores retornados pela API
             this.form.patchValue({
               endereco: {
                 rua: endereco.logradouro,
@@ -92,7 +87,7 @@ export class EditarPacienteComponent implements OnInit {
   onSave(): void {
     if (this.form.valid) {
       const pacienteAtualizado: Paciente = {
-        id: this.paciente.id,  // Mantemos o ID do paciente original
+        id: this.paciente.id,
         nomeCompleto: this.form.value.nomeCompleto,
         cpf: this.form.value.cpf,
         dataNascimento: this.form.value.dataNascimento,
@@ -114,14 +109,15 @@ export class EditarPacienteComponent implements OnInit {
       });
     }
   }
+
   logCepError(): void {
     const cepControl = this.form.get('endereco.cep');
-
     if (cepControl) {
-      console.log('CEP atual:', cepControl.value);  // Loga o valor atual do CEP
-      console.log('Erros:', cepControl.errors);     // Loga os erros, se houver
+      console.log('CEP atual:', cepControl.value);
+      console.log('Erros:', cepControl.errors);
     }
   }
+
   onClose(): void {
     this.dialogRef.close();
   }

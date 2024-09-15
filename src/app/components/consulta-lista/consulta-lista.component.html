@@ -6,7 +6,6 @@
 
       <div class="filter-group">
 
-        <!-- Input do Calendário para Filtrar por Data -->
         <div class="p-inputgroup">
           <span class="p-inputgroup-addon">
             <i class="pi pi-calendar"></i>
@@ -15,7 +14,6 @@
           <button pButton type="button" label="Pesquisar" (click)="aplicarFiltroData()" [disabled]="!selectedDate"></button>
         </div>
 
-        <!-- Input para CPF e Botão para pesquisa por CPF -->
         <div class="p-inputgroup">
           <span class="p-inputgroup-addon">
             <i class="pi pi-id-card"></i>
@@ -24,7 +22,6 @@
           <button pButton type="button" label="Pesquisar" (click)="buscarConsultasPorCpf()" [disabled]="!cpf"></button>
         </div>
 
-        <!-- Input para Nome Completo e Botão para pesquisa por Nome -->
         <div class="p-inputgroup">
           <span class="p-inputgroup-addon">
             <i class="pi pi-user"></i>
@@ -35,12 +32,10 @@
 
       </div>
 
-      <!-- Botão para criar nova consulta -->
       <div style="margin-top: 20px;">
         <button pButton type="button" label="Criar consulta" (click)="consulta()"></button>
       </div>
 
-      <!-- Tabela de Consultas -->
       <p-table *ngIf="consultas.length > 0"
         [value]="consultas"
         [paginator]="true"
@@ -50,7 +45,6 @@
         [loading]="loading"
         dataKey="id">
 
-        <!-- Cabeçalho da Tabela -->
         <ng-template pTemplate="header">
           <tr>
             <th pSortableColumn="paciente">Paciente <p-sortIcon field="paciente"></p-sortIcon></th>
@@ -60,13 +54,11 @@
           </tr>
         </ng-template>
 
-        <!-- Corpo da Tabela -->
         <ng-template pTemplate="body" let-consulta>
           <tr>
             <td>{{ consulta.paciente }}</td>
             <td>{{ consulta.profissionalDeSaude }}</td>
-            <td>{{ consulta.data | date:'dd/MM/yyyy' }}</td> <!-- Corrigido para exibir apenas a data -->
-
+            <td>{{ consulta.data | date:'dd/MM/yyyy' }}</td>
             <td>
               <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deletarConsulta(consulta)"></button>
             </td>
@@ -74,7 +66,6 @@
         </ng-template>
       </p-table>
 
-      <!-- Mensagem caso não haja consultas -->
       <div *ngIf="noResults && !loading" style="text-align: center; margin-top: 20px;">
         <p>Não há consulta nesta data, com este CPF ou com este nome.</p>
       </div>

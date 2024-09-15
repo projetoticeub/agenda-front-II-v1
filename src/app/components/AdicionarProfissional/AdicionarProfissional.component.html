@@ -1,7 +1,6 @@
 <h2>Adicionar Profissionais da Saúde</h2>
 
 <form [formGroup]="form" (ngSubmit)="onSave()">
-  <!-- Nome Completo e CPF -->
   <div class="row">
     <mat-form-field class="full-width">
       <mat-label>Nome Completo</mat-label>
@@ -23,7 +22,6 @@
     </mat-form-field>
   </div>
 
-  <!-- Data de Nascimento e Telefone -->
   <div class="row">
     <mat-form-field class="full-width">
       <mat-label>Data de Nascimento</mat-label>
@@ -42,7 +40,6 @@
     </mat-form-field>
   </div>
 
-  <!-- E-mail e Registro -->
   <mat-form-field class="full-width">
     <mat-label>E-mail</mat-label>
     <input matInput placeholder="E-mail" formControlName="email" type="email" required>
@@ -65,7 +62,6 @@
     </mat-error>
   </mat-form-field>
 
-  <!-- Gênero -->
   <mat-form-field class="full-width">
     <mat-label>Gênero</mat-label>
     <mat-select formControlName="genero" required>
@@ -77,11 +73,9 @@
     </mat-error>
   </mat-form-field>
 
-  <!-- Endereço -->
   <h3>Endereço</h3>
 
   <div formGroupName="endereco">
-    <!-- CEP e Rua -->
     <div class="row">
       <mat-form-field class="full-width">
         <mat-label>CEP</mat-label>
@@ -100,7 +94,6 @@
       </mat-form-field>
     </div>
 
-    <!-- Número e Cidade -->
     <div class="row">
       <mat-form-field class="full-width">
         <mat-label>Número</mat-label>
@@ -113,7 +106,6 @@
       </mat-form-field>
     </div>
 
-    <!-- Estado -->
     <mat-form-field class="full-width">
       <mat-label>Estado</mat-label>
       <mat-select formControlName="estado" required>
@@ -125,7 +117,6 @@
     </mat-form-field>
   </div>
 
-  <!-- Botões -->
   <div class="button-group">
     <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Salvar</button>
     <button mat-button color="warn" type="button" (click)="onClose()">Cancelar</button>

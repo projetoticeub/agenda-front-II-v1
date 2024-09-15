@@ -17,7 +17,7 @@ export class ConsultaService {
 
   private apiUrl = `${environment.apiUrl}/consultas`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   createConsulta(consulta: Consulta): Observable<Consulta> {
     const headers = new HttpHeaders({
@@ -25,19 +25,16 @@ export class ConsultaService {
       'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
     });
 
-    return this.http.post<Consulta>(this.apiUrl, consulta, { headers })
-      .pipe(
-        catchError(error => {
-          console.error('Erro ao criar consulta:', error);
-          return throwError(() => new Error('Erro ao criar consulta: ' + error.message));
-        })
-      );
+    return this.http.post<Consulta>(this.apiUrl, consulta, { headers }).pipe(
+      catchError(error => {
+        return throwError(() => new Error('Erro ao criar consulta: ' + error.message));
+      })
+    );
   }
 
   getConsultas(query: string, page: number, size: number, date?: string): Observable<any> {
     const token = localStorage.getItem('accessToken');
     if (!token) {
-      console.error('Token não encontrado');
       return throwError(() => new Error('Token de autenticação não encontrado'));
     }
 
@@ -55,55 +52,50 @@ export class ConsultaService {
 
     return this.http.get<any>(url, { headers }).pipe(
       catchError(error => {
-        console.error('Erro ao buscar consultas:', error);
         return throwError(() => new Error('Erro ao buscar consultas: ' + error.message));
       })
     );
   }
+
   getConsultasPorNome(nomeCompleto: string, page: number, size: number): Observable<any> {
     const token = localStorage.getItem('accessToken');
     if (!token) {
-      console.error('Token não encontrado');
       return throwError(() => new Error('Token de autenticação não encontrado'));
     }
+
     const url = `${this.apiUrl}?pacienteNome=${nomeCompleto}`;
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-      return this.http.get<any>(url, { headers }).pipe(
-        catchError(error => {
-          console.error('Erro ao buscar consultas por CPF:', error);
-          return throwError(() => new Error('Erro ao buscar consultas por CPF: ' + error.message));
-        })
-      );
- }
+
+    return this.http.get<any>(url, { headers }).pipe(
+      catchError(error => {
+        return throwError(() => new Error('Erro ao buscar consultas por nome: ' + error.message));
+      })
+    );
+  }
 
   deleteConsulta(id: number): Observable<void> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
     });
 
-    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers })
-      .pipe(
-        catchError(error => {
-          console.error('Erro ao deletar consulta:', error);
-          return throwError(() => new Error('Erro ao deletar consulta: ' + error.message));
-        })
-      );
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers }).pipe(
+      catchError(error => {
+        return throwError(() => new Error('Erro ao deletar consulta: ' + error.message));
+      })
+    );
   }
 
   getConsultasPorCpf(cpf: string, page: number, size: number): Observable<any> {
     const token = localStorage.getItem('accessToken');
     if (!token) {
-      console.error('Token não encontrado');
       return throwError(() => new Error('Token de autenticação não encontrado'));
     }
 
     const url = `${this.apiUrl}?pacienteCpf=${cpf}`;
-
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     return this.http.get<any>(url, { headers }).pipe(
       catchError(error => {
-        console.error('Erro ao buscar consultas por CPF:', error);
         return throwError(() => new Error('Erro ao buscar consultas por CPF: ' + error.message));
       })
     );

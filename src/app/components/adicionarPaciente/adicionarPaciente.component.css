@@ -1,20 +1,20 @@
 form {
-  max-width: 100%; /* Limita a largura para evitar rolagem lateral */
-  margin: 20px auto; /* Centraliza o formulário */
+  max-width: 100%;
+  margin: 20px auto;
   padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 5px; /* Espaçamento reduzido entre os campos */
+  gap: 5px;
   background-color: #f9f9f9;
   border: 1px solid #e0e0e0;
   border-radius: 10px;
-  height: 700px; /* Altura definida */
+  height: 700px;
 }
 
 h2 {
   text-align: center;
   color: #53c8eb;
-  font-size: 24px; /* Mantém o título em destaque */
+  font-size: 24px;
   margin-bottom: 20px;
 }
 
@@ -37,11 +37,11 @@ input, select {
 }
 
 .row mat-form-field {
-  flex: 1; /* Faz com que os campos compartilhem o espaço igualmente */
+  flex: 1;
 }
 
 .row div {
-  flex: 1; /* Flexibilidade igual para todos os campos na mesma linha */
+  flex: 1;
 }
 
 button {
@@ -72,7 +72,7 @@ button:active {
 
 .row-buttons {
   display: flex;
-  justify-content: space-between; /* Botões lado a lado */
+  justify-content: space-between;
   margin-top: 10px;
 }
 
@@ -82,5 +82,3 @@ div[formGroupName="endereco"] {
   border-radius: 5px;
   background-color: #f0f0f0;
 }
-
-

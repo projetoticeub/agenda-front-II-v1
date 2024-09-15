@@ -15,7 +15,7 @@ export class AdicionarPacienteComponent implements OnInit {
   ufs: string[] = [
     'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI',
     'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'
-  ]; // Estados brasileiros
+  ];
 
   constructor(
     private fb: FormBuilder,
@@ -77,7 +77,7 @@ export class AdicionarPacienteComponent implements OnInit {
         next: (novoPaciente: Paciente) => {
           console.log('Paciente salvo com sucesso:', novoPaciente);
           this.dialogRef.close(novoPaciente);
-          window.location.reload(); // Recarrega a página após salvar
+          window.location.reload();
         },
         error: (error) => {
           console.error('Erro ao salvar paciente:', error);
