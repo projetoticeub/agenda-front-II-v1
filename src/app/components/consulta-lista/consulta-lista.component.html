@@ -47,9 +47,9 @@
 
         <ng-template pTemplate="header">
           <tr>
-            <th pSortableColumn="paciente">Paciente <p-sortIcon field="paciente"></p-sortIcon></th>
-            <th pSortableColumn="profissionalDeSaude">Profissional de Saúde <p-sortIcon field="profissionalDeSaude"></p-sortIcon></th>
-            <th pSortableColumn="data">Data da Consulta <p-sortIcon field="data"></p-sortIcon></th>
+            <th pSortableColumn="paciente">Paciente</th>
+            <th pSortableColumn="profissionalDeSaude">Profissional de Saúde</th>
+            <th pSortableColumn="data">Data da Consulta</th>
             <th>Ações</th>
           </tr>
         </ng-template>
@@ -58,7 +58,7 @@
           <tr>
             <td>{{ consulta.paciente }}</td>
             <td>{{ consulta.profissionalDeSaude }}</td>
-            <td>{{ consulta.data | date:'dd/MM/yyyy' }}</td>
+            <td>{{ consulta.data | date:'dd/MM/yyyy HH:mm' }}</td>
             <td>
               <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deletarConsulta(consulta)"></button>
             </td>
