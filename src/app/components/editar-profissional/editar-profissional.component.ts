@@ -61,12 +61,12 @@ export class EditarProfissionalComponent implements OnInit {
         }
       });
 
+      // Opcional: Buscar endereço por CEP se for necessário
       if (this.profissional.endereco?.cep) {
         this.buscarEnderecoPorCep();
       }
     }
   }
-
   buscarEnderecoPorCep(): void {
     const cep = this.form.get('endereco.cep')?.value;
     if (cep && cep.length === 8) {

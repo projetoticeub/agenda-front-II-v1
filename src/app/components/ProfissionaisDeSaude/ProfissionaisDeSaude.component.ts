@@ -100,7 +100,7 @@ export class ProfissionaisDeSaudeComponent implements OnInit {
     const dialogRef = this.dialog.open(EditarProfissionalComponent, {
       width: '500px',
       height: '700px',
-      data: { profissionais }  // Passa os dados do paciente para o componente de edição
+      data: {  profissional: profissionais }  // Passa os dados do paciente para o componente de edição
     });
 
     dialogRef.afterClosed().subscribe(result => {
