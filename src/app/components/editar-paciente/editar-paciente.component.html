@@ -1,7 +1,7 @@
 <h2>Editar Paciente</h2>
 
 <form [formGroup]="form" (ngSubmit)="onSave()">
-  <!-- Primeira linha com Data de Nascimento e Telefone -->
+  <!-- Primeira linha com Nome Completo, Data de Nascimento e Telefone -->
   <div class="row">
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Nome Completo</mat-label>
@@ -62,6 +62,7 @@
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>CEP</mat-label>
         <input matInput id="cep" formControlName="cep" type="text" required (blur)="buscarEnderecoPorCep()">
+        <mat-hint align="start">Insira um CEP válido para preencher automaticamente o endereço</mat-hint>
         <mat-error *ngIf="form.get('endereco.cep')?.hasError('required') && form.get('endereco.cep')?.touched">
           O CEP é obrigatório.
         </mat-error>
@@ -69,7 +70,6 @@
           O CEP deve ter 8 dígitos.
         </mat-error>
       </mat-form-field>
-
     </div>
 
     <!-- Linha com Número e Cidade -->

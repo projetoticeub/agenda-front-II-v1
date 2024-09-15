@@ -124,16 +124,37 @@ export class PacientesComponent implements OnInit {
   }
 
   deletarPaciente(paciente: Paciente) {
-    this.pacientesService.deletePaciente(paciente.id).subscribe(
-      () => {
-        console.log('profissionais deletado com sucesso');
-        this.loadPacientes();
-      },
-      error => {
-        console.error('Erro ao deletar paciente:', error);
-      }
-    );
+    if (confirm(`Tem certeza que deseja deletar o paciente ${paciente.nomeCompleto}?`)) {
+      this.pacientesService.deletePaciente(paciente.id).subscribe({
+        next: () => {
+          // Remove o paciente da lista localmente após a exclusão
+          this.pacientes = this.pacientes.filter(p => p.id !== paciente.id);
+          console.log('Paciente deletado com sucesso');
+
+          // Exibe mensagem de sucesso
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Sucesso',
+            detail: `Paciente ${paciente.nomeCompleto} deletado com sucesso!`
+          });
+
+          // Verifica se há mais pacientes ou se não há resultados
+          this.noResults = this.pacientes.length === 0;
+        },
+        error: (error: HttpErrorResponse) => {
+          console.error('Erro ao deletar paciente:', error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Erro',
+            detail: 'Erro ao deletar paciente'
+          });
+        }
+      });
+    }
   }
+
+
+
   buscarConsultasPorCpf(): void {
     this.loading = true;
     this.pacientesService.getConsultasPorCpf(this.cpf, 0,this.pageSize).subscribe({

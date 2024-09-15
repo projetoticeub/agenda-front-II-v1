@@ -83,6 +83,7 @@
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>CEP</mat-label>
         <input matInput id="cep" formControlName="cep" type="text" required (blur)="buscarEnderecoPorCep()">
+        <mat-hint align="start">Insira um CEP válido para preencher automaticamente o endereço</mat-hint>
         <mat-error *ngIf="form.get('endereco.cep')?.hasError('required') && form.get('endereco.cep')?.touched">
           O CEP é obrigatório.
         </mat-error>

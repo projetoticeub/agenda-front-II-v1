@@ -29,7 +29,18 @@ export class ConsultaListaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-      // Busca inicial por data ao carregar o componente
+    const showWelcomeMessage = localStorage.getItem('welcomeMessage');
+    if (showWelcomeMessage === 'true') {
+      // Exibe a mensagem de boas-vindas
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Bem-vindo',
+        detail: 'Seja bem-vindo!',
+        life: 3000
+      });
+      // Remove o estado de boas-vindas para que a mensagem não apareça sempre
+      localStorage.removeItem('bem vindo');
+    }
       const formattedDate = this.obterDataFormatada(this.selectedDate); // Formata a data inicial
       this.carregarConsultas(0, this.pageSize, formattedDate); // Carrega as consultas da data atual
   }

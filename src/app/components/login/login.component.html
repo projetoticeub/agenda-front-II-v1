@@ -5,7 +5,7 @@
     </mat-card-header>
     <br>
     <mat-card-content>
-      <form (ngSubmit)="login()">
+      <form (ngSubmit)="onLogin()">
         <mat-form-field appearance="fill">
           <mat-label>E-mail</mat-label>
           <input [(ngModel)]="username" name="email" matInput type="email" placeholder="Digite o seu email" required>
@@ -19,7 +19,7 @@
           </button>
         </mat-form-field>
 
-        <button mat-raised-button color="primary" onclick="login()" type="submit">Acessar a minha conta</button>
+        <button mat-raised-button color="primary" type="submit">Acessar a minha conta</button>
       </form>
 
       <!-- Adicione a classe personalizada ao p-toast -->

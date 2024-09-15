@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="p-grid">
   <div class="p-col-12">
     <div class="card">
@@ -63,8 +64,8 @@
         <ng-template pTemplate="body" let-consulta>
           <tr>
             <td>{{ consulta.paciente }}</td>
-            <td>{{ consulta.profissinalDeSaude }}</td>
-            <td>{{ consulta.data | date:'short' }}</td>
+            <td>{{ consulta.profissionalDeSaude }}</td>
+            <td>{{ consulta.data | date:'dd/MM/yyyy' }}</td> <!-- Corrigido para exibir apenas a data -->
 
             <td>
               <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deletarConsulta(consulta)"></button>

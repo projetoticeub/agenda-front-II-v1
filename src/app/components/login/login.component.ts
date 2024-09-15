@@ -1,35 +1,47 @@
-import { AutenticacaoService } from './../../services/autenticacao.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api'; // Importe o MessageService
+import { MessageService } from 'primeng/api';
+import { AutenticacaoService } from 'src/app/services/autenticacao.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
-  providers: [MessageService] // Adicione o MessageService aos provedores
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
   username: string = '';
   password: string = '';
-  hide: boolean = true;
+  hide = true;  // Para alternar a visibilidade da senha
 
   constructor(
-    private AutenticacaoService: AutenticacaoService,
+    private authService: AutenticacaoService,
     private router: Router,
-    private messageService: MessageService // Injete o MessageService
+    private messageService: MessageService
   ) {}
 
-  async login() {
-    try {
-      await this.AutenticacaoService.loginAuth(this.username, this.password);
-      this.router.navigate(['/consultasl']);
-    } catch (error: any) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Erro de Login',
-        detail: 'E-mail ou senha inválidos' || error.message
+  onLogin() {
+    this.authService.loginAuth(this.username, this.password)
+      .then(() => {
+        // Exibe a mensagem de sucesso ao efetuar login
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Login bem-sucedido',
+          detail: 'Seja bem-vindo!',
+          life: 3000
+        });
+
+        // Redireciona para a página principal ou dashboard
+        this.router.navigate(['/consultasl']);
+      })
+      .catch((error) => {
+        // Exibe a mensagem de erro ao falhar no login
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erro de Login',
+          detail: 'E-mail ou senha inválidos',
+          life: 3000
+        });
+        console.error('Erro durante o login:', error);
       });
-    }
   }
 }
