@@ -1,3 +1,4 @@
+import { EditarProfissionalComponent } from './components/editar-profissional/editar-profissional.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Necessário para animações do Angular Material
@@ -66,7 +67,8 @@ import { EditarPacienteComponent } from './components/editar-paciente/editar-pac
     RegistroComponent,
     RegistroPageComponent,
     LogoComponent,
-EditarPacienteComponent
+EditarPacienteComponent,
+EditarProfissionalComponent
 
 
   ],

@@ -12,21 +12,17 @@ export class ProfissionaisDaSaudeService {
 
   private apiUrl = environment.apiUrl;
 
-  
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('accessToken');
     if (!token) {
-      console.error('Token de autenticação não encontrado');
       throw new Error('Token de autenticação não encontrado');
     }
 
-    // Verifica se o token está expirado
     const decodedToken = JSON.parse(atob(token.split('.')[1]));
-    const expTime = decodedToken.exp * 1000; 
+    const expTime = decodedToken.exp * 1000;
     if (Date.now() > expTime) {
-      console.error('Token expirado');
       throw new Error('Token expirado');
     }
 
@@ -35,6 +31,7 @@ export class ProfissionaisDaSaudeService {
       'Content-Type': 'application/json'
     });
   }
+
   getProfissionais(query: string = "", pageNumber: number = 0, pageSize: number = 17): Observable<any> {
     let params = new HttpParams()
       .set('page', pageNumber.toString())
@@ -50,23 +47,63 @@ export class ProfissionaisDaSaudeService {
       );
   }
 
-  addProfissional(ProfissionalDeSaude: ProfissionalDeSaude): Observable<ProfissionalDeSaude> {
-    return this.http.post<ProfissionalDeSaude>(`${this.apiUrl}/profissionais-de-saude`, ProfissionalDeSaude, {
+  addProfissional(profissionalDeSaude: ProfissionalDeSaude): Observable<ProfissionalDeSaude> {
+    return this.http.post<ProfissionalDeSaude>(`${this.apiUrl}/profissionais-de-saude`, profissionalDeSaude, {
       headers: this.getAuthHeaders()
     }).pipe(
       catchError(error => {
-        console.error('Erro ao adicionar profiissional de saude:', error);
-        return throwError(() => new Error('Erro ao profiissional de saude: ' + error.message));
+        console.error('Erro ao adicionar profissional de saúde:', error);
+        return throwError(() => new Error('Erro ao adicionar profissional de saúde: ' + error.message));
       })
     );
   }
 
-  deleteProfissionais(id: number): Observable<void> {
+  editarProfissional(id: number, profissionalDeSaude: ProfissionalDeSaude): Observable<ProfissionalDeSaude> {
+    return this.http.put<ProfissionalDeSaude>(`${this.apiUrl}/profissionais-de-saude/${id}`, profissionalDeSaude, {
+      headers: this.getAuthHeaders()
+    }).pipe(
+      catchError(error => {
+        console.error('Erro ao editar profissional de saúde:', error);
+        return throwError(() => new Error('Erro ao editar profissional de saúde: ' + error.message));
+      })
+    );
+  }
+
+  deleteProfissional(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/profissionais-de-saude/${id}`, {
-      headers: this.getAuthHeaders(),
-      responseType: 'text' as 'json'
+      headers: this.getAuthHeaders()
     }).pipe(
       catchError(this.handleError)
+    );
+  }
+
+  buscarEnderecoPorCep(cep: string): Observable<any> {
+    return this.http.get(`https://viacep.com.br/ws/${cep}/json/`);
+  }
+
+  getConsultasPorNome(nomeCompleto: string, page: number, size: number): Observable<any> {
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      return throwError(() => new Error('Token de autenticação não encontrado'));
+    }
+    const url = `${this.apiUrl}/profissionais-de-saude?nomeCompleto=${nomeCompleto}`;
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<any>(url, { headers }).pipe(
+      catchError(error => throwError(() => new Error('Erro ao buscar consultas por nome: ' + error.message)))
+    );
+  }
+
+  getConsultasPorCpf(cpf: string, page: number, size: number): Observable<any> {
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      return throwError(() => new Error('Token de autenticação não encontrado'));
+    }
+
+    const url = `${this.apiUrl}/profissionais-de-saude?cpf=${cpf}`;
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.get<any>(url, { headers }).pipe(
+      catchError(error => throwError(() => new Error('Erro ao buscar consultas por CPF: ' + error.message)))
     );
   }
 
@@ -80,39 +117,5 @@ export class ProfissionaisDaSaudeService {
       console.error('Erro desconhecido:', error);
     }
     return throwError(() => new Error(`Erro na operação: ${error.message || 'Detalhes indisponíveis'}`));
-  }
-  getConsultasPorNome(nomeCompleto: string, page: number, size: number): Observable<any> {
-    const token = localStorage.getItem('accessToken');
-    if (!token) {
-      console.error('Token não encontrado');
-      return throwError(() => new Error('Token de autenticação não encontrado'));
-    }
-    const url = `${this.apiUrl}/profissionais-de-saude?nomeCompleto=${nomeCompleto}`;
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-      return this.http.get<any>(url, { headers }).pipe(
-        catchError(error => {
-          console.error('Erro ao buscar consultas por CPF:', error);
-          return throwError(() => new Error('Erro ao buscar consultas por CPF: ' + error.message));
-        })
-      );
- }
-
-  getConsultasPorCpf(cpf: string, page: number, size: number): Observable<any> {
-    const token = localStorage.getItem('accessToken');
-    if (!token) {
-      console.error('Token não encontrado');
-      return throwError(() => new Error('Token de autenticação não encontrado'));
-    }
-
-    const url = `${this.apiUrl}/profissionais-de-saude?cpf=${cpf}`;
-    
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
-    return this.http.get<any>(url, { headers }).pipe(
-      catchError(error => {
-        console.error('Erro ao buscar consultas por CPF:', error);
-        return throwError(() => new Error('Erro ao buscar consultas por CPF: ' + error.message));
-      })
-    );
   }
 }

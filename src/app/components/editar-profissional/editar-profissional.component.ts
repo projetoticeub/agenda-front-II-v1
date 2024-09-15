@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -24,25 +24,24 @@ export class EditarProfissionalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any // Injeta os dados do profissional via MAT_DIALOG_DATA
   ) {
     this.form = this.fb.group({
-      nomeCompleto: [''],
-      cpf: [''],
-      dataNascimento: [''],
-      telefone: [''],
-      email: [''],
-      registro: [''],
-      genero: [''],
+      nomeCompleto: ['', Validators.required],
+      cpf: ['', Validators.required],
+      dataNascimento: ['', Validators.required],
+      telefone: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      registro: ['', Validators.required],
+      genero: ['', Validators.required],
       endereco: this.fb.group({
-        cep: [''],
+        cep: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]], // Validação para 8 dígitos
         rua: [{ value: '', disabled: true }],
-        numero: [''],
+        numero: ['', Validators.required],
         cidade: [{ value: '', disabled: true }],
-        estado: ['']
+        estado: ['', Validators.required]
       })
     });
   }
 
   ngOnInit(): void {
-    // Inicializa o formulário com os dados do profissional recebidos
     if (this.data && this.data.profissional) {
       this.profissional = this.data.profissional;
       this.form.patchValue({
@@ -62,17 +61,38 @@ export class EditarProfissionalComponent implements OnInit {
         }
       });
 
-      // Desbloqueia os campos de endereço se o CEP estiver preenchido
       if (this.profissional.endereco?.cep) {
-        this.form.get('endereco.rua')?.enable();
-        this.form.get('endereco.cidade')?.enable();
+        this.buscarEnderecoPorCep();
       }
+    }
+  }
+
+  buscarEnderecoPorCep(): void {
+    const cep = this.form.get('endereco.cep')?.value;
+    if (cep && cep.length === 8) {
+      this.profissionaisService.buscarEnderecoPorCep(cep).subscribe({
+        next: (endereco: any) => {
+          this.form.patchValue({
+            endereco: {
+              rua: endereco.logradouro,
+              cidade: endereco.localidade,
+              estado: endereco.uf
+            }
+          });
+          this.form.get('endereco.rua')?.enable();
+          this.form.get('endereco.cidade')?.enable();
+        },
+        error: (error: any) => {
+          console.error('Erro ao buscar o endereço:', error);
+        }
+      });
     }
   }
 
   onSave(): void {
     if (this.form.valid) {
       const profissionalAtualizado: ProfissionalDeSaude = {
+        id: this.profissional.id,
         nomeCompleto: this.form.value.nomeCompleto,
         cpf: this.form.value.cpf,
         dataNascimento: this.form.value.dataNascimento,
@@ -81,18 +101,16 @@ export class EditarProfissionalComponent implements OnInit {
         registro: this.form.value.registro,
         genero: this.form.value.genero,
         cep: this.form.value.endereco.cep,
-        endereco: `${this.form.value.endereco.rua}, ${this.form.value.endereco.numero}, ${this.form.value.endereco.cidade}, ${this.form.value.endereco.estado}`,
-        id: this.profissional.id
+        endereco: `${this.form.value.endereco.rua}, ${this.form.value.endereco.numero}, ${this.form.value.endereco.cidade}, ${this.form.value.endereco.estado}`
       };
 
-      // Passando o ID do profissional e o objeto atualizado
-      this.profissionaisService.editarProfissionalDeSaude(this.profissional.id, profissionalAtualizado).subscribe({
-        next: (novoProfissional: ProfissionalDeSaude) => {
-          console.log('Profissional salvo com sucesso:', novoProfissional);
-          this.dialogRef.close(novoProfissional);
+      this.profissionaisService.editarProfissional(this.profissional.id, profissionalAtualizado).subscribe({
+        next: (response) => {
+          console.log('Profissional de saúde atualizado com sucesso', response);
+          this.dialogRef.close(profissionalAtualizado);
         },
-        error: (error) => {
-          console.error('Erro ao salvar profissional:', error);
+        error: (error: any) => {
+          console.error('Erro ao salvar profissional de saúde:', error);
         }
       });
     }
@@ -100,26 +118,5 @@ export class EditarProfissionalComponent implements OnInit {
 
   onClose(): void {
     this.dialogRef.close();
-  }
-
-  buscarEnderecoPorCep(): void {
-    const cep = this.form.get('endereco.cep')?.value;
-    if (cep && cep.length === 9) {
-      this.profissionaisService.buscarEnderecoPorCep(cep).subscribe(endereco => {
-        if (endereco) {
-          this.form.patchValue({
-            endereco: {
-              rua: endereco.rua,
-              cidade: endereco.cidade,
-              estado: endereco.estado
-            }
-          });
-          this.form.get('endereco.rua')?.enable();
-          this.form.get('endereco.cidade')?.enable();
-        }
-      }, error => {
-        console.error('Erro ao buscar o endereço pelo CEP', error);
-      });
-    }
   }
 }

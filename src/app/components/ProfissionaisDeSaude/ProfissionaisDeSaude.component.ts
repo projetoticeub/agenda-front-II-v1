@@ -1,10 +1,11 @@
+import { ProfissionalDeSaude } from './../../ProfissionaisDeSaude';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ProfissionaisDaSaudeService } from './../../services/profissionaisDaSaude.service';
 import { Component, OnInit } from '@angular/core';
-import { ProfissionalDeSaude } from 'src/app/ProfissionaisDeSaude';
 import { AdicionarProfissionalComponent } from '../AdicionarProfissional/AdicionarProfissional.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MessageService } from 'primeng/api';
+import { EditarProfissionalComponent } from '../editar-profissional/editar-profissional.component';
 
 
 @Component({
@@ -95,9 +96,35 @@ export class ProfissionaisDeSaudeComponent implements OnInit {
       }
     });
   }
+  openEditDialog(profissionais: ProfissionalDeSaude) {
+    const dialogRef = this.dialog.open(EditarProfissionalComponent, {
+      width: '500px',
+      height: '700px',
+      data: { profissionais }  // Passa os dados do paciente para o componente de edição
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.profissionaisDaSaudeService.editarProfissional(profissionais.id, result).subscribe({
+          next: (ProfissionalDeSaudeAtualizado: ProfissionalDeSaude) => {
+            // Atualize o paciente na lista local
+            const index = this.profissionais.findIndex(p => p.id === profissionais.id);
+            if (index !== -1) {
+              this.profissionais[index] = ProfissionalDeSaudeAtualizado;
+              this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Paciente atualizado com sucesso!' });
+            }
+          },
+          error: (error: HttpErrorResponse) => {
+            console.error('Erro ao editar paciente:', error.message);
+            this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Erro ao editar paciente' });
+          }
+        });
+      }
+    });
+  }
 
   deletarProfissional(ProfissionalDeSaude: ProfissionalDeSaude) {
-    this.profissionaisDaSaudeService.deleteProfissionais(ProfissionalDeSaude.id).subscribe(
+    this.profissionaisDaSaudeService.deleteProfissional(ProfissionalDeSaude.id).subscribe(
       () => {
         console.log('profissionais deletado com sucesso');
         this.loadProfissionais(); // Atualiza a lista após deletar

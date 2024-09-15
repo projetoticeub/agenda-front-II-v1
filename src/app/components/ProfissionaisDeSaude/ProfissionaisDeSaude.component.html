@@ -58,6 +58,7 @@
             <td>{{ profissional.email }}</td>
             <td>{{ profissional.genero }}</td>
             <td>
+            <button pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-warning" (click)="openEditDialog(profissional)"></button>
               <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deletarProfissional(profissional)"></button>
             </td>
           </tr>

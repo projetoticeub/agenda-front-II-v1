@@ -13,19 +13,15 @@ export class PacientesService {
 
   constructor(private http: HttpClient) {}
 
-  // Recupera o token e configura os headers
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('accessToken');
     if (!token) {
-      console.error('Token de autenticação não encontrado');
       throw new Error('Token de autenticação não encontrado');
     }
 
-    // Verifica se o token está expirado
     const decodedToken = JSON.parse(atob(token.split('.')[1]));
     const expTime = decodedToken.exp * 1000;
     if (Date.now() > expTime) {
-      console.error('Token expirado');
       throw new Error('Token expirado');
     }
 
@@ -35,40 +31,30 @@ export class PacientesService {
     });
   }
 
-  // Adiciona um novo paciente
   addPaciente(paciente: Paciente): Observable<Paciente> {
     return this.http.post<Paciente>(`${this.apiUrl}/pacientes`, paciente, {
       headers: this.getAuthHeaders()
     }).pipe(
-      catchError(error => {
-        console.error('Erro ao adicionar paciente:', error);
-        return throwError(() => new Error('Erro ao adicionar paciente: ' + error.message));
-      })
+      catchError(error => throwError(() => new Error('Erro ao adicionar paciente: ' + error.message)))
     );
   }
 
   editarPaciente(id: number, paciente: Paciente): Observable<Paciente> {
     const token = localStorage.getItem('accessToken');
-    console.log('Token JWT:', token);  // Loga o token JWT para verificar
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
     return this.http.put<Paciente>(`${this.apiUrl}/pacientes/${id}`, paciente, { headers })
       .pipe(
-        catchError(error => {
-          console.error('Erro ao editar paciente:', error);
-          return throwError(() => new Error('Erro ao editar paciente: ' + error.message));
-        })
+        catchError(error => throwError(() => new Error('Erro ao editar paciente: ' + error.message)))
       );
   }
 
   buscarEnderecoPorCep(cep: string): Observable<any> {
-    // Faz a requisição à API do ViaCEP
     return this.http.get(`https://viacep.com.br/ws/${cep}/json/`);
   }
 
-  // Recupera a lista de pacientes, com paginação e busca opcional
   getPacientes(query: string = "", pageNumber: number = 0, pageSize: number = 17): Observable<any> {
     let params = new HttpParams()
       .set('page', pageNumber.toString())
@@ -80,57 +66,41 @@ export class PacientesService {
 
     return this.http.get(`${this.apiUrl}/pacientes/active`, { headers: this.getAuthHeaders(), params })
       .pipe(
-        catchError(error => {
-          console.error('Erro ao carregar pacientes:', error);
-          return throwError(() => new Error('Erro ao carregar pacientes: ' + error.message));
-        })
+        catchError(error => throwError(() => new Error('Erro ao carregar pacientes: ' + error.message)))
       );
   }
 
-  // Deleta um paciente pelo ID
   deletePaciente(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/pacientes/${id}`, {
       headers: this.getAuthHeaders()
     }).pipe(
-      catchError(error => {
-        console.error('Erro ao deletar paciente:', error);
-        return throwError(() => new Error('Erro ao deletar paciente: ' + error.message));
-      })
+      catchError(error => throwError(() => new Error('Erro ao deletar paciente: ' + error.message)))
     );
   }
 
-getConsultasPorNome(nomeCompleto: string, page: number, size: number): Observable<any> {
+  getConsultasPorNome(nomeCompleto: string, page: number, size: number): Observable<any> {
     const token = localStorage.getItem('accessToken');
     if (!token) {
-      console.error('Token não encontrado');
       return throwError(() => new Error('Token de autenticação não encontrado'));
     }
     const url = `${this.apiUrl}/pacientes?nomeCompleto=${nomeCompleto}`;
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-      return this.http.get<any>(url, { headers }).pipe(
-        catchError(error => {
-          console.error('Erro ao buscar consultas por CPF:', error);
-          return throwError(() => new Error('Erro ao buscar consultas por CPF: ' + error.message));
-        })
-      );
- }
+    return this.http.get<any>(url, { headers }).pipe(
+      catchError(error => throwError(() => new Error('Erro ao buscar consultas por CPF: ' + error.message)))
+    );
+  }
 
   getConsultasPorCpf(cpf: string, page: number, size: number): Observable<any> {
     const token = localStorage.getItem('accessToken');
     if (!token) {
-      console.error('Token não encontrado');
       return throwError(() => new Error('Token de autenticação não encontrado'));
     }
 
     const url = `${this.apiUrl}/pacientes?cpf=${cpf}`;
-
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     return this.http.get<any>(url, { headers }).pipe(
-      catchError(error => {
-        console.error('Erro ao buscar consultas por CPF:', error);
-        return throwError(() => new Error('Erro ao buscar consultas por CPF: ' + error.message));
-      })
+      catchError(error => throwError(() => new Error('Erro ao buscar consultas por CPF: ' + error.message)))
     );
   }
 }
