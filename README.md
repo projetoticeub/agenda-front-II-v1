@@ -10,7 +10,7 @@ Certifique-se de que você tenha os seguintes itens instalados antes de iniciar:
 - **Angular CLI**
   - Para instalar a Angular CLI globalmente, execute:
     ```bash
-    npm install -g @angular/cli
+    npm install -g @angular/cli@16
     ```
 
 ## Passos para Executar
@@ -21,7 +21,7 @@ Se o projeto está hospedado em um repositório Git, clone o projeto com o segui
 
 ```bash
 git clone https://github.com/projetoticeub/agenda-front-II-v1.git
-cd repositorio
+cd agenda-front-II-v1
 ```
 
 ### 2. Instalar Dependências
