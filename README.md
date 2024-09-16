@@ -1,20 +1,57 @@
-<h1>Agenda</h1>
-<p>Este projeto foi gerado com <a href="https://github.com/angular/angular-cli" target="_blank">Angular CLI</a> versão 16.0.0.</p>
+# Instruções para Rodar o Front-end Angular
 
-<h2>Servidor de desenvolvimento</h2>
-<p>Execute <code>ng serve</code> para iniciar o servidor de desenvolvimento. Navegue para <code>http://localhost:4200/</code>. A aplicação será recarregada automaticamente se você alterar qualquer um dos arquivos de origem.</p>
+## Pré-requisitos
 
-<h2>Geração de código</h2>
-<p>Execute <code>ng generate component nome-do-componente</code> para gerar um novo componente. Você também pode usar <code>ng generate directive|pipe|service|class|guard|interface|enum|module</code>.</p>
+Certifique-se de que você tenha os seguintes itens instalados antes de iniciar:
 
-<h2>Compilação</h2>
-<p>Execute <code>ng build</code> para compilar o projeto. Os artefatos da compilação serão armazenados no diretório <code>dist/</code>.</p>
+- **Node.js** (versão 20)
+  - [Instalar Node.js](https://nodejs.org/)
 
-<h2>Executando testes unitários</h2>
-<p>Execute <code>ng test</code> para executar os testes unitários via <a href="https://karma-runner.github.io" target="_blank">Karma</a>.</p>
+- **Angular CLI**
+  - Para instalar a Angular CLI globalmente, execute:
+    ```bash
+    npm install -g @angular/cli
+    ```
 
-<h2>Executando testes de ponta a ponta</h2>
-<p>Execute <code>ng e2e</code> para executar testes de ponta a ponta através de uma plataforma de sua escolha. Para usar este comando, você precisa primeiro adicionar um pacote que implemente capacidades de testes de ponta a ponta.</p>
+## Passos para Executar
 
-<h2>Ajuda adicional</h2>
-<p>Para obter mais ajuda sobre o Angular CLI, use <code>ng help</code> ou confira a página <a href="https://angular.io/cli" target="_blank">Visão Geral do Angular CLI e Referência de Comandos</a>.</p>
+### 1. Clonar o Repositório
+
+Se o projeto está hospedado em um repositório Git, clone o projeto com o seguinte comando:
+
+```bash
+git clone https://github.com/projetoticeub/agenda-front-II-v1.git
+cd repositorio
+```
+
+### 2. Instalar Dependências
+No diretório do projeto, execute o comando abaixo para instalar todas as dependências:
+```bash
+npm install
+```
+
+### 3. Rodar o Servidor de Desenvolvimento
+Para iniciar o servidor local de desenvolvimento, execute o comando:
+```bash
+ng serve
+```
+
+O servidor será iniciado e o projeto estará disponível na porta 4200 por padrão.
+
+### 4. Acessar a Aplicação
+Abra o navegador e acesse:
+```bash
+http://localhost:4200
+```
+
+### 5. Build para Produção (Opcional)
+Se desejar gerar o build otimizado para produção, execute:
+```bash
+ng build --prod
+```
+
+Os arquivos serão gerados na pasta dist/.
+
+
+
+
